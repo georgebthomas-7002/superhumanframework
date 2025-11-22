@@ -11,6 +11,7 @@ import SalesPage from './pages/SalesPage';
 import HRPage from './pages/HRPage';
 import ServicePage from './pages/ServicePage';
 import PersonalPage from './pages/PersonalPage';
+import PastorsPage from './pages/PastorsPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -742,15 +743,7 @@ const App = () => {
       case 'marketing': return <MarketingPage navigate={navigate} />;
       case 'hr': return <HRPage navigate={navigate} />;
       case 'service': return <ServicePage navigate={navigate} />;
-      case 'pastors': return <VerticalPage 
-        title="Superhuman Pastors" 
-        sub="Lead from Overflow, Not Obligation."
-        problemTitle="The CEO Pastor Trap."
-        problemText="You are saving the world but losing your soul. It's time to put down the heavy burden of performance and pick up the lighter burden of Shepherding."
-        shiftFrom="Religious Duty"
-        shiftTo="Spiritual Overflow"
-        playbookName="Pastor"
-      />;
+      case 'pastors': return <PastorsPage navigate={navigate} />;
       case 'personal': return <PersonalPage navigate={navigate} />;
 
       // Services

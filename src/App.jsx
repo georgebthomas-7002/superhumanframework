@@ -526,7 +526,8 @@ const HomePage = ({ navigate, godMode }) => (
 const QuizPage = ({ navigate, setTriggerConfetti }) => {
   // State Management
   const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Q1, 3: Q2, 4: Q3, 5: Email, 6: Analysis, 7: Result
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [consent, setConsent] = useState(false);
   const [userPath, setUserPath] = useState(''); // leadership, hr, sales, marketing, service, pastors, personal
@@ -726,7 +727,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
   // Handlers
   const handleNameSubmit = (e) => {
     e.preventDefault();
-    if (name.trim()) setStep(2);
+    if (firstName.trim()) setStep(2);
   };
 
   const handleQ1Answer = (path) => {
@@ -751,6 +752,46 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
     setIsSubmitting(true);
     setSubmissionError('');
 
+    const submissionData = {
+      fields: [
+        {
+          name: 'firstname',
+          value: firstName || 'Friend'
+        },
+        {
+          name: 'lastname',
+          value: lastName || ''
+        },
+        {
+          name: 'email',
+          value: email
+        },
+        {
+          name: 'archetype',
+          value: results[userPath].archetype
+        },
+        {
+          name: 'battlefield',
+          value: userPath
+        },
+        {
+          name: 'pain_point',
+          value: q2Questions[userPath].options.find(opt => opt.id === q2Answer)?.text || ''
+        },
+        {
+          name: 'aspiration',
+          value: q3Questions[userPath].options.find(opt => opt.id === q3Answer)?.text || ''
+        }
+      ],
+      context: {
+        pageUri: window.location.href,
+        pageName: 'Superhuman Archetype Assessment'
+      }
+    };
+
+    // Log what we're sending
+    console.log('📤 Submitting to HubSpot:', submissionData);
+
     try {
       // Submit to HubSpot Forms API
       const response = await fetch(
@@ -760,50 +801,24 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            fields: [
-              {
-                name: 'firstname',
-                value: name || 'Friend'
-              },
-              {
-                name: 'email',
-                value: email
-              },
-              {
-                name: 'archetype',
-                value: results[userPath].archetype
-              },
-              {
-                name: 'battlefield',
-                value: userPath
-              },
-              {
-                name: 'pain_point',
-                value: q2Questions[userPath].options.find(opt => opt.id === q2Answer)?.text || ''
-              },
-              {
-                name: 'aspiration',
-                value: q3Questions[userPath].options.find(opt => opt.id === q3Answer)?.text || ''
-              }
-            ],
-            context: {
-              pageUri: window.location.href,
-              pageName: 'Superhuman Archetype Assessment'
-            }
-          })
+          body: JSON.stringify(submissionData)
         }
       );
 
+      const responseData = await response.json();
+      console.log('📥 HubSpot response:', responseData);
+
       if (!response.ok) {
-        throw new Error('Submission failed');
+        console.error('❌ HubSpot error:', responseData);
+        throw new Error(responseData.message || 'Submission failed');
       }
 
+      console.log('✅ Successfully submitted to HubSpot!');
       // Success - proceed to analysis
       setStep(6);
       setTimeout(() => setStep(7), 2500); // Then to results
     } catch (error) {
-      console.error('HubSpot submission error:', error);
+      console.error('❌ HubSpot submission error:', error);
       setSubmissionError('Something went wrong. But don\'t worry - you can still see your results!');
       // Still proceed even if submission fails
       setStep(6);
@@ -875,19 +890,142 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
         {/* STEP 0: INTRO */}
         {step === 0 && (
-          <div className="text-center animate-fade-in">
-            <div className="inline-block p-6 bg-[#142d63]/5 rounded-3xl mb-8">
-                <Target className="w-16 h-16 text-[#142d63]" />
+          <div className="animate-fade-in max-w-5xl mx-auto">
+            {/* Hero Section */}
+            <div className="text-center mb-16">
+              <div className="inline-block p-8 bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl mb-8 shadow-2xl">
+                <Target className="w-20 h-20 text-white" />
+              </div>
+              <h1 className="text-5xl md:text-7xl font-extrabold text-[#142d63] mb-6 tracking-tight leading-tight">
+                What is Your<br />Superhuman Archetype?
+              </h1>
+              <p className="text-2xl md:text-3xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
+                You are fighting a battle every day.<br className="hidden md:block" /> But <span className="text-[#f65625] font-bold">which one</span>?
+              </p>
+              <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed">
+                Discover your unique leadership archetype and get a personalized playbook with the exact strategies, scripts, and habits you need to win.
+              </p>
+
+              {/* CTA */}
+              <button
+                onClick={() => setStep(1)}
+                className="bg-[#f65625] text-white px-16 py-6 rounded-full text-2xl font-bold shadow-2xl hover:bg-[#142d63] hover:scale-105 transition-all active:scale-95 mb-6 inline-flex items-center gap-3"
+              >
+                <Sparkles className="w-7 h-7" />
+                Start Your Assessment
+                <ArrowRight className="w-7 h-7" />
+              </button>
+
+              <div className="flex items-center justify-center gap-8 text-sm text-gray-500">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-[#028393]" />
+                  <span>90 seconds</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-[#028393]" />
+                  <span>No email to start</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-[#028393]" />
+                  <span>Free playbook</span>
+                </div>
+              </div>
             </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold text-[#142d63] mb-8 tracking-tight">What is Your Superhuman Archetype?</h1>
-            <p className="text-2xl text-gray-600 mb-12 leading-relaxed max-w-2xl mx-auto">
-              You are fighting a battle every day. But which one? <br/>
-              Find out which superpowers you need to win it in less than 2 minutes.
-            </p>
-            <button onClick={() => setStep(1)} className="bg-[#f65625] text-white px-12 py-6 rounded-full text-xl font-bold shadow-xl hover:bg-[#142d63] hover:scale-105 transition-all active:scale-95">
-              Start Assessment
-            </button>
-            <p className="mt-8 text-sm text-gray-400 uppercase tracking-wide font-bold">Takes 90 seconds • No email required</p>
+
+            {/* What You'll Discover */}
+            <div className="bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl p-12 mb-16 text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">What You'll Discover</h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Compass className="w-8 h-8 text-[#faaa68]" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-3">Your Archetype</h3>
+                  <p className="text-gray-200 leading-relaxed">
+                    Which of 7 archetypes you are and what makes you unique
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Shield className="w-8 h-8 text-[#faaa68]" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-3">Your Battlefield</h3>
+                  <p className="text-gray-200 leading-relaxed">
+                    The primary challenge you're facing right now
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <BookOpen className="w-8 h-8 text-[#faaa68]" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-3">Your Playbook</h3>
+                  <p className="text-gray-200 leading-relaxed">
+                    Personalized strategies to upgrade your "operating system"
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* How It Works */}
+            <div className="mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#142d63] mb-12 text-center">How It Works</h2>
+              <div className="space-y-6">
+                <div className="flex items-start gap-6 bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-[#f65625] transition-all">
+                  <div className="w-12 h-12 bg-[#f65625] rounded-full flex items-center justify-center shrink-0 text-white font-bold text-xl">
+                    1
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl text-[#142d63] mb-2">Identify Your Battlefield</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Choose which arena you're fighting in: Leadership, Sales, Marketing, HR, Service, Ministry, or Personal Growth.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6 bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-[#f65625] transition-all">
+                  <div className="w-12 h-12 bg-[#028393] rounded-full flex items-center justify-center shrink-0 text-white font-bold text-xl">
+                    2
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl text-[#142d63] mb-2">Answer 2 Quick Questions</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Tell us what's draining you and what you want most. Be honest—this helps us personalize your results.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6 bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-[#f65625] transition-all">
+                  <div className="w-12 h-12 bg-[#faaa68] rounded-full flex items-center justify-center shrink-0 text-white font-bold text-xl">
+                    3
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl text-[#142d63] mb-2">Get Your Custom Playbook</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Receive your archetype and a personalized playbook with strategies, scripts, and habits for Superhuman performance.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Final CTA */}
+            <div className="text-center bg-[#F9FAFB] rounded-3xl p-12 border-2 border-gray-100">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#142d63] mb-4">Ready to Find Your Archetype?</h2>
+              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Stop drifting. Start designing. Discover which superpowers you need to win your battle.
+              </p>
+              <button
+                onClick={() => setStep(1)}
+                className="bg-[#f65625] text-white px-16 py-6 rounded-full text-2xl font-bold shadow-2xl hover:bg-[#142d63] hover:scale-105 transition-all active:scale-95 inline-flex items-center gap-3"
+              >
+                <Sparkles className="w-7 h-7" />
+                Begin Assessment
+                <ArrowRight className="w-7 h-7" />
+              </button>
+              <p className="mt-6 text-sm text-gray-500 font-medium">
+                Join thousands who have discovered their Superhuman archetype
+              </p>
+            </div>
           </div>
         )}
 
@@ -897,26 +1035,46 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
             <button onClick={() => setStep(0)} className="flex items-center text-gray-400 hover:text-[#142d63] mb-12 transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
             <h2 className="text-4xl font-bold text-[#142d63] mb-4">Let's get started.</h2>
             <p className="text-gray-500 mb-12 text-xl">First things first, what should we call you?</p>
-            <form onSubmit={handleNameSubmit}>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Type your first name..."
-                    className="w-full text-4xl font-bold border-b-4 border-gray-100 py-6 focus:outline-none focus:border-[#f65625] text-[#142d63] placeholder-gray-300 transition-colors bg-transparent"
-                    autoFocus
-                />
+            <form onSubmit={handleNameSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-bold text-gray-700 mb-2">
+                    First Name
+                  </label>
+                  <input
+                      type="text"
+                      id="firstName"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="Type your first name..."
+                      className="w-full text-3xl font-bold border-b-4 border-gray-100 py-4 focus:outline-none focus:border-[#f65625] text-[#142d63] placeholder-gray-300 transition-colors bg-transparent"
+                      autoFocus
+                      required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-bold text-gray-700 mb-2">
+                    Last Name
+                  </label>
+                  <input
+                      type="text"
+                      id="lastName"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Type your last name..."
+                      className="w-full text-3xl font-bold border-b-4 border-gray-100 py-4 focus:outline-none focus:border-[#f65625] text-[#142d63] placeholder-gray-300 transition-colors bg-transparent"
+                  />
+                </div>
                 <div className="mt-16 flex justify-between items-center">
                     <button
                         type="button"
-                        onClick={() => {setName('Friend'); setStep(2);}}
+                        onClick={() => {setFirstName('Friend'); setLastName(''); setStep(2);}}
                         className="text-gray-400 hover:text-[#142d63] text-sm font-bold uppercase tracking-wide transition-colors"
                     >
                         Skip for now
                     </button>
                     <button
                         type="submit"
-                        disabled={!name.trim()}
+                        disabled={!firstName.trim()}
                         className="bg-[#142d63] text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-[#f65625] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center shadow-lg active:scale-95"
                     >
                         Next Step <ArrowRight className="ml-2 w-6 h-6" />
@@ -931,7 +1089,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           <div className="animate-fade-in">
             <div className="flex items-center justify-between mb-12">
                 <button onClick={() => setStep(1)} className="flex items-center text-gray-400 hover:text-[#142d63] transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
-                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Hi, {name} 👋</span>
+                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Hi, {firstName} 👋</span>
             </div>
 
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-4 leading-snug">
@@ -1153,7 +1311,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
                 <div className="w-32 h-32 border-8 border-[#f65625] border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
             </div>
             <h2 className="text-4xl font-bold text-[#142d63] mb-4">Analyzing your archetype...</h2>
-            <p className="text-xl text-gray-500 mb-8">Building your custom Superhuman roadmap, {name}.</p>
+            <p className="text-xl text-gray-500 mb-8">Building your custom Superhuman roadmap, {firstName}.</p>
             <div className="flex flex-col gap-3 text-sm text-gray-400">
                 <div className="flex items-center gap-2 justify-center">
                     <CheckCircle className="w-4 h-4 text-[#028393]" />
@@ -1245,7 +1403,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
             <div className="mt-8 text-center">
               <button
-                onClick={() => {setStep(0); setUserPath(''); setName(''); setEmail(''); setConsent(false); setQ2Answer(''); setQ3Answer(''); setSubmissionError('');}}
+                onClick={() => {setStep(0); setUserPath(''); setFirstName(''); setLastName(''); setEmail(''); setConsent(false); setQ2Answer(''); setQ3Answer(''); setSubmissionError('');}}
                 className="text-gray-400 hover:text-[#142d63] font-bold text-sm uppercase tracking-wide transition-colors"
               >
                 Take Assessment Again

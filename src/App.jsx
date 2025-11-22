@@ -409,7 +409,7 @@ const HomePage = ({ navigate, godMode }) => (
           <div className="lg:col-span-4 relative hidden lg:block">
             <div className="relative z-10 w-full aspect-[4/5] mx-auto max-w-md bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl border border-gray-700 flex items-center justify-center overflow-hidden group transform rotate-3 hover:rotate-0 transition-all duration-500">
                {/* George B. Thomas Professional Photo */}
-               <img src="/img/george-thomas.jpg" alt="George B. Thomas" className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
+               <img src="/img/ESajPf4o_400x400 (1).jpg" alt="George B. Thomas" className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
                <div className="absolute inset-0 bg-gradient-to-t from-[#142d63]/80 to-transparent opacity-60"></div>
                
                <div className="relative text-center p-8 mt-auto">
@@ -963,8 +963,8 @@ const App = () => {
                 <div className="aspect-[4/5] bg-gray-200 rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-all duration-500">
                     {/* George B. Thomas Professional Photo */}
                     <img
-                      src="/img/george-thomas.jpg"
-                      onError={(e) => {e.target.onerror = null; e.target.src="/img/george-thomas.jpg"}}
+                      src="/img/ESajPf4o_400x400 (1).jpg"
+                      onError={(e) => {e.target.onerror = null; e.target.src="/img/ESajPf4o_400x400 (1).jpg"}}
                       alt="George B. Thomas"
                       className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
                     />

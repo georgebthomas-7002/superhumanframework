@@ -685,31 +685,45 @@ const PastorsPage = ({ navigate }) => {
       </section>
 
       {/* CTA Section */}
-      <section id="cta" data-section className="py-20 px-4 bg-gradient-to-br from-[#142d63] to-[#1a3a7a] text-white">
-        <div className="max-w-4xl mx-auto text-center">
+      <section id="cta" data-section className="py-32 bg-white relative overflow-hidden">
+        <ParticleBackground color="#f65625" />
+
+        <motion.div
+          className="max-w-4xl mx-auto px-4 text-center relative z-10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            whileHover={{ scale: 1.02 }}
+            className="bg-[#F9FAFB] p-16 rounded-3xl shadow-xl border border-gray-100"
           >
-            <h2 className="text-4xl md:text-5xl font-black mb-6">
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1, rotate: 360 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Download className="w-20 h-20 text-[#f65625] mx-auto mb-8" />
+            </motion.div>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-6">
               Get the Pastor Playbook
             </h2>
-            <p className="text-xl md:text-2xl mb-8 text-gray-300">
-              We've compiled the exact strategies, Sabbath protocols, and soul-care habits for{' '}
-              <span className="font-bold text-[#f65625]">Superhuman Pastors</span> into a comprehensive PDF guide.
+            <p className="text-xl text-gray-600 mb-10 leading-relaxed">
+              We've compiled the exact strategies, Sabbath protocols, and soul-care habits for Superhuman Pastors into a comprehensive PDF guide.
             </p>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => navigate('framework')}
-              className="group bg-[#f65625] text-white px-10 py-5 rounded-full font-black text-xl hover:bg-white hover:text-[#142d63] transition-all duration-300 inline-flex items-center gap-3 shadow-2xl hover:shadow-3xl hover:scale-105"
+              className="bg-[#f65625] text-white px-12 py-6 rounded-full font-bold text-xl shadow-xl hover:bg-[#142d63] transition-colors flex items-center justify-center gap-3 mx-auto"
             >
               <Download className="w-6 h-6" />
               Download Playbook
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-            </button>
+            </motion.button>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );

@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 import FrameworkPage from './pages/FrameworkPage';
 import LeadershipPage from './pages/LeadershipPage';
+import MarketingPage from './pages/MarketingPage';
+import SalesPage from './pages/SalesPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -161,13 +163,13 @@ const Navbar = ({ navigate, currentView, godMode }) => {
               </button>
               <div className={`absolute top-16 left-0 w-64 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left border overflow-hidden z-50 ${godMode ? 'bg-gray-900 border-yellow-500/30' : 'bg-white border-gray-100'}`}>
                 <div className="p-2">
-                  {['leadership', 'hr', 'sales', 'marketing', 'service', 'pastors', 'personal'].map((item) => (
-                    <button 
+                  {['leadership', 'hr', 'marketing', 'sales', 'service', 'personal', 'pastors'].map((item) => (
+                    <button
                       key={item}
-                      onClick={() => navigate(item)} 
+                      onClick={() => navigate(item)}
                       className={`block w-full text-left px-4 py-3 text-sm font-medium hover:bg-[#f65625]/10 hover:text-[#f65625] rounded-lg capitalize transition-colors ${godMode ? 'text-gray-300' : 'text-gray-700'}`}
                     >
-                      {item === 'hr' ? 'HR & People Ops' : item.charAt(0).toUpperCase() + item.slice(1)}
+                      {item === 'hr' ? 'HR & People Ops' : item === 'personal' ? 'Individuals' : item.charAt(0).toUpperCase() + item.slice(1)}
                     </button>
                   ))}
                 </div>
@@ -218,9 +220,9 @@ const Navbar = ({ navigate, currentView, godMode }) => {
           
           <div className={`py-4 border-b ${godMode ? 'border-gray-800' : 'border-gray-50'}`}>
             <div className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3">Who It's For</div>
-            {['leadership', 'hr', 'sales', 'marketing', 'service', 'pastors', 'personal'].map((item) => (
+            {['leadership', 'hr', 'marketing', 'sales', 'service', 'personal', 'pastors'].map((item) => (
               <button key={item} onClick={() => { navigate(item); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-3 pl-4 font-medium capitalize active:text-[#f65625] ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                {item === 'hr' ? 'HR & People' : item}
+                {item === 'hr' ? 'HR & People' : item === 'personal' ? 'Individuals' : item}
               </button>
             ))}
           </div>
@@ -733,24 +735,8 @@ const App = () => {
       
       // Verticals
       case 'leadership': return <LeadershipPage navigate={navigate} />;
-      case 'sales': return <VerticalPage 
-        title="Superhuman Sales" 
-        sub="Kill Commission Breath."
-        problemTitle="Stop Pitching. Start Partnering."
-        problemText="Prospects can smell desperation. The 'Always Be Closing' model is dead. It's time to shift to 'Always Be Helping'."
-        shiftFrom="Transactional Pusher"
-        shiftTo="Trusted Advisor"
-        playbookName="Sales"
-      />;
-      case 'marketing': return <VerticalPage 
-        title="Superhuman Marketing" 
-        sub="The Era of H2H (Human to Human)."
-        problemTitle="Stop Shouting. Start Connecting."
-        problemText="Marketing has lost its soul to algorithms. Stop interrupting strangers and start connecting with humans using Empathy, Helpfulness, and Story."
-        shiftFrom="Noise Maker"
-        shiftTo="Trusted Guide"
-        playbookName="Marketing"
-      />;
+      case 'sales': return <SalesPage navigate={navigate} />;
+      case 'marketing': return <MarketingPage navigate={navigate} />;
       case 'hr': return <VerticalPage 
         title="Superhuman HR" 
         sub="Stop Policing. Start Architecting."

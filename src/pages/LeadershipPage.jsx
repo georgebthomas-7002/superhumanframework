@@ -4,72 +4,32 @@ import {
   Compass, Heart, Shield, Zap, Download, ArrowRight, CheckCircle,
   TrendingUp, Users, Target, Flame
 } from 'lucide-react';
-import Particles from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
 
-// Subtle particle configuration
-const ParticleBackground = ({ color = "#142d63" }) => {
-  const particlesInit = async (engine) => {
-    await loadSlim(engine);
-  };
-
-  return (
-    <Particles
-      id="tsparticles"
-      init={particlesInit}
-      options={{
-        fullScreen: { enable: false },
-        background: { color: { value: "transparent" } },
-        fpsLimit: 60,
-        interactivity: {
-          events: {
-            onHover: {
-              enable: true,
-              mode: "grab"
-            }
-          },
-          modes: {
-            grab: {
-              distance: 140,
-              links: { opacity: 0.15 }
-            }
-          }
-        },
-        particles: {
-          color: { value: color },
-          links: {
-            color: color,
-            distance: 150,
-            enable: true,
-            opacity: 0.08,
-            width: 1
-          },
-          move: {
-            enable: true,
-            speed: 0.5,
-            direction: "none",
-            random: true,
-            straight: false,
-            outModes: { default: "bounce" }
-          },
-          number: {
-            density: { enable: true, area: 800 },
-            value: 30
-          },
-          opacity: {
-            value: 0.15
-          },
-          shape: { type: "circle" },
-          size: {
-            value: { min: 1, max: 3 }
-          }
-        },
-        detectRetina: true
-      }}
-      className="absolute inset-0 pointer-events-none"
-    />
-  );
-};
+// Particle Background Component
+const ParticleBackground = ({ color }) => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {[...Array(30)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1 h-1 rounded-full"
+        style={{
+          backgroundColor: color,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [0, -30, 0],
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 3 + Math.random() * 2,
+          repeat: Infinity,
+          delay: Math.random() * 2,
+        }}
+      />
+    ))}
+  </div>
+);
 
 // Reading Progress Bar Component
 const ReadingProgress = () => {

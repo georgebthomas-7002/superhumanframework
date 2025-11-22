@@ -12,6 +12,7 @@ import HRPage from './pages/HRPage';
 import ServicePage from './pages/ServicePage';
 import PersonalPage from './pages/PersonalPage';
 import PastorsPage from './pages/PastorsPage';
+import WhoPage from './pages/WhoPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -735,8 +736,9 @@ const App = () => {
     switch (view) {
       case 'home': return <HomePage navigate={navigate} godMode={godMode} />;
       case 'the-framework': return <FrameworkPage navigate={navigate} />;
+      case 'who': return <WhoPage navigate={navigate} />;
       case 'quiz': return <QuizPage navigate={navigate} setTriggerConfetti={setShowConfetti} />;
-      
+
       // Verticals
       case 'leadership': return <LeadershipPage navigate={navigate} />;
       case 'sales': return <SalesPage navigate={navigate} />;

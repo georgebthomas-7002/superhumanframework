@@ -98,6 +98,32 @@ const AnimatedHeart = () => (
   </motion.div>
 );
 
+// Particle Background Component
+const ParticleBackground = ({ color }) => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {[...Array(30)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1 h-1 rounded-full"
+        style={{
+          backgroundColor: color,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [0, -30, 0],
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 3 + Math.random() * 2,
+          repeat: Infinity,
+          delay: Math.random() * 2,
+        }}
+      />
+    ))}
+  </div>
+);
+
 const ServicePage = ({ navigate }) => {
   const [init, setInit] = useState(false);
   const [currentSection, setCurrentSection] = useState('');
@@ -215,6 +241,7 @@ const ServicePage = ({ navigate }) => {
       <section id="hero" data-section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
+        <ParticleBackground color="#faaa68" />
 
         {/* Breathing Wave Effect */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

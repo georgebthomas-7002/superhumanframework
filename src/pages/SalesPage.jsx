@@ -236,44 +236,28 @@ const SalesPage = ({ navigate }) => {
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
         <ParticleBackground color="#faaa68" />
 
-        {/* Animated Geometric Shapes */}
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 border border-white/5 rounded-full"
-          animate={{
-            y: [0, -30, 0],
-            rotate: [0, 180, 360]
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/3 right-1/4 w-48 h-48 border border-white/5"
-          animate={{
-            y: [0, 40, 0],
-            rotate: [0, -180, -360]
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 right-1/3 w-32 h-32 border border-white/5 rounded-lg"
-          animate={{
-            y: [0, -20, 0],
-            x: [0, 20, 0],
-            rotate: [0, 90, 180, 270, 360]
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
+        {/* Breathing Wave Effect */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-full h-full"
+              style={{
+                background: `radial-gradient(ellipse at ${20 + i * 20}% ${30 + i * 15}%, rgba(255,255,255,0.03) 0%, transparent 50%)`,
+              }}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 8 + i * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.5,
+              }}
+            />
+          ))}
+        </div>
 
         <motion.div
           className="max-w-5xl mx-auto px-4 relative z-10"

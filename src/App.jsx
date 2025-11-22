@@ -526,7 +526,8 @@ const HomePage = ({ navigate, godMode }) => (
 const QuizPage = ({ navigate, setTriggerConfetti }) => {
   // State Management
   const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Q1, 3: Q2, 4: Q3, 5: Email, 6: Analysis, 7: Result
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [consent, setConsent] = useState(false);
   const [userPath, setUserPath] = useState(''); // leadership, hr, sales, marketing, service, pastors, personal
@@ -726,7 +727,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
   // Handlers
   const handleNameSubmit = (e) => {
     e.preventDefault();
-    if (name.trim()) setStep(2);
+    if (firstName.trim()) setStep(2);
   };
 
   const handleQ1Answer = (path) => {
@@ -755,7 +756,11 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
       fields: [
         {
           name: 'firstname',
-          value: name || 'Friend'
+          value: firstName || 'Friend'
+        },
+        {
+          name: 'lastname',
+          value: lastName || ''
         },
         {
           name: 'email',
@@ -907,26 +912,46 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
             <button onClick={() => setStep(0)} className="flex items-center text-gray-400 hover:text-[#142d63] mb-12 transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
             <h2 className="text-4xl font-bold text-[#142d63] mb-4">Let's get started.</h2>
             <p className="text-gray-500 mb-12 text-xl">First things first, what should we call you?</p>
-            <form onSubmit={handleNameSubmit}>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Type your first name..."
-                    className="w-full text-4xl font-bold border-b-4 border-gray-100 py-6 focus:outline-none focus:border-[#f65625] text-[#142d63] placeholder-gray-300 transition-colors bg-transparent"
-                    autoFocus
-                />
+            <form onSubmit={handleNameSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-bold text-gray-700 mb-2">
+                    First Name
+                  </label>
+                  <input
+                      type="text"
+                      id="firstName"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="Type your first name..."
+                      className="w-full text-3xl font-bold border-b-4 border-gray-100 py-4 focus:outline-none focus:border-[#f65625] text-[#142d63] placeholder-gray-300 transition-colors bg-transparent"
+                      autoFocus
+                      required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-bold text-gray-700 mb-2">
+                    Last Name
+                  </label>
+                  <input
+                      type="text"
+                      id="lastName"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Type your last name..."
+                      className="w-full text-3xl font-bold border-b-4 border-gray-100 py-4 focus:outline-none focus:border-[#f65625] text-[#142d63] placeholder-gray-300 transition-colors bg-transparent"
+                  />
+                </div>
                 <div className="mt-16 flex justify-between items-center">
                     <button
                         type="button"
-                        onClick={() => {setName('Friend'); setStep(2);}}
+                        onClick={() => {setFirstName('Friend'); setLastName(''); setStep(2);}}
                         className="text-gray-400 hover:text-[#142d63] text-sm font-bold uppercase tracking-wide transition-colors"
                     >
                         Skip for now
                     </button>
                     <button
                         type="submit"
-                        disabled={!name.trim()}
+                        disabled={!firstName.trim()}
                         className="bg-[#142d63] text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-[#f65625] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center shadow-lg active:scale-95"
                     >
                         Next Step <ArrowRight className="ml-2 w-6 h-6" />
@@ -941,7 +966,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           <div className="animate-fade-in">
             <div className="flex items-center justify-between mb-12">
                 <button onClick={() => setStep(1)} className="flex items-center text-gray-400 hover:text-[#142d63] transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
-                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Hi, {name} 👋</span>
+                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Hi, {firstName} 👋</span>
             </div>
 
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-4 leading-snug">
@@ -1163,7 +1188,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
                 <div className="w-32 h-32 border-8 border-[#f65625] border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
             </div>
             <h2 className="text-4xl font-bold text-[#142d63] mb-4">Analyzing your archetype...</h2>
-            <p className="text-xl text-gray-500 mb-8">Building your custom Superhuman roadmap, {name}.</p>
+            <p className="text-xl text-gray-500 mb-8">Building your custom Superhuman roadmap, {firstName}.</p>
             <div className="flex flex-col gap-3 text-sm text-gray-400">
                 <div className="flex items-center gap-2 justify-center">
                     <CheckCircle className="w-4 h-4 text-[#028393]" />
@@ -1255,7 +1280,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
             <div className="mt-8 text-center">
               <button
-                onClick={() => {setStep(0); setUserPath(''); setName(''); setEmail(''); setConsent(false); setQ2Answer(''); setQ3Answer(''); setSubmissionError('');}}
+                onClick={() => {setStep(0); setUserPath(''); setFirstName(''); setLastName(''); setEmail(''); setConsent(false); setQ2Answer(''); setQ3Answer(''); setSubmissionError('');}}
                 className="text-gray-400 hover:text-[#142d63] font-bold text-sm uppercase tracking-wide transition-colors"
               >
                 Take Assessment Again

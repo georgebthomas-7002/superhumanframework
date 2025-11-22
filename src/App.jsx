@@ -8,6 +8,7 @@ import FrameworkPage from './pages/FrameworkPage';
 import LeadershipPage from './pages/LeadershipPage';
 import MarketingPage from './pages/MarketingPage';
 import SalesPage from './pages/SalesPage';
+import HRPage from './pages/HRPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -737,15 +738,7 @@ const App = () => {
       case 'leadership': return <LeadershipPage navigate={navigate} />;
       case 'sales': return <SalesPage navigate={navigate} />;
       case 'marketing': return <MarketingPage navigate={navigate} />;
-      case 'hr': return <VerticalPage 
-        title="Superhuman HR" 
-        sub="Stop Policing. Start Architecting."
-        problemTitle="From Compliance to Culture."
-        problemText="Stop being the 'Principal\'s Office.' Become the heartbeat of the organization. Move from Human Resources to Human Relations."
-        shiftFrom="Compliance Officer"
-        shiftTo="Culture Architect"
-        playbookName="HR"
-      />;
+      case 'hr': return <HRPage navigate={navigate} />;
       case 'service': return <VerticalPage 
         title="Superhuman Service" 
         sub="From Tickets to Wins."

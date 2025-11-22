@@ -5,6 +5,7 @@ import {
   CheckCircle, User, Target, Zap, Shield, Star, ArrowLeft, ArrowDown, Sparkles
 } from 'lucide-react';
 import FrameworkPage from './pages/FrameworkPage';
+import LeadershipPage from './pages/LeadershipPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -731,15 +732,7 @@ const App = () => {
       case 'quiz': return <QuizPage navigate={navigate} setTriggerConfetti={setShowConfetti} />;
       
       // Verticals
-      case 'leadership': return <VerticalPage 
-        title="Superhuman Leadership" 
-        sub="Stop Managing. Start Leading."
-        problemTitle="The Firefighter Trap"
-        problemText="You spend your days putting out fires and your nights worrying about the ones you missed. You feel isolated at the top. It's time to shift from Transactional Manager to Superhuman Leader."
-        shiftFrom="Managing Tasks"
-        shiftTo="Designing the Future"
-        playbookName="Leadership"
-      />;
+      case 'leadership': return <LeadershipPage navigate={navigate} />;
       case 'sales': return <VerticalPage 
         title="Superhuman Sales" 
         sub="Kill Commission Breath."

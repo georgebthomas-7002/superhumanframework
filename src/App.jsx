@@ -692,9 +692,33 @@ const ServicesPage = ({ title, sub, content }) => (
 
 // 4. MAIN APP COMPONENT (ROUTER LOGIC)
 const App = () => {
-  const [view, setView] = useState('home');
+  // Initialize view from URL path
+  const getInitialView = () => {
+    const path = window.location.pathname.slice(1) || 'home';
+    return path === '' ? 'home' : path;
+  };
+
+  const [view, setView] = useState(getInitialView);
   const [showConfetti, setShowConfetti] = useState(false);
   const godMode = useKonamiCode(); // Triggered by hooks
+
+  // Navigate function that updates both state and URL
+  const navigate = (newView) => {
+    setView(newView);
+    const path = newView === 'home' ? '/' : `/${newView}`;
+    window.history.pushState({}, '', path);
+  };
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname.slice(1) || 'home';
+      setView(path === '' ? 'home' : path);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -702,9 +726,9 @@ const App = () => {
 
   const renderView = () => {
     switch (view) {
-      case 'home': return <HomePage navigate={setView} godMode={godMode} />;
-      case 'the-framework': return <FrameworkPage navigate={setView} />;
-      case 'quiz': return <QuizPage navigate={setView} setTriggerConfetti={setShowConfetti} />;
+      case 'home': return <HomePage navigate={navigate} godMode={godMode} />;
+      case 'the-framework': return <FrameworkPage navigate={navigate} />;
+      case 'quiz': return <QuizPage navigate={navigate} setTriggerConfetti={setShowConfetti} />;
       
       // Verticals
       case 'leadership': return <VerticalPage 
@@ -869,11 +893,11 @@ const App = () => {
           sub="Let's Connect. Human to Human."
           content={
             <div className="max-w-4xl mx-auto grid gap-8">
-                <button onClick={() => setView('speaking')} className="p-10 border-2 border-gray-100 rounded-3xl hover:border-[#f65625] hover:bg-[#f65625]/5 text-left bg-white transition-all group active:scale-[0.99]">
+                <button onClick={() => navigate('speaking')} className="p-10 border-2 border-gray-100 rounded-3xl hover:border-[#f65625] hover:bg-[#f65625]/5 text-left bg-white transition-all group active:scale-[0.99]">
                     <h3 className="font-bold text-2xl text-[#142d63] mb-2">I want to hire George to Speak</h3>
                     <p className="text-gray-500 group-hover:text-[#f65625] text-lg">For conferences, events, and retreats.</p>
                 </button>
-                 <button onClick={() => setView('coaching')} className="p-10 border-2 border-gray-100 rounded-3xl hover:border-[#f65625] hover:bg-[#f65625]/5 text-left bg-white transition-all group active:scale-[0.99]">
+                 <button onClick={() => navigate('coaching')} className="p-10 border-2 border-gray-100 rounded-3xl hover:border-[#f65625] hover:bg-[#f65625]/5 text-left bg-white transition-all group active:scale-[0.99]">
                     <h3 className="font-bold text-2xl text-[#142d63] mb-2">I am interested in Coaching</h3>
                     <p className="text-gray-500 group-hover:text-[#f65625] text-lg">1:1 Mentorship and guidance.</p>
                 </button>
@@ -908,26 +932,26 @@ const App = () => {
                 <p className="mb-8">I saw leaders burning out, sales teams losing their souls, and cultures crumbling under the weight of "metrics."</p>
                 <p className="mb-10">I created the Superhuman Framework because I needed it. I needed a way to balance the hungry hustle of success with the need for a happy home. Now, I give that operating system to you.</p>
                 <div className="flex gap-6">
-                    <button onClick={() => setView('speaking')} className="text-[#f65625] font-bold hover:underline text-lg">View Speaking</button>
-                    <button onClick={() => setView('the-framework')} className="text-[#142d63] font-bold hover:underline text-lg">Read the Framework</button>
+                    <button onClick={() => navigate('speaking')} className="text-[#f65625] font-bold hover:underline text-lg">View Speaking</button>
+                    <button onClick={() => navigate('the-framework')} className="text-[#142d63] font-bold hover:underline text-lg">Read the Framework</button>
                 </div>
             </div>
           </div>
         }
       />;
       
-      default: return <HomePage navigate={setView} godMode={godMode} />;
+      default: return <HomePage navigate={navigate} godMode={godMode} />;
     }
   };
 
   return (
     <div className={`flex flex-col min-h-screen font-sans transition-colors duration-500 ${godMode ? 'text-gray-200 bg-gray-900 selection:bg-[#fbbf24] selection:text-black' : 'text-[#1f2937] bg-white selection:bg-[#f65625] selection:text-white'}`}>
       <Confetti isActive={showConfetti} />
-      <Navbar navigate={setView} currentView={view} godMode={godMode} />
+      <Navbar navigate={navigate} currentView={view} godMode={godMode} />
       <main className="flex-grow">
         {renderView()}
       </main>
-      <Footer navigate={setView} godMode={godMode} />
+      <Footer navigate={navigate} godMode={godMode} />
     </div>
   );
 };

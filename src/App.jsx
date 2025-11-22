@@ -752,11 +752,20 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
   // Calculate progress
   const getProgress = () => {
-    if (step === 1) return 25;
-    if (step === 2) return 50;
-    if (step === 3) return 75;
-    if (step === 4 || step === 5 || step === 6) return 100;
+    if (step === 1) return 20;
+    if (step === 2) return 40;
+    if (step === 3) return 60;
+    if (step === 4) return 80;
+    if (step === 5 || step === 6) return 100;
     return 0;
+  };
+
+  const getProgressMessage = () => {
+    if (step === 1) return "Let's get to know you";
+    if (step === 2) return "Identifying your battlefield";
+    if (step === 3) return "Understanding your challenge";
+    if (step === 4) return "Almost there!";
+    return "";
   };
 
   const currentResult = results[userPath];
@@ -771,11 +780,17 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
         {/* PROGRESS BAR */}
         {step > 0 && step < 6 && (
-            <div className="w-full h-2 bg-gray-100 rounded-full mb-12 overflow-hidden">
-                <div
-                    className="h-full bg-[#f65625] transition-all duration-500 ease-out"
-                    style={{width: `${getProgress()}%`}}
-                ></div>
+            <div className="mb-12">
+                <div className="flex justify-between items-center mb-3">
+                    <span className="text-sm font-bold text-gray-500 uppercase tracking-wide">{getProgressMessage()}</span>
+                    <span className="text-sm font-bold text-[#f65625]">{getProgress()}%</span>
+                </div>
+                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div
+                        className="h-full bg-gradient-to-r from-[#f65625] to-[#faaa68] transition-all duration-500 ease-out"
+                        style={{width: `${getProgress()}%`}}
+                    ></div>
+                </div>
             </div>
         )}
 
@@ -837,13 +852,18 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           <div className="animate-fade-in">
             <div className="flex items-center justify-between mb-12">
                 <button onClick={() => setStep(1)} className="flex items-center text-gray-400 hover:text-[#142d63] transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
-                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Hi, {name}</span>
+                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Hi, {name} 👋</span>
             </div>
 
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-4 leading-snug">
               When you wake up on Monday morning, what is the primary battlefield you are stepping into?
             </h2>
-            <p className="text-lg text-gray-500 mb-12">Choose the one that resonates most:</p>
+            <p className="text-lg text-gray-500 mb-4">Choose the one that resonates most with your daily reality:</p>
+            <div className="bg-blue-50 border-l-4 border-[#028393] p-4 mb-12 rounded-r-lg">
+                <p className="text-sm text-gray-600">
+                    <strong className="text-[#028393]">💡 Pro tip:</strong> Go with your gut. Your first instinct is usually the most honest answer.
+                </p>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {q1Options.map((opt) => (
@@ -873,9 +893,10 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
                 <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Question 2 of 3</span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-12 leading-snug">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-4 leading-snug">
               {q2Questions[userPath].title}
             </h2>
+            <p className="text-lg text-gray-500 mb-12">Be honest—this helps us personalize your playbook:</p>
 
             <div className="space-y-4">
               {q2Questions[userPath].options.map((opt) => (
@@ -901,12 +922,13 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           <div className="animate-fade-in">
             <div className="flex items-center justify-between mb-12">
                 <button onClick={() => setStep(3)} className="flex items-center text-gray-400 hover:text-[#142d63] transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
-                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Final Question</span>
+                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Final Question ✨</span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-12 leading-snug">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-4 leading-snug">
               {q3Questions[userPath].title}
             </h2>
+            <p className="text-lg text-gray-500 mb-12">Dream big—what would success actually look like?</p>
 
             <div className="space-y-4">
               {q3Questions[userPath].options.map((opt) => (
@@ -935,7 +957,21 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
                 <div className="w-32 h-32 border-8 border-[#f65625] border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
             </div>
             <h2 className="text-4xl font-bold text-[#142d63] mb-4">Analyzing your archetype...</h2>
-            <p className="text-xl text-gray-500">Building your custom Superhuman roadmap, {name}.</p>
+            <p className="text-xl text-gray-500 mb-8">Building your custom Superhuman roadmap, {name}.</p>
+            <div className="flex flex-col gap-3 text-sm text-gray-400">
+                <div className="flex items-center gap-2 justify-center">
+                    <CheckCircle className="w-4 h-4 text-[#028393]" />
+                    <span>Identifying your battlefield</span>
+                </div>
+                <div className="flex items-center gap-2 justify-center">
+                    <CheckCircle className="w-4 h-4 text-[#028393]" />
+                    <span>Mapping your challenges</span>
+                </div>
+                <div className="flex items-center gap-2 justify-center animate-pulse">
+                    <div className="w-4 h-4 rounded-full border-2 border-[#f65625] border-t-transparent animate-spin"></div>
+                    <span className="text-[#f65625] font-medium">Personalizing your playbook</span>
+                </div>
+            </div>
           </div>
         )}
 
@@ -983,7 +1019,35 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
               </div>
             </div>
 
-            <div className="mt-12 text-center">
+            {/* What Happens Next Section */}
+            <div className="mt-12 bg-white border-2 border-gray-100 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-[#142d63] mb-6 text-center">What Happens Next?</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-[#028393]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-[#028393]">1</span>
+                  </div>
+                  <h4 className="font-bold text-gray-800 mb-2">Download Your Playbook</h4>
+                  <p className="text-sm text-gray-600">Get instant access to your personalized framework</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-[#f65625]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-[#f65625]">2</span>
+                  </div>
+                  <h4 className="font-bold text-gray-800 mb-2">Explore the Framework</h4>
+                  <p className="text-sm text-gray-600">Dive deeper into your specific vertical</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-[#faaa68]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-[#faaa68]">3</span>
+                  </div>
+                  <h4 className="font-bold text-gray-800 mb-2">Take Action Today</h4>
+                  <p className="text-sm text-gray-600">Start implementing the first habit immediately</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 text-center">
               <button
                 onClick={() => {setStep(0); setUserPath(''); setName(''); setQ2Answer(''); setQ3Answer('');}}
                 className="text-gray-400 hover:text-[#142d63] font-bold text-sm uppercase tracking-wide transition-colors"

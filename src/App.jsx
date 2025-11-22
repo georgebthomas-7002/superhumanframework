@@ -396,14 +396,6 @@ const HomePage = ({ navigate, godMode }) => (
                 Explore Framework
               </button>
             </div>
-            <div className="mt-12 flex items-center justify-center lg:justify-start gap-4 text-sm text-gray-400 font-medium">
-                <div className="flex -space-x-3">
-                    <div className="w-10 h-10 rounded-full bg-gray-400 border-2 border-[#142d63] flex items-center justify-center text-xs text-[#142d63] font-bold bg-white">JD</div>
-                    <div className="w-10 h-10 rounded-full bg-gray-300 border-2 border-[#142d63] flex items-center justify-center text-xs text-[#142d63] font-bold bg-gray-100">AS</div>
-                    <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-[#142d63] flex items-center justify-center text-xs text-[#142d63] font-bold bg-gray-200">MR</div>
-                </div>
-                <p>Joined by 10,000+ Humans</p>
-            </div>
           </div>
           
           <div className="lg:col-span-4 relative hidden lg:block">
@@ -420,10 +412,6 @@ const HomePage = ({ navigate, godMode }) => (
                   <p className="text-[#faaa68] font-medium text-lg">Founder: George B. Thomas</p>
                </div>
             </div>
-            
-            {/* New Slider Component replacing static floating badge */}
-            <TestimonialSlider />
-            
           </div>
         </div>
       </div>

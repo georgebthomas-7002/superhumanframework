@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Compass, TrendingUp, Megaphone, Heart, LifeBuoy, BookOpen, 
+import {
+  Compass, TrendingUp, Megaphone, Heart, LifeBuoy, BookOpen,
   Menu, X, ChevronDown, ArrowRight, Linkedin, Instagram, Youtube,
   CheckCircle, User, Target, Zap, Shield, Star, ArrowLeft, ArrowDown, Sparkles
 } from 'lucide-react';
+import FrameworkPage from './pages/FrameworkPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -148,7 +149,7 @@ const Navbar = ({ navigate, currentView, godMode }) => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 items-center">
-            <button onClick={() => navigate('framework')} className={`text-sm font-bold hover:text-[#028393] transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
+            <button onClick={() => navigate('the-framework')} className={`text-sm font-bold hover:text-[#028393] transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
               The Framework
             </button>
 
@@ -212,7 +213,7 @@ const Navbar = ({ navigate, currentView, godMode }) => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className={`md:hidden border-t p-4 h-screen overflow-y-auto pb-32 fixed w-full ${godMode ? 'bg-gray-900 border-gray-800 text-white' : 'bg-white border-gray-100'}`}>
-          <button onClick={() => { navigate('framework'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-4 text-xl font-bold border-b ${godMode ? 'text-white border-gray-800' : 'text-[#142d63] border-gray-50'}`}>The Framework</button>
+          <button onClick={() => { navigate('the-framework'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-4 text-xl font-bold border-b ${godMode ? 'text-white border-gray-800' : 'text-[#142d63] border-gray-50'}`}>The Framework</button>
           
           <div className={`py-4 border-b ${godMode ? 'border-gray-800' : 'border-gray-50'}`}>
             <div className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3">Who It's For</div>
@@ -392,7 +393,7 @@ const HomePage = ({ navigate, godMode }) => (
               <button onClick={() => navigate('quiz')} className={`px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:-translate-y-1 active:scale-95 transition-all ${godMode ? 'bg-[#fbbf24] text-black hover:shadow-[#fbbf24]/40' : 'bg-[#f65625] text-white hover:shadow-[#f65625]/40'}`}>
                 Take the Assessment
               </button>
-              <button onClick={() => navigate('framework')} className="bg-white/5 backdrop-blur-sm border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-[#142d63] transition-all active:scale-95">
+              <button onClick={() => navigate('the-framework')} className="bg-white/5 backdrop-blur-sm border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-[#142d63] transition-all active:scale-95">
                 Explore Framework
               </button>
             </div>
@@ -672,67 +673,10 @@ const VerticalPage = ({ title, sub, problemTitle, problemText, shiftFrom, shiftT
   </div>
 );
 
-// ... (FrameworkPage, ServicesPage etc. - Using same updated styling logic) ...
+// ... (ServicesPage - Using same updated styling logic) ...
+// Note: FrameworkPage is now in src/pages/FrameworkPage.jsx
 
-const FrameworkPage = () => (
-    <div className="animate-fade-in">
-      <section className="bg-[#142d63] text-white py-32 text-center relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 relative z-10">
-          <h1 className="text-6xl font-extrabold mb-8">The Source Code</h1>
-          <p className="text-2xl text-gray-300">The Superhuman Framework is not a list of tips. It is a structural blueprint for excellence.</p>
-        </div>
-      </section>
-      
-      <section className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="mb-20 text-center">
-            <span className="text-[#f65625] font-bold uppercase tracking-widest text-sm bg-[#f65625]/10 px-4 py-2 rounded-full">Part 1</span>
-            <h2 className="text-5xl font-extrabold text-[#142d63] mt-6">The 4 Cornerstones</h2>
-            <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-xl">The Foundation of Who You Are.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {[
-              { title: 'Purpose', desc: 'The North Star. Moving from Drifting to Driving. Knowing exactly why you are here.', icon: Compass },
-              { title: 'Passion', desc: 'The Fuel. Not just excitement, but vitality. The energy that makes people want to follow you.', icon: Zap },
-              { title: 'Persistence', desc: 'The Grit. The unshakeable resolve to hold the line when the plan fails.', icon: Shield },
-              { title: 'Love', desc: 'The Strategy. Radical care for humans. The ultimate retention tool.', icon: Heart }
-            ].map((item, i) => (
-              <div key={i} className="p-12 bg-[#F9FAFB] rounded-3xl border border-gray-100 hover:border-[#f65625] hover:shadow-xl transition-all group">
-                <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mr-6 text-[#f65625] group-hover:bg-[#f65625] group-hover:text-white transition-colors">
-                        <item.icon className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-[#142d63]">{i + 1}. {item.title}</h3>
-                </div>
-                <p className="text-gray-600 text-xl leading-relaxed pl-22">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-  
-      <section className="py-32 bg-[#142d63] text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="mb-20 text-center">
-            <span className="text-[#faaa68] font-bold uppercase tracking-widest text-sm bg-[#faaa68]/10 px-4 py-2 rounded-full">Part 2</span>
-            <h2 className="text-5xl font-extrabold mt-6">The 10 H Pillars</h2>
-            <p className="text-gray-300 mt-6 max-w-2xl mx-auto text-xl">The Habits of What You Do.</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-            {['Humble', 'Honest', 'Holiness', 'Happy', 'Humanity', 'Helpful', 'Healthy', 'Hungry Hustle', 'Holistic Living', 'Humor'].map((h) => (
-              <div key={h} className="p-8 bg-white/5 border border-white/10 rounded-2xl text-center hover:bg-[#f65625] hover:border-[#f65625] hover:-translate-y-1 transition-all cursor-default group">
-                <h4 className="font-bold text-xl group-hover:text-white transition-colors">{h}</h4>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-
-  const ServicesPage = ({ title, sub, content }) => (
+const ServicesPage = ({ title, sub, content }) => (
     <div className="animate-fade-in">
       <header className="bg-[#142d63] text-white py-32 text-center">
         <div className="max-w-4xl mx-auto px-4">
@@ -759,7 +703,7 @@ const App = () => {
   const renderView = () => {
     switch (view) {
       case 'home': return <HomePage navigate={setView} godMode={godMode} />;
-      case 'framework': return <FrameworkPage />;
+      case 'the-framework': return <FrameworkPage navigate={setView} />;
       case 'quiz': return <QuizPage navigate={setView} setTriggerConfetti={setShowConfetti} />;
       
       // Verticals
@@ -965,7 +909,7 @@ const App = () => {
                 <p className="mb-10">I created the Superhuman Framework because I needed it. I needed a way to balance the hungry hustle of success with the need for a happy home. Now, I give that operating system to you.</p>
                 <div className="flex gap-6">
                     <button onClick={() => setView('speaking')} className="text-[#f65625] font-bold hover:underline text-lg">View Speaking</button>
-                    <button onClick={() => setView('framework')} className="text-[#142d63] font-bold hover:underline text-lg">Read the Framework</button>
+                    <button onClick={() => setView('the-framework')} className="text-[#142d63] font-bold hover:underline text-lg">Read the Framework</button>
                 </div>
             </div>
           </div>

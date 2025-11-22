@@ -219,7 +219,7 @@ const HRPage = ({ navigate }) => {
           >
             <div className="inline-flex items-center gap-2 bg-[#f65625]/10 text-[#f65625] px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Sparkles className="w-4 h-4" />
-              Superhuman HR
+              Superhuman HR & People Ops
             </div>
           </motion.div>
 
@@ -240,7 +240,7 @@ const HRPage = ({ navigate }) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
           >
-            Move from "Human Resources" to "Human Relations."
+            Move from "Human Resources" to "Human Relations." This is the operating system for People Ops leaders who are tired of being viewed as the "Principal's Office" and are ready to build a workplace where humans actually thrive.
           </motion.p>
 
           <motion.div

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import {
   Compass, TrendingUp, Megaphone, Heart, LifeBuoy, BookOpen,
   Menu, X, ChevronDown, ArrowRight, Linkedin, Instagram, Youtube,
@@ -373,10 +374,37 @@ const TestimonialSlider = () => {
   );
 };
 
+const ParticleBackground = ({ color }) => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {[...Array(30)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1 h-1 rounded-full"
+        style={{
+          backgroundColor: color,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [0, -30, 0],
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 3 + Math.random() * 2,
+          repeat: Infinity,
+          delay: Math.random() * 2,
+        }}
+      />
+    ))}
+  </div>
+);
+
 const HomePage = ({ navigate, godMode }) => (
   <div className="animate-fade-in overflow-hidden">
     {/* HERO */}
     <section className={`pt-32 pb-24 md:pt-48 md:pb-40 relative overflow-hidden transition-colors duration-700 ${godMode ? 'bg-black text-white' : 'bg-[#142d63] text-white'}`}>
+      <ParticleBackground color="#faaa68" />
+
       {/* Abstract Shapes */}
       <div className={`absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[120px] opacity-20 -translate-y-1/2 translate-x-1/3 pointer-events-none transition-colors duration-700 ${godMode ? 'bg-[#fbbf24]' : 'bg-[#028393]'}`}></div>
       <div className={`absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[100px] opacity-15 translate-y-1/3 -translate-x-1/3 pointer-events-none transition-colors duration-700 ${godMode ? 'bg-[#fbbf24]' : 'bg-[#f65625]'}`}></div>

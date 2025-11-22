@@ -680,8 +680,6 @@ const HRPage = ({ navigate }) => {
 
       {/* CTA Section */}
       <section id="cta" data-section className="py-32 bg-white relative overflow-hidden">
-        <ParticleBackground color="#f65625" />
-
         <motion.div
           className="max-w-4xl mx-auto px-4 text-center relative z-10"
           initial={{ opacity: 0, y: 30 }}

@@ -19,7 +19,8 @@ import {
   Apple,
   Zap,
   Globe,
-  Laugh
+  Laugh,
+  Download
 } from 'lucide-react';
 
 // Reading Progress Component

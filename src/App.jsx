@@ -107,7 +107,7 @@ const COLORS = {
 
 // Recreated Logo based on the "Pillars" PDF
 // EASTER EGG: Logo spins on 5 clicks
-const SuperhumanLogo = ({ className = "h-10", godMode }) => {
+const SuperhumanLogo = ({ className = "h-10", godMode, whiteMode = false }) => {
   const [clicks, setClicks] = useState(0);
   const [spin, setSpin] = useState(false);
 
@@ -120,12 +120,12 @@ const SuperhumanLogo = ({ className = "h-10", godMode }) => {
   };
 
   return (
-    <div 
+    <div
       onClick={handleClick}
       className={`flex items-center gap-3 ${className} ${spin ? 'animate-spin-fast' : ''} select-none`}
     >
       {/* Icon Representation of the Pillars */}
-      <svg viewBox="0 0 100 100" fill="currentColor" className={`h-full w-auto ${godMode ? 'text-[#fbbf24]' : 'text-[#142d63]'} transition-colors duration-500`}>
+      <svg viewBox="0 0 100 100" fill="currentColor" className={`h-full w-auto ${whiteMode ? 'text-white' : godMode ? 'text-[#fbbf24]' : 'text-[#142d63]'} transition-colors duration-500`}>
         <path d="M15 90 H85 V82 H15 Z" /> {/* Base */}
         <path d="M22 78 V25 L32 15 V78 Z" /> {/* Pillar 1 */}
         <path d="M38 78 V10 L48 0 V78 Z" />  {/* Pillar 2 (Tallest) */}
@@ -133,8 +133,8 @@ const SuperhumanLogo = ({ className = "h-10", godMode }) => {
         <path d="M70 78 V25 L80 15 V78 Z" /> {/* Pillar 4 */}
       </svg>
       <div className="flex flex-col justify-center h-full">
-          <span className={`font-extrabold text-xl leading-none tracking-tight ${godMode ? 'text-white' : 'text-[#142d63]'} uppercase font-sans transition-colors duration-500`}>Superhuman</span>
-          <span className={`font-bold text-[0.65rem] leading-none tracking-[0.2em] ${godMode ? 'text-[#fbbf24]' : 'text-[#f65625]'} uppercase font-sans mt-1 ml-0.5 transition-colors duration-500`}>Framework</span>
+          <span className={`font-extrabold text-xl leading-none tracking-tight ${whiteMode ? 'text-white' : godMode ? 'text-white' : 'text-[#142d63]'} uppercase font-sans transition-colors duration-500`}>Superhuman</span>
+          <span className={`font-bold text-[0.65rem] leading-none tracking-[0.2em] ${whiteMode ? 'text-white' : godMode ? 'text-[#fbbf24]' : 'text-[#f65625]'} uppercase font-sans mt-1 ml-0.5 transition-colors duration-500`}>Framework</span>
       </div>
     </div>
   );
@@ -262,8 +262,8 @@ const Footer = ({ navigate, godMode }) => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
         <div className="col-span-1 md:col-span-1">
-          <div className="mb-6 text-white">
-             <SuperhumanLogo className="h-12 text-white opacity-90" godMode={godMode} />
+          <div className="mb-6">
+             <SuperhumanLogo className="h-12" whiteMode={true} />
           </div>
           <p className="text-gray-300 text-sm leading-relaxed mb-8">
             The Operating System for high-performance leadership, business, and life. Stop Drifting. Start Designing.

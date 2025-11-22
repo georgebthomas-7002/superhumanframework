@@ -751,6 +751,42 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
     setIsSubmitting(true);
     setSubmissionError('');
 
+    const submissionData = {
+      fields: [
+        {
+          name: 'firstname',
+          value: name || 'Friend'
+        },
+        {
+          name: 'email',
+          value: email
+        },
+        {
+          name: 'archetype',
+          value: results[userPath].archetype
+        },
+        {
+          name: 'battlefield',
+          value: userPath
+        },
+        {
+          name: 'pain_point',
+          value: q2Questions[userPath].options.find(opt => opt.id === q2Answer)?.text || ''
+        },
+        {
+          name: 'aspiration',
+          value: q3Questions[userPath].options.find(opt => opt.id === q3Answer)?.text || ''
+        }
+      ],
+      context: {
+        pageUri: window.location.href,
+        pageName: 'Superhuman Archetype Assessment'
+      }
+    };
+
+    // Log what we're sending
+    console.log('📤 Submitting to HubSpot:', submissionData);
+
     try {
       // Submit to HubSpot Forms API
       const response = await fetch(
@@ -760,50 +796,24 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            fields: [
-              {
-                name: 'firstname',
-                value: name || 'Friend'
-              },
-              {
-                name: 'email',
-                value: email
-              },
-              {
-                name: 'archetype',
-                value: results[userPath].archetype
-              },
-              {
-                name: 'battlefield',
-                value: userPath
-              },
-              {
-                name: 'pain_point',
-                value: q2Questions[userPath].options.find(opt => opt.id === q2Answer)?.text || ''
-              },
-              {
-                name: 'aspiration',
-                value: q3Questions[userPath].options.find(opt => opt.id === q3Answer)?.text || ''
-              }
-            ],
-            context: {
-              pageUri: window.location.href,
-              pageName: 'Superhuman Archetype Assessment'
-            }
-          })
+          body: JSON.stringify(submissionData)
         }
       );
 
+      const responseData = await response.json();
+      console.log('📥 HubSpot response:', responseData);
+
       if (!response.ok) {
-        throw new Error('Submission failed');
+        console.error('❌ HubSpot error:', responseData);
+        throw new Error(responseData.message || 'Submission failed');
       }
 
+      console.log('✅ Successfully submitted to HubSpot!');
       // Success - proceed to analysis
       setStep(6);
       setTimeout(() => setStep(7), 2500); // Then to results
     } catch (error) {
-      console.error('HubSpot submission error:', error);
+      console.error('❌ HubSpot submission error:', error);
       setSubmissionError('Something went wrong. But don\'t worry - you can still see your results!');
       // Still proceed even if submission fails
       setStep(6);

@@ -2,6 +2,122 @@
 
 ## Recent Updates (2025-11-22)
 
+### HubSpot CRM Integration
+**Commit:** `f4aa268`
+
+#### Email Capture & Lead Generation System
+Integrated HubSpot Forms API for seamless lead capture and CRM population:
+
+**HubSpot Configuration:**
+- Portal ID: 474711
+- Form GUID: edf2f3d0-1615-4019-aac1-748896643905
+- Direct API submission (no backend required)
+- HubSpot Forms API v3 endpoint
+
+**New Email Capture Step (Step 5):**
+- Added between Q3 and Analysis for optimal placement
+- Professional email collection form with trust signals
+- GDPR-compliant consent checkbox (required)
+- Clear "Why we ask for your email" explanation with Shield icon
+- 3 benefit points with checkmark icons
+- Visual appeal: Gradient Sparkles header (orange to soft orange)
+- Loading spinner during submission
+- Error handling with user-friendly messages
+- Optional "Skip" button (warns user won't receive playbook)
+
+**Data Captured & Sent to HubSpot:**
+1. **firstname** - User's name from Step 1
+2. **email** - Email address (required)
+3. **archetype** - Calculated archetype (e.g., "The Visionary Leader")
+4. **battlefield** - User path (leadership, hr, sales, marketing, service, pastors, personal)
+5. **pain_point** - Full text of Q2 answer (e.g., "Constant firefighting and reactivity (Chaos)")
+6. **aspiration** - Full text of Q3 answer (e.g., "I would have time to actually think and strategize")
+7. **context** - Page URI and Page Name for tracking
+
+**Flow Updates:**
+- **Step 0:** Intro
+- **Step 1:** Name Capture
+- **Step 2:** Question 1 (The Router)
+- **Step 3:** Question 2 (The Agitator)
+- **Step 4:** Question 3 (The Aspirator)
+- **Step 5:** Email Capture ⭐ NEW
+- **Step 6:** Analysis Screen
+- **Step 7:** Result Display
+
+**Progress Bar Updates:**
+- 15% → 30% → 50% → 70% → 85% → 100%
+- New messaging: "Almost done!" at 85%
+
+**Technical Implementation:**
+- Async/await for API calls
+- Try/catch error handling (graceful degradation)
+- Shows results even if HubSpot submission fails
+- State management: `email`, `consent`, `isSubmitting`, `submissionError`
+- Disabled inputs during submission
+- Form validation (email format, consent required)
+- Reset all state on "Take Assessment Again"
+
+**UX Features:**
+- Trust-building "Why we ask" section
+- Loading state with spinner
+- Error messages that don't block user flow
+- Skip option for privacy-conscious users
+- Professional form design with large tap targets
+- Mobile-optimized layout
+
+**GDPR Compliance:**
+- Explicit opt-in consent checkbox
+- Clear data usage explanation
+- Unsubscribe mentioned in consent text
+- Transparent privacy messaging
+- No auto-checked boxes
+
+**Build:**
+- Size: 650KB (+5KB for integration code)
+- No additional dependencies
+- Native fetch API used
+
+---
+
+### Enhanced Assessment UX
+**Commit:** `9f8b2c7`
+
+#### UX Improvements for Better Completion & Engagement
+Added guidance, encouragement, and next steps throughout the assessment flow:
+
+**Progress Enhancements:**
+- Dynamic progress messaging at each step
+- Gradient progress bar (orange to soft orange) with percentage
+- Clear step labels: "Let's get to know you" → "Identifying your battlefield" → "Understanding your challenge" → "Almost there!"
+- Progress increments: 20% → 40% → 60% → 80% → 100%
+
+**Question Improvements:**
+- **Q1:** Added "Pro tip" helper box encouraging gut instinct decisions
+- **Q1:** Improved copy clarity ("Choose the one that resonates most with your daily reality")
+- **Q2:** Added context "Be honest—this helps us personalize your playbook"
+- **Q3:** Added aspirational framing "Dream big—what would success actually look like?"
+- Emoji touches (👋, ✨) for warmth and personality
+
+**Enhanced Analysis Screen:**
+- Step-by-step progress indicators with checkmarks
+- Shows completed steps: "Identifying your battlefield" ✓, "Mapping your challenges" ✓
+- Animated current step: "Personalizing your playbook" (with spinner)
+- More transparency in the process
+
+**Improved Result Screen:**
+- Added "What Happens Next?" section with 3-step action plan
+- Clear next steps: Download Your Playbook → Explore the Framework → Take Action Today
+- Numbered cards with visual hierarchy
+- Better CTA positioning and messaging
+
+**Technical:**
+- Build size: 645KB (+3KB for enhanced content)
+- All transitions smooth and encouraging
+- Mobile-optimized throughout
+- Anxiety-reducing, completion-focused design
+
+---
+
 ### Complete Superhuman Archetype Assessment
 **Commit:** `e48b35e`
 

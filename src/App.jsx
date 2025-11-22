@@ -524,22 +524,242 @@ const HomePage = ({ navigate, godMode }) => (
 );
 
 const QuizPage = ({ navigate, setTriggerConfetti }) => {
-  const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Question, 3: Analyzing, 4: Done
+  // State Management
+  const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Q1, 3: Q2, 4: Q3, 5: Analysis, 6: Result
   const [name, setName] = useState('');
-  
+  const [userPath, setUserPath] = useState(''); // leadership, hr, sales, marketing, service, pastors, personal
+  const [q2Answer, setQ2Answer] = useState('');
+  const [q3Answer, setQ3Answer] = useState('');
+
+  // Question Database
+  const q1Options = [
+    { label: 'The Boardroom', sublabel: 'Leading a Team, Business Strategy', path: 'leadership', icon: Compass },
+    { label: 'The Culture', sublabel: 'Managing People, HR, Benefits', path: 'hr', icon: Heart },
+    { label: 'The Arena', sublabel: 'Closing Deals, Quotas, Revenue', path: 'sales', icon: TrendingUp },
+    { label: 'The Noise', sublabel: 'Getting Attention, Content, Brand', path: 'marketing', icon: Megaphone },
+    { label: 'The Frontlines', sublabel: 'Customer Support, Tickets, Retention', path: 'service', icon: LifeBuoy },
+    { label: 'The Pulpit', sublabel: 'Leading a Church, Ministry, Non-Profit', path: 'pastors', icon: BookOpen },
+    { label: 'The Mirror', sublabel: 'My own habits, mindset, and potential', path: 'personal', icon: User },
+  ];
+
+  const q2Questions = {
+    leadership: {
+      title: 'What is the heaviest weight in your backpack right now?',
+      options: [
+        { id: 'a', text: 'Feeling isolated at the top (Loneliness)' },
+        { id: 'b', text: 'Constant firefighting and reactivity (Chaos)' },
+        { id: 'c', text: 'Imposter syndrome—"Do I actually know what I\'m doing?" (Insecurity)' },
+      ]
+    },
+    hr: {
+      title: 'What frustrates you most about your role?',
+      options: [
+        { id: 'a', text: 'Being viewed as the "Fun Police" or compliance officer' },
+        { id: 'b', text: 'Being stuck between Executive demands and Employee complaints' },
+        { id: 'c', text: 'Spending all day on paperwork instead of people' },
+      ]
+    },
+    sales: {
+      title: 'What is the hardest part of your month?',
+      options: [
+        { id: 'a', text: 'The "Grind"—hearing "No" 50 times a day' },
+        { id: 'b', text: '"Commission Breath"—feeling pushy or desperate to hit quota' },
+        { id: 'c', text: 'Losing deals to competitors who have a worse product' },
+      ]
+    },
+    marketing: {
+      title: 'Why does your marketing feel broken?',
+      options: [
+        { id: 'a', text: 'We are shouting into the void (Low Engagement)' },
+        { id: 'b', text: 'We sound like everyone else (Robotic/Corporate Speak)' },
+        { id: 'c', text: 'I\'m burnt out trying to feed the content algorithm beast' },
+      ]
+    },
+    service: {
+      title: 'What drains your battery the fastest?',
+      options: [
+        { id: 'a', text: 'Being a "Human Shield" for angry customers' },
+        { id: 'b', text: 'The monotony of closing ticket after ticket' },
+        { id: 'c', text: 'Feeling like a cost center, not a value creator' },
+      ]
+    },
+    pastors: {
+      title: 'What is the secret struggle you don\'t tell the board?',
+      options: [
+        { id: 'a', text: 'I am spiritually dry while pouring out for everyone else' },
+        { id: 'b', text: 'I feel more like a CEO running a business than a Shepherd' },
+        { id: 'c', text: 'The pressure of the "Fishbowl"—I have no safe place to be human' },
+      ]
+    },
+    personal: {
+      title: 'What is stopping you from your potential?',
+      options: [
+        { id: 'a', text: '"Drifting"—I feel like I\'m on autopilot' },
+        { id: 'b', text: '"The Inner Critic"—I talk myself out of greatness' },
+        { id: 'c', text: '"Burnout"—I have ambition but no energy' },
+      ]
+    },
+  };
+
+  const q3Questions = {
+    leadership: {
+      title: 'If you could wave a magic wand, what would change tomorrow?',
+      options: [
+        { id: 'a', text: 'My team would run through walls for the vision' },
+        { id: 'b', text: 'I would have time to actually think and strategize' },
+        { id: 'c', text: 'I would sleep better at night knowing the ship is steady' },
+      ]
+    },
+    hr: {
+      title: 'How do you want to be seen by the company?',
+      options: [
+        { id: 'a', text: 'As a strategic partner who drives growth' },
+        { id: 'b', text: 'As the "Heart" of the culture where people feel safe' },
+        { id: 'c', text: 'As a coach who unlocks human potential' },
+      ]
+    },
+    sales: {
+      title: 'What does the perfect sales career look like to you?',
+      options: [
+        { id: 'a', text: 'Deals close themselves because prospects trust me implicitly' },
+        { id: 'b', text: 'I hit my number without working 60 hours a week' },
+        { id: 'c', text: 'I am viewed as a Trusted Advisor, not a vendor' },
+      ]
+    },
+    marketing: {
+      title: 'What is the holy grail for your brand?',
+      options: [
+        { id: 'a', text: 'Building a tribe of raving fans, not just "leads"' },
+        { id: 'b', text: 'Creating content that actually helps people (H2H)' },
+        { id: 'c', text: 'Stopping the "hack" game and building real authority' },
+      ]
+    },
+    service: {
+      title: 'What would make you love your job again?',
+      options: [
+        { id: 'a', text: 'Being empowered to solve problems, not just read scripts' },
+        { id: 'b', text: 'Turning angry users into happy evangelists' },
+        { id: 'c', text: 'Being recognized as a revenue engine for the company' },
+      ]
+    },
+    pastors: {
+      title: 'What does a healthy ministry look like?',
+      options: [
+        { id: 'a', text: 'Leading from overflow, not obligation' },
+        { id: 'b', text: 'A church culture that disciples itself' },
+        { id: 'c', text: 'Finishing the race with my soul and family intact' },
+      ]
+    },
+    personal: {
+      title: 'What is the ultimate win?',
+      options: [
+        { id: 'a', text: 'Waking up every day with clear Purpose and Passion' },
+        { id: 'b', text: 'Designing a life that fits me, not society\'s script' },
+        { id: 'c', text: 'Winning the battle of You vs. You' },
+      ]
+    },
+  };
+
+  const results = {
+    leadership: {
+      archetype: 'The Visionary Leader',
+      trapped: 'Trapped in Manager Mode',
+      subhead: 'It\'s time to stop managing tasks and start leading a mission.',
+      playbook: 'The Superhuman Leadership Playbook',
+      icon: Compass,
+      color: '#142d63'
+    },
+    hr: {
+      archetype: 'The Culture Architect',
+      trapped: 'Trapped in Compliance Mode',
+      subhead: 'Stop policing policies. Start architecting connection.',
+      playbook: 'The Superhuman HR Playbook',
+      icon: Heart,
+      color: '#f65625'
+    },
+    sales: {
+      archetype: 'The Trusted Advisor',
+      trapped: 'Trapped in Transaction Mode',
+      subhead: 'Kill commission breath. Stop pitching and start partnering.',
+      playbook: 'The Superhuman Sales Playbook',
+      icon: TrendingUp,
+      color: '#028393'
+    },
+    marketing: {
+      archetype: 'The Storyteller',
+      trapped: 'Trapped in the Noise',
+      subhead: 'Stop shouting at strangers. Start connecting with humans.',
+      playbook: 'The Superhuman Marketing Playbook',
+      icon: Megaphone,
+      color: '#faaa68'
+    },
+    service: {
+      archetype: 'The Success Partner',
+      trapped: 'Trapped in Ticket Mode',
+      subhead: 'Stop being a human shield. Start creating wins.',
+      playbook: 'The Superhuman Service Playbook',
+      icon: LifeBuoy,
+      color: '#028393'
+    },
+    pastors: {
+      archetype: 'The Shepherd',
+      trapped: 'Trapped in CEO Mode',
+      subhead: 'Lead from overflow, not obligation. Save your soul.',
+      playbook: 'The Superhuman Pastor Playbook',
+      icon: BookOpen,
+      color: '#142d63'
+    },
+    personal: {
+      archetype: 'The Life Designer',
+      trapped: 'Trapped in the Drift',
+      subhead: 'Stop waiting for "Someday." Win the battle of You vs. You.',
+      playbook: 'The Superhuman Personal Growth Playbook',
+      icon: User,
+      color: '#f65625'
+    },
+  };
+
+  // Handlers
   const handleNameSubmit = (e) => {
     e.preventDefault();
     if (name.trim()) setStep(2);
   };
 
-  const finishQuiz = (result) => {
+  const handleQ1Answer = (path) => {
+    setUserPath(path);
     setStep(3);
-    setTimeout(() => {
-      setTriggerConfetti(true); // Trigger confetti
-      navigate(result);
-      setTimeout(() => setTriggerConfetti(false), 5000); // Stop after 5s
-    }, 2000);
   };
+
+  const handleQ2Answer = (answer) => {
+    setQ2Answer(answer);
+    setStep(4);
+  };
+
+  const handleQ3Answer = (answer) => {
+    setQ3Answer(answer);
+    setStep(5);
+    // Show analysis screen then result
+    setTimeout(() => setStep(6), 2500);
+  };
+
+  const handleDownload = () => {
+    setTriggerConfetti(true);
+    setTimeout(() => {
+      navigate(userPath);
+      setTriggerConfetti(false);
+    }, 1000);
+  };
+
+  // Calculate progress
+  const getProgress = () => {
+    if (step === 1) return 25;
+    if (step === 2) return 50;
+    if (step === 3) return 75;
+    if (step === 4 || step === 5 || step === 6) return 100;
+    return 0;
+  };
+
+  const currentResult = results[userPath];
 
   return (
     <div className="min-h-[90vh] flex flex-col items-center justify-center bg-white relative overflow-hidden py-20">
@@ -547,14 +767,14 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
       <div className="absolute top-0 left-0 w-96 h-96 bg-[#faaa68]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#028393]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
 
-      <div className="w-full max-w-3xl px-6 relative z-10">
-        
-        {/* PROGRESS BAR (Visual Only) */}
-        {step > 0 && step < 3 && (
+      <div className="w-full max-w-4xl px-6 relative z-10">
+
+        {/* PROGRESS BAR */}
+        {step > 0 && step < 6 && (
             <div className="w-full h-2 bg-gray-100 rounded-full mb-12 overflow-hidden">
-                <div 
-                    className="h-full bg-[#f65625] transition-all duration-500 ease-out" 
-                    style={{width: step === 1 ? '33%' : '66%'}}
+                <div
+                    className="h-full bg-[#f65625] transition-all duration-500 ease-out"
+                    style={{width: `${getProgress()}%`}}
                 ></div>
             </div>
         )}
@@ -573,7 +793,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
             <button onClick={() => setStep(1)} className="bg-[#f65625] text-white px-12 py-6 rounded-full text-xl font-bold shadow-xl hover:bg-[#142d63] hover:scale-105 transition-all active:scale-95">
               Start Assessment
             </button>
-            <p className="mt-8 text-sm text-gray-400 uppercase tracking-wide font-bold">Takes 90 seconds • No email required to start</p>
+            <p className="mt-8 text-sm text-gray-400 uppercase tracking-wide font-bold">Takes 90 seconds • No email required</p>
           </div>
         )}
 
@@ -584,17 +804,24 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
             <h2 className="text-4xl font-bold text-[#142d63] mb-4">Let's get started.</h2>
             <p className="text-gray-500 mb-12 text-xl">First things first, what should we call you?</p>
             <form onSubmit={handleNameSubmit}>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Type your first name..." 
+                    placeholder="Type your first name..."
                     className="w-full text-4xl font-bold border-b-4 border-gray-100 py-6 focus:outline-none focus:border-[#f65625] text-[#142d63] placeholder-gray-300 transition-colors bg-transparent"
                     autoFocus
                 />
-                <div className="mt-16 flex justify-end">
-                    <button 
-                        type="submit" 
+                <div className="mt-16 flex justify-between items-center">
+                    <button
+                        type="button"
+                        onClick={() => {setName('Friend'); setStep(2);}}
+                        className="text-gray-400 hover:text-[#142d63] text-sm font-bold uppercase tracking-wide transition-colors"
+                    >
+                        Skip for now
+                    </button>
+                    <button
+                        type="submit"
                         disabled={!name.trim()}
                         className="bg-[#142d63] text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-[#f65625] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center shadow-lg active:scale-95"
                     >
@@ -605,44 +832,103 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           </div>
         )}
 
-        {/* STEP 2: QUESTION */}
+        {/* STEP 2: QUESTION 1 (THE ROUTER) */}
         {step === 2 && (
           <div className="animate-fade-in">
             <div className="flex items-center justify-between mb-12">
                 <button onClick={() => setStep(1)} className="flex items-center text-gray-400 hover:text-[#142d63] transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
                 <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Hi, {name}</span>
             </div>
-            
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-12 leading-snug">
+
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-4 leading-snug">
               When you wake up on Monday morning, what is the primary battlefield you are stepping into?
             </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                { label: 'The Boardroom (Leading a Team)', res: 'leadership', icon: Compass },
-                { label: 'The Culture (Managing People)', res: 'hr', icon: Heart },
-                { label: 'The Arena (Closing Deals)', res: 'sales', icon: TrendingUp },
-                { label: 'The Noise (Getting Attention)', res: 'marketing', icon: Megaphone },
-                { label: 'The Pulpit (Leading a Church)', res: 'pastors', icon: BookOpen },
-                { label: 'The Mirror (Me vs. Me)', res: 'personal', icon: User },
-              ].map((opt) => (
-                <button 
-                    key={opt.res} 
-                    onClick={() => finishQuiz(opt.res)} 
-                    className="w-full p-8 border-2 border-gray-100 rounded-3xl hover:border-[#f65625] hover:bg-[#f65625]/5 group text-left transition-all flex items-start active:scale-[0.98]"
+            <p className="text-lg text-gray-500 mb-12">Choose the one that resonates most:</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {q1Options.map((opt) => (
+                <button
+                    key={opt.path}
+                    onClick={() => handleQ1Answer(opt.path)}
+                    className="w-full p-6 border-2 border-gray-100 rounded-2xl hover:border-[#f65625] hover:bg-[#f65625]/5 group text-left transition-all flex items-start gap-4 active:scale-[0.98]"
                 >
-                  <div className="w-12 h-12 bg-white shadow-md rounded-2xl flex items-center justify-center mr-6 group-hover:bg-[#f65625] transition-colors shrink-0 text-[#142d63] group-hover:text-white">
+                  <div className="w-12 h-12 bg-white shadow-md rounded-xl flex items-center justify-center group-hover:bg-[#f65625] transition-colors shrink-0 text-[#142d63] group-hover:text-white">
                     <opt.icon className="w-6 h-6" />
                   </div>
-                  <span className="text-xl font-bold text-gray-700 group-hover:text-[#142d63] mt-2">{opt.label}</span>
+                  <div className="flex-1 mt-1">
+                    <div className="text-lg font-bold text-gray-800 group-hover:text-[#142d63] mb-1">{opt.label}</div>
+                    <div className="text-sm text-gray-500">{opt.sublabel}</div>
+                  </div>
                 </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* STEP 3: ANALYZING */}
-        {step === 3 && (
+        {/* STEP 3: QUESTION 2 (THE AGITATOR) */}
+        {step === 3 && userPath && (
+          <div className="animate-fade-in">
+            <div className="flex items-center justify-between mb-12">
+                <button onClick={() => setStep(2)} className="flex items-center text-gray-400 hover:text-[#142d63] transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
+                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Question 2 of 3</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-12 leading-snug">
+              {q2Questions[userPath].title}
+            </h2>
+
+            <div className="space-y-4">
+              {q2Questions[userPath].options.map((opt) => (
+                <button
+                    key={opt.id}
+                    onClick={() => handleQ2Answer(opt.id)}
+                    className="w-full p-8 border-2 border-gray-100 rounded-2xl hover:border-[#f65625] hover:bg-[#f65625]/5 text-left transition-all group active:scale-[0.98]"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-[#f65625] flex items-center justify-center shrink-0 mt-1 transition-colors">
+                      <span className="text-sm font-bold text-gray-600 group-hover:text-white transition-colors">{opt.id.toUpperCase()}</span>
+                    </div>
+                    <span className="text-xl font-medium text-gray-700 group-hover:text-[#142d63] flex-1">{opt.text}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 4: QUESTION 3 (THE ASPIRATOR) */}
+        {step === 4 && userPath && (
+          <div className="animate-fade-in">
+            <div className="flex items-center justify-between mb-12">
+                <button onClick={() => setStep(3)} className="flex items-center text-gray-400 hover:text-[#142d63] transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
+                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">Final Question</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-12 leading-snug">
+              {q3Questions[userPath].title}
+            </h2>
+
+            <div className="space-y-4">
+              {q3Questions[userPath].options.map((opt) => (
+                <button
+                    key={opt.id}
+                    onClick={() => handleQ3Answer(opt.id)}
+                    className="w-full p-8 border-2 border-gray-100 rounded-2xl hover:border-[#f65625] hover:bg-[#f65625]/5 text-left transition-all group active:scale-[0.98]"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-[#f65625] flex items-center justify-center shrink-0 mt-1 transition-colors">
+                      <span className="text-sm font-bold text-gray-600 group-hover:text-white transition-colors">{opt.id.toUpperCase()}</span>
+                    </div>
+                    <span className="text-xl font-medium text-gray-700 group-hover:text-[#142d63] flex-1">{opt.text}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 5: ANALYZING */}
+        {step === 5 && (
           <div className="flex flex-col items-center justify-center animate-fade-in text-center py-20">
             <div className="relative mb-12">
                 <div className="w-32 h-32 border-8 border-gray-100 rounded-full"></div>
@@ -650,6 +936,61 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
             </div>
             <h2 className="text-4xl font-bold text-[#142d63] mb-4">Analyzing your archetype...</h2>
             <p className="text-xl text-gray-500">Building your custom Superhuman roadmap, {name}.</p>
+          </div>
+        )}
+
+        {/* STEP 6: RESULT */}
+        {step === 6 && currentResult && (
+          <div className="animate-fade-in">
+            <div className="text-center mb-12">
+              <div className="inline-block p-8 bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl mb-8 relative">
+                <div className="absolute inset-0 bg-white/10 rounded-3xl blur-xl"></div>
+                <currentResult.icon className="w-20 h-20 text-white relative z-10" />
+              </div>
+
+              <div className="inline-block bg-[#faaa68]/20 px-6 py-2 rounded-full mb-6">
+                <span className="text-[#142d63] font-bold text-sm uppercase tracking-widest">Your Archetype</span>
+              </div>
+
+              <h1 className="text-5xl md:text-6xl font-extrabold text-[#142d63] mb-4 leading-tight">
+                {currentResult.archetype}
+              </h1>
+              <p className="text-2xl md:text-3xl text-gray-500 mb-8 font-medium">
+                ({currentResult.trapped})
+              </p>
+              <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                {currentResult.subhead}
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl p-12 text-center text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+              <div className="relative z-10">
+                <Sparkles className="w-12 h-12 mx-auto mb-6 text-[#faaa68]" />
+                <h2 className="text-3xl md:text-4xl font-extrabold mb-4">The Fix:</h2>
+                <p className="text-2xl md:text-3xl font-bold mb-8 text-[#faaa68]">{currentResult.playbook}</p>
+                <p className="text-lg mb-10 text-gray-200 max-w-2xl mx-auto">
+                  We've compiled the exact strategies, scripts, and habits for Superhuman {currentResult.archetype}s into a comprehensive PDF guide.
+                </p>
+                <button
+                  onClick={handleDownload}
+                  className="bg-[#f65625] text-white px-12 py-6 rounded-full font-bold text-xl shadow-2xl hover:bg-white hover:text-[#f65625] transition-all active:scale-95 inline-flex items-center gap-3"
+                >
+                  <Sparkles className="w-6 h-6" />
+                  Download Your Playbook
+                  <ArrowRight className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <button
+                onClick={() => {setStep(0); setUserPath(''); setName(''); setQ2Answer(''); setQ3Answer('');}}
+                className="text-gray-400 hover:text-[#142d63] font-bold text-sm uppercase tracking-wide transition-colors"
+              >
+                Take Assessment Again
+              </button>
+            </div>
           </div>
         )}
       </div>

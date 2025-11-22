@@ -210,16 +210,18 @@ const HRPage = ({ navigate }) => {
       )}
 
       {/* Hero Section */}
-      <section id="hero" data-section className="relative pt-24 pb-16 px-4 overflow-hidden">
-        <div className="max-w-6xl mx-auto text-center relative z-10">
+      <section id="hero" data-section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
+
+        <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 bg-[#f65625]/10 text-[#f65625] px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Sparkles className="w-4 h-4" />
-              Superhuman HR & People Ops
+            <div className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm">
+              <span className="text-[#faaa68]">Moving from "Compliance Officer" to "Culture Architect"</span>
             </div>
           </motion.div>
 
@@ -227,18 +229,25 @@ const HRPage = ({ navigate }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-[#142d63] mb-6 leading-tight"
+            className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight"
           >
-            Stop Policing Policies.
-            <br />
-            <span className="text-[#f65625]">Start Architecting Culture.</span>
+            Superhuman HR & People Ops
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
+            className="text-2xl md:text-3xl text-gray-300 mb-6 max-w-3xl mx-auto leading-relaxed font-bold"
+          >
+            Stop Policing Policies.<br />Start Architecting Culture.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
           >
             Move from "Human Resources" to "Human Relations." This is the operating system for People Ops leaders who are tired of being viewed as the "Principal's Office" and are ready to build a workplace where humans actually thrive.
           </motion.p>
@@ -246,7 +255,7 @@ const HRPage = ({ navigate }) => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <button
@@ -254,7 +263,7 @@ const HRPage = ({ navigate }) => {
                 const element = document.getElementById('cta');
                 element?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="group bg-[#f65625] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#142d63] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+              className="group bg-[#f65625] text-white px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:bg-white hover:text-[#f65625] transition-colors flex items-center justify-center gap-2"
             >
               Get the HR Playbook
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -264,17 +273,13 @@ const HRPage = ({ navigate }) => {
                 const element = document.getElementById('problem');
                 element?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="group bg-white text-[#142d63] px-8 py-4 rounded-full font-bold text-lg border-2 border-[#142d63] hover:bg-[#142d63] hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
+              className="group bg-white/5 backdrop-blur-sm border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-[#142d63] transition-all flex items-center justify-center gap-2"
             >
               Learn More
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </motion.div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-[#f65625]/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-[#142d63]/5 rounded-full blur-3xl"></div>
       </section>
 
       {/* Problem Section */}

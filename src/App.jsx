@@ -890,19 +890,142 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
         {/* STEP 0: INTRO */}
         {step === 0 && (
-          <div className="text-center animate-fade-in">
-            <div className="inline-block p-6 bg-[#142d63]/5 rounded-3xl mb-8">
-                <Target className="w-16 h-16 text-[#142d63]" />
+          <div className="animate-fade-in max-w-5xl mx-auto">
+            {/* Hero Section */}
+            <div className="text-center mb-16">
+              <div className="inline-block p-8 bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl mb-8 shadow-2xl">
+                <Target className="w-20 h-20 text-white" />
+              </div>
+              <h1 className="text-5xl md:text-7xl font-extrabold text-[#142d63] mb-6 tracking-tight leading-tight">
+                What is Your<br />Superhuman Archetype?
+              </h1>
+              <p className="text-2xl md:text-3xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
+                You are fighting a battle every day.<br className="hidden md:block" /> But <span className="text-[#f65625] font-bold">which one</span>?
+              </p>
+              <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed">
+                Discover your unique leadership archetype and get a personalized playbook with the exact strategies, scripts, and habits you need to win.
+              </p>
+
+              {/* CTA */}
+              <button
+                onClick={() => setStep(1)}
+                className="bg-[#f65625] text-white px-16 py-6 rounded-full text-2xl font-bold shadow-2xl hover:bg-[#142d63] hover:scale-105 transition-all active:scale-95 mb-6 inline-flex items-center gap-3"
+              >
+                <Sparkles className="w-7 h-7" />
+                Start Your Assessment
+                <ArrowRight className="w-7 h-7" />
+              </button>
+
+              <div className="flex items-center justify-center gap-8 text-sm text-gray-500">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-[#028393]" />
+                  <span>90 seconds</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-[#028393]" />
+                  <span>No email to start</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-[#028393]" />
+                  <span>Free playbook</span>
+                </div>
+              </div>
             </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold text-[#142d63] mb-8 tracking-tight">What is Your Superhuman Archetype?</h1>
-            <p className="text-2xl text-gray-600 mb-12 leading-relaxed max-w-2xl mx-auto">
-              You are fighting a battle every day. But which one? <br/>
-              Find out which superpowers you need to win it in less than 2 minutes.
-            </p>
-            <button onClick={() => setStep(1)} className="bg-[#f65625] text-white px-12 py-6 rounded-full text-xl font-bold shadow-xl hover:bg-[#142d63] hover:scale-105 transition-all active:scale-95">
-              Start Assessment
-            </button>
-            <p className="mt-8 text-sm text-gray-400 uppercase tracking-wide font-bold">Takes 90 seconds • No email required</p>
+
+            {/* What You'll Discover */}
+            <div className="bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl p-12 mb-16 text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">What You'll Discover</h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Compass className="w-8 h-8 text-[#faaa68]" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-3">Your Archetype</h3>
+                  <p className="text-gray-200 leading-relaxed">
+                    Which of 7 archetypes you are and what makes you unique
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Shield className="w-8 h-8 text-[#faaa68]" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-3">Your Battlefield</h3>
+                  <p className="text-gray-200 leading-relaxed">
+                    The primary challenge you're facing right now
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <BookOpen className="w-8 h-8 text-[#faaa68]" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-3">Your Playbook</h3>
+                  <p className="text-gray-200 leading-relaxed">
+                    Personalized strategies to upgrade your "operating system"
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* How It Works */}
+            <div className="mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#142d63] mb-12 text-center">How It Works</h2>
+              <div className="space-y-6">
+                <div className="flex items-start gap-6 bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-[#f65625] transition-all">
+                  <div className="w-12 h-12 bg-[#f65625] rounded-full flex items-center justify-center shrink-0 text-white font-bold text-xl">
+                    1
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl text-[#142d63] mb-2">Identify Your Battlefield</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Choose which arena you're fighting in: Leadership, Sales, Marketing, HR, Service, Ministry, or Personal Growth.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6 bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-[#f65625] transition-all">
+                  <div className="w-12 h-12 bg-[#028393] rounded-full flex items-center justify-center shrink-0 text-white font-bold text-xl">
+                    2
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl text-[#142d63] mb-2">Answer 2 Quick Questions</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Tell us what's draining you and what you want most. Be honest—this helps us personalize your results.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6 bg-white p-6 rounded-2xl border-2 border-gray-100 hover:border-[#f65625] transition-all">
+                  <div className="w-12 h-12 bg-[#faaa68] rounded-full flex items-center justify-center shrink-0 text-white font-bold text-xl">
+                    3
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl text-[#142d63] mb-2">Get Your Custom Playbook</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      Receive your archetype and a personalized playbook with strategies, scripts, and habits for Superhuman performance.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Final CTA */}
+            <div className="text-center bg-[#F9FAFB] rounded-3xl p-12 border-2 border-gray-100">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#142d63] mb-4">Ready to Find Your Archetype?</h2>
+              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Stop drifting. Start designing. Discover which superpowers you need to win your battle.
+              </p>
+              <button
+                onClick={() => setStep(1)}
+                className="bg-[#f65625] text-white px-16 py-6 rounded-full text-2xl font-bold shadow-2xl hover:bg-[#142d63] hover:scale-105 transition-all active:scale-95 inline-flex items-center gap-3"
+              >
+                <Sparkles className="w-7 h-7" />
+                Begin Assessment
+                <ArrowRight className="w-7 h-7" />
+              </button>
+              <p className="mt-6 text-sm text-gray-500 font-medium">
+                Join thousands who have discovered their Superhuman archetype
+              </p>
+            </div>
           </div>
         )}
 

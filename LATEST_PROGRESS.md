@@ -2,8 +2,67 @@
 
 ## Recent Updates (2025-11-22)
 
+### Complete Superhuman Archetype Assessment
+**Commit:** `e48b35e`
+
+#### Full Branching Assessment Implementation
+Built complete 7-step assessment with dynamic question branching and personalized results:
+
+**Flow Architecture:**
+1. **Step 0 - Intro:** Value proposition + Start button
+2. **Step 1 - Name Capture:** Optional name entry with "Skip" option
+3. **Step 2 - Question 1 (The Router):** Primary battleground selection (determines vertical path)
+4. **Step 3 - Question 2 (The Agitator):** Path-specific pain point questions
+5. **Step 4 - Question 3 (The Aspirator):** Path-specific aspiration questions
+6. **Step 5 - Analysis:** Loading screen with fake suspense (2.5s delay)
+7. **Step 6 - Result:** Custom archetype card with download CTA
+
+**7 Vertical Paths:**
+- **Leadership** → The Visionary Leader (Trapped in Manager Mode)
+- **HR** → The Culture Architect (Trapped in Compliance Mode)
+- **Sales** → The Trusted Advisor (Trapped in Transaction Mode)
+- **Marketing** → The Storyteller (Trapped in the Noise)
+- **Service** → The Success Partner (Trapped in Ticket Mode)
+- **Pastors** → The Shepherd (Trapped in CEO Mode)
+- **Personal** → The Life Designer (Trapped in the Drift)
+
+**Question Database:**
+- Q1: 7 battleground options with icons and sublabels
+- Q2: 21 total options (3 per path) - pain point identification
+- Q3: 21 total options (3 per path) - aspiration identification
+- All questions dynamically rendered based on user path selection
+
+**Result Cards:**
+- Custom archetype name, trapped state, and subhead for each path
+- Dynamic icon display matching vertical path
+- Personalized playbook name
+- Download CTA triggers confetti effect
+- Navigation to corresponding vertical page
+- "Take Assessment Again" reset functionality
+
+**UX Features:**
+- Progressive disclosure (only show relevant questions)
+- Progress bar: 25% → 50% → 75% → 100%
+- Back navigation on every step except intro
+- Skip option for name entry (defaults to "Friend")
+- Large mobile-friendly tap targets
+- Smooth fade-in transitions between steps
+- Gamified completion flow
+
+**Technical Implementation:**
+- State management: `step`, `name`, `userPath`, `q2Answer`, `q3Answer`
+- Dynamic rendering with conditional logic
+- Data-driven architecture (all questions/results in structured objects)
+- No hardcoded flow - fully configurable
+- Build size: 642KB (+11KB for content data)
+
+**File Modified:**
+- `src/App.jsx` - Complete QuizPage component replacement (lines 526-999)
+
+---
+
 ### Animation Refinements
-**Commits:** `b352f13`, `372a0d7`, `a2eeab9`
+**Commits:** `b352f13`, `372a0d7`, `a2eeab9`, `3488ce2`
 
 #### 1. Restricted ParticleBackground to Hero Sections Only
 - **Removed** ParticleBackground component from all CTA sections across vertical pages

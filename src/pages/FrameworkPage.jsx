@@ -98,9 +98,9 @@ const ReadingProgress = () => {
       />
       {progress > 5 && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg text-sm font-bold text-[#142d63] border border-gray-100"
+          className="fixed bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg text-sm font-bold text-[#142d63] border border-gray-100 z-40"
         >
           {progress}% Complete
         </motion.div>
@@ -212,9 +212,9 @@ const ListenButton = ({ onClick, sectionName }) => (
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     onClick={onClick}
-    className="inline-flex items-center gap-2 px-4 py-2 bg-[#f65625]/10 hover:bg-[#f65625]/20 text-[#f65625] rounded-full font-bold text-sm transition-colors border border-[#f65625]/20"
+    className="inline-flex items-center gap-2 px-6 py-3 bg-[#f65625] hover:bg-[#142d63] text-white rounded-full font-bold text-sm transition-colors shadow-lg hover:shadow-xl"
   >
-    <Volume2 className="w-4 h-4" />
+    <Volume2 className="w-5 h-5" />
     Listen to {sectionName}
   </motion.button>
 );

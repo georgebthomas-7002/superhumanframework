@@ -5,13 +5,11 @@ import { loadSlim } from "@tsparticles/slim";
 import Particles from "@tsparticles/react";
 import {
   ArrowRight,
-  Sparkles,
   Target,
   Flame,
   Shield,
   Heart,
   BookOpen,
-  TrendingUp,
   Users,
   Smile,
   Church,
@@ -21,7 +19,7 @@ import {
   Globe,
   Laugh,
   Download,
-  LifeBuoy
+  User
 } from 'lucide-react';
 
 // Reading Progress Component
@@ -98,7 +96,33 @@ const AnimatedHeart = () => (
   </motion.div>
 );
 
-const ServicePage = ({ navigate }) => {
+// Particle Background Component
+const ParticleBackground = ({ color }) => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {[...Array(30)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1 h-1 rounded-full"
+        style={{
+          backgroundColor: color,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [0, -30, 0],
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 3 + Math.random() * 2,
+          repeat: Infinity,
+          delay: Math.random() * 2,
+        }}
+      />
+    ))}
+  </div>
+);
+
+const PersonalPage = ({ navigate }) => {
   const [init, setInit] = useState(false);
   const [currentSection, setCurrentSection] = useState('');
 
@@ -199,22 +223,30 @@ const ServicePage = ({ navigate }) => {
     detectRetina: true,
   };
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white relative">
       <ReadingProgress />
-
-      {init && (
-        <Particles
-          id="tsparticles-service"
-          options={particlesOptions}
-          className="absolute inset-0 pointer-events-none"
-        />
-      )}
 
       {/* Hero Section */}
       <section id="hero" data-section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
+        <ParticleBackground color="#faaa68" />
 
         {/* Animated Geometric Shapes */}
         <motion.div
@@ -255,51 +287,45 @@ const ServicePage = ({ navigate }) => {
           }}
         />
 
-        <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
+        <motion.div
+          className="max-w-6xl mx-auto px-4 text-center relative z-10"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            variants={fadeInUp}
+            className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm"
           >
-            <div className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm">
-              <span className="text-[#faaa68] flex items-center gap-2">
-                <LifeBuoy className="w-4 h-4" />
-                Moving from "Ticket Resolver" to "Success Partner"
-              </span>
-            </div>
+            <span className="text-[#faaa68] flex items-center gap-2">
+              <User className="w-4 h-4" />
+              Moving from "Drifting" to "Designing"
+            </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            variants={fadeInUp}
             className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight"
           >
-            Superhuman Service
+            Superhuman Personal Growth
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            variants={fadeInUp}
             className="text-2xl md:text-3xl text-gray-300 mb-6 max-w-3xl mx-auto leading-relaxed font-bold"
           >
-            Stop Closing Tickets.<br />Start Creating Wins.
+            Win the Battle of You vs. You.
           </motion.p>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            variants={fadeInUp}
             className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
           >
-            Move from being a "Human Shield" to a "Revenue Engine." This is the operating system for Customer Success and Support teams who are tired of reading robotic scripts and are ready to turn angry users into raving fans.
+            Stop drifting through life on a script society wrote for you. This is the operating system for humans who are tired of "existing" and are ready to start "designing" a life of impact, joy, and purpose.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            variants={fadeInUp}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <button
@@ -323,7 +349,7 @@ const ServicePage = ({ navigate }) => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Problem Section */}
@@ -337,50 +363,43 @@ const ServicePage = ({ navigate }) => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-black text-[#142d63] mb-6">
-              The "Human Shield" Trap
+              The "Drift" Trap
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-              Let's be honest about what it feels like to work in Support today.
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-6">
+              Let me ask you a question that might sting a little.
+            </p>
+            <p className="text-2xl font-bold text-[#f65625] max-w-3xl mx-auto mb-6">
+              Are you living your life, or are you just existing in it?
             </p>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              You are the frontline. You are the first person people talk to when they are angry, confused, or broken. And how does the company measure you?{' '}
-              <span className="text-[#f65625] font-bold">Speed.</span>
+              Most people aren't crashing and burning. They are just… <span className="font-bold">drifting</span>.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-gray-50 p-8 rounded-2xl border border-gray-200"
-            >
-              <ul className="space-y-4 text-lg text-gray-700">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#f65625] rounded-full mt-2 flex-shrink-0"></div>
-                  <span>"Average Handle Time."</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#f65625] rounded-full mt-2 flex-shrink-0"></div>
-                  <span>"Tickets Closed Per Hour."</span>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-gradient-to-br from-[#142d63] to-[#1a3a7a] text-white p-8 rounded-2xl"
-            >
-              <p className="text-lg leading-relaxed">
-                You are being treated like a factory worker on an assembly line, but instead of building widgets, you are{' '}
-                <span className="font-bold text-[#faaa68]">fixing complex human emotions</span>.
-              </p>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-gray-50 p-8 rounded-2xl border border-gray-200 mb-12 max-w-4xl mx-auto"
+          >
+            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+              They wake up, drink the coffee, go to the job, pay the bills, watch Netflix, sleep, and repeat. They are waiting for "Someday."
+            </p>
+            <ul className="space-y-3 text-lg text-gray-700">
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#f65625] rounded-full mt-2 flex-shrink-0"></div>
+                <span>Someday I'll get in shape.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#f65625] rounded-full mt-2 flex-shrink-0"></div>
+                <span>Someday I'll write that book.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#f65625] rounded-full mt-2 flex-shrink-0"></div>
+                <span>Someday I'll be happy.</span>
+              </li>
+            </ul>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -388,9 +407,11 @@ const ServicePage = ({ navigate }) => {
             viewport={{ once: true }}
             className="mb-12"
           >
-            <h3 className="text-2xl font-black text-[#142d63] mb-6">The Result:</h3>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              You feel like a "Human Shield." You absorb impact all day. You read from a script because you don't have time to think. You burn out because you are absorbing negative energy without the tools to process it.
+            <p className="text-2xl font-black text-[#f65625] text-center mb-6">
+              Stop waiting. "Someday" is not a day of the week.
+            </p>
+            <p className="text-xl text-gray-600 leading-relaxed text-center max-w-3xl mx-auto">
+              You are the architect of your own existence. If you don't like the view, you have the power to change the window. But you can't do it on autopilot.
             </p>
           </motion.div>
 
@@ -398,22 +419,21 @@ const ServicePage = ({ navigate }) => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-8"
           >
-            <h3 className="text-2xl font-black text-[#f65625] mb-8">The Superhuman Shift:</h3>
+            <h3 className="text-2xl font-black text-[#f65625] mb-8 text-center">The Superhuman Shift:</h3>
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 {
-                  from: 'Ticket Resolver (Reactive)',
-                  to: 'Success Partner (Proactive)'
+                  from: 'Drifting (Reactive)',
+                  to: 'Designing (Intentional)'
                 },
                 {
-                  from: 'Managing Anger',
-                  to: 'Serving Humans'
+                  from: 'Victim of Circumstance',
+                  to: 'Hero of the Story'
                 },
                 {
-                  from: '"I\'m Sorry"',
-                  to: '"I\'m Owning This"'
+                  from: '"Someday"',
+                  to: 'Today'
                 }
               ].map((item, index) => (
                 <motion.div
@@ -450,10 +470,10 @@ const ServicePage = ({ navigate }) => {
               Part 1: The Foundation
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-4">
-              How Service Pros Use the 4 Cornerstones
+              How High-Achievers Use the 4 Cornerstones
             </p>
             <p className="text-lg text-gray-500 max-w-3xl mx-auto italic">
-              You cannot create happy customers if you are a miserable employee. Before you pick up the headset, check your intent.
+              You cannot build a skyscraper on a swamp. If you don't know who you are, you will fall for anything.
             </p>
           </motion.div>
 
@@ -471,17 +491,17 @@ const ServicePage = ({ navigate }) => {
                   <AnimatedCompass />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-[#142d63] mb-2">Purpose: The Hero</h3>
+                  <h3 className="text-2xl font-black text-[#142d63] mb-2">Purpose: The North Star</h3>
                   <div className="flex items-center gap-2 text-lg">
-                    <span className="text-gray-400 font-semibold">Closing Tickets</span>
+                    <span className="text-gray-400 font-semibold">Wandering</span>
                     <ArrowRight className="w-5 h-5 text-[#f65625]" />
-                    <span className="text-[#f65625] font-bold">Creating Wins</span>
+                    <span className="text-[#f65625] font-bold">Directed</span>
                   </div>
                 </div>
               </div>
               <p className="text-gray-600 leading-relaxed">
-                You aren't just fixing bugs or resetting passwords; you are{' '}
-                <span className="font-bold text-[#142d63]">saving the customer's day</span>. You are the reason they can send payroll on time or finish their project. When you view your role as the "Hero" rather than the "Fixer," the drudgery disappears.
+                Most people are wandering. They don't know where they are going, so any road will take them there. Purpose is your{' '}
+                <span className="font-bold text-[#142d63]">North Star</span>. It's knowing why you are on this planet. It's breaking free from the "standard life script" and defining what success looks like for you.
               </p>
             </motion.div>
 
@@ -498,17 +518,17 @@ const ServicePage = ({ navigate }) => {
                   <AnimatedFlame />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-[#142d63] mb-2">Passion: The Empathy</h3>
+                  <h3 className="text-2xl font-black text-[#142d63] mb-2">Passion: The Vitality</h3>
                   <div className="flex items-center gap-2 text-lg">
-                    <span className="text-gray-400 font-semibold">Apathy</span>
+                    <span className="text-gray-400 font-semibold">Numbness</span>
                     <ArrowRight className="w-5 h-5 text-[#f65625]" />
-                    <span className="text-[#f65625] font-bold">Empathy</span>
+                    <span className="text-[#f65625] font-bold">Electricity</span>
                   </div>
                 </div>
               </div>
               <p className="text-gray-600 leading-relaxed">
-                It is easy to go numb after the 50th call of the day. Passion in Service looks like{' '}
-                <span className="font-bold text-[#142d63]">Empathy</span>. It means bringing the same energy to the last customer of the day as you did to the first. It's the "Grandma Rule"—treating every ticket like it's your own grandmother asking for help.
+                I'm not talking about a hobby. I'm talking about <span className="font-bold text-[#142d63]">Vitality</span>. Passion is the fuel in your tank. It's finding the things that light your soul on fire so you wake up with excitement rather than dread. You were not created to be bored. You were created to be{' '}
+                <span className="font-bold italic">electric</span>.
               </p>
             </motion.div>
 
@@ -525,17 +545,17 @@ const ServicePage = ({ navigate }) => {
                   <AnimatedShield />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-[#142d63] mb-2">Persistence: The Ownership</h3>
+                  <h3 className="text-2xl font-black text-[#142d63] mb-2">Persistence: The Grit</h3>
                   <div className="flex items-center gap-2 text-lg">
-                    <span className="text-gray-400 font-semibold">Deflecting</span>
+                    <span className="text-gray-400 font-semibold">Quitting</span>
                     <ArrowRight className="w-5 h-5 text-[#f65625]" />
-                    <span className="text-[#f65625] font-bold">Owning</span>
+                    <span className="text-[#f65625] font-bold">Resilience</span>
                   </div>
                 </div>
               </div>
               <p className="text-gray-600 leading-relaxed">
-                The average rep says, "That's not my department." The Superhuman Rep says,{' '}
-                <span className="font-bold text-[#142d63]">"I've got you."</span> Persistence means sticking with the problem until it is fully resolved, not just passing the buck. You become the quarterback for the customer's success.
+                Life is going to punch you in the face. That's a guarantee. Persistence is the ability to{' '}
+                <span className="font-bold text-[#142d63]">take the hit and keep moving forward</span>. It's viewing failure as data, not as a definition of your worth. It's the grit to say, "I'm not done yet."
               </p>
             </motion.div>
 
@@ -552,17 +572,17 @@ const ServicePage = ({ navigate }) => {
                   <AnimatedHeart />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-[#142d63] mb-2">Love: The Patience</h3>
+                  <h3 className="text-2xl font-black text-[#142d63] mb-2">Love: The Overflow</h3>
                   <div className="flex items-center gap-2 text-lg">
-                    <span className="text-gray-400 font-semibold">Managing Anger</span>
+                    <span className="text-gray-400 font-semibold">Self-Sabotage</span>
                     <ArrowRight className="w-5 h-5 text-[#f65625]" />
-                    <span className="text-[#f65625] font-bold">Serving Humans</span>
+                    <span className="text-[#f65625] font-bold">Self-Respect</span>
                   </div>
                 </div>
               </div>
               <p className="text-gray-600 leading-relaxed">
-                This is the hardest one. You have to love the customer enough to be patient when they are yelling. Love allows you to{' '}
-                <span className="font-bold text-[#142d63]">see past their anger to their fear</span>. It allows you to be the thermostat (setting the temperature), not the thermometer (reacting to it).
+                This starts with the person in the mirror. We are often our own worst critics. Love means{' '}
+                <span className="font-bold text-[#142d63]">killing that inner critic</span>. It means filling your own cup first so you can actually overflow into the lives of your family and friends. You cannot give what you do not have.
               </p>
             </motion.div>
           </div>
@@ -580,10 +600,10 @@ const ServicePage = ({ navigate }) => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-black text-[#142d63] mb-6">
-              Part 2: The 10 H Pillars of Service
+              Part 2: The 10 H Pillars of a Life Well Lived
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The daily behaviors that turn a "Cost Center" into a "Retention Engine."
+              The daily habits that separate the "Dreamers" from the "Doers."
             </p>
           </motion.div>
 
@@ -595,27 +615,27 @@ const ServicePage = ({ navigate }) => {
                 {
                   icon: <BookOpen className="w-8 h-8" />,
                   title: 'Humble',
-                  description: '"I don\'t know, but I will find out." You admit when the company messed up without being defensive.'
+                  description: 'Adopt a "Student Mindset" for life. You are never too old to learn, never too successful to grow, and never too smart to say "I was wrong."'
                 },
                 {
                   icon: <Shield className="w-8 h-8" />,
                   title: 'Honest',
-                  description: 'Radical Transparency. If the server is down, say it. Don\'t spin. Trust is built when you tell the truth even when it hurts.'
+                  description: 'Radical Self-Truth. Stop lying to yourself about your excuses, your bad habits, and your fears. The truth will set you free, but first it will make you uncomfortable.'
                 },
                 {
                   icon: <Church className="w-8 h-8" />,
-                  title: 'Holiness (Trust)',
-                  description: 'You keep your promises. If you say "I\'ll call back at 2 PM," you call back at 2 PM.'
+                  title: 'Holiness (Self-Integrity)',
+                  description: 'Keep the promises you make to yourself. If you say you\'re going to the gym, go. Confidence comes from keeping promises to yourself.'
                 },
                 {
                   icon: <Smile className="w-8 h-8" />,
                   title: 'Happy',
-                  description: 'Your tone is audible. If you are smiling, they can hear it. You bring relief, not stress, to the conversation.'
+                  description: 'Happiness is a choice, not a result. Stop waiting for the promotion or the new car. Cultivate gratitude for what you have right now.'
                 },
                 {
                   icon: <Heart className="w-8 h-8" />,
                   title: 'Humanity',
-                  description: 'Burn the script. Talk like a person. Use emojis (if appropriate). Be real. Connection happens when you drop the "Corporate Voice."'
+                  description: 'Give yourself grace. You are a work in progress. You are going to mess up. Humanity means accepting your flaws and refusing to chase toxic perfectionism.'
                 }
               ].map((pillar, index) => (
                 <motion.div
@@ -642,27 +662,27 @@ const ServicePage = ({ navigate }) => {
                 {
                   icon: <Lightbulb className="w-8 h-8" />,
                   title: 'Helpful',
-                  description: 'Proactive Service. "Since we fixed X, you might run into Y next. Here is a guide to help you avoid that."'
+                  description: 'Find significance in service. The quickest way to get out of your own head is to help someone else. Depression hates a moving target.'
                 },
                 {
                   icon: <Apple className="w-8 h-8" />,
                   title: 'Healthy',
-                  description: 'Emotional Hygiene. You need to "shower off" the negativity of the day so you don\'t take it home to your family.'
+                  description: 'Your body is the vehicle for your Purpose. If your vehicle breaks down, the mission stops. Sleep, nutrition, and movement are non-negotiables.'
                 },
                 {
                   icon: <Zap className="w-8 h-8" />,
                   title: 'Hungry Hustle',
-                  description: 'Speed matters, but accuracy matters more. You hustle to find the root cause, not just apply a band-aid.'
+                  description: 'Be ambitious about your own potential. Refuse to settle for mediocrity. It\'s not about burnout; it\'s about seeing how good you can actually be.'
                 },
                 {
                   icon: <Globe className="w-8 h-8" />,
                   title: 'Holistic Living',
-                  description: 'Leave the angry customers at the office. Protect your peace so you can come back fresh tomorrow.'
+                  description: 'Balance the Wheel of Life. Success isn\'t just a bank account. Don\'t let your career destroy your marriage or your health.'
                 },
                 {
                   icon: <Laugh className="w-8 h-8" />,
                   title: 'Humor',
-                  description: 'Diffuse tension. A well-timed, appropriate joke can turn a 1-star review into a 5-star raving fan.'
+                  description: 'Life is too short to be grumpy. Learn to laugh at your mistakes. Humor brings lightness to heavy days. If you can laugh at it, you can live through it.'
                 }
               ].map((pillar, index) => (
                 <motion.div
@@ -693,11 +713,11 @@ const ServicePage = ({ navigate }) => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl md:text-5xl font-black mb-6">
-              Get the Service Playbook
+              Get the Personal Growth Playbook
             </h2>
             <p className="text-xl md:text-2xl mb-8 text-gray-300">
-              We've compiled the exact strategies, scripts, and de-escalation techniques for{' '}
-              <span className="font-bold text-[#f65625]">Superhuman Service Pros</span> into a comprehensive PDF guide.
+              We've compiled the exact strategies, scripts, and daily habits for designing a{' '}
+              <span className="font-bold text-[#f65625]">Superhuman life</span> into a comprehensive PDF guide.
             </p>
             <button
               onClick={() => navigate('framework')}
@@ -708,7 +728,7 @@ const ServicePage = ({ navigate }) => {
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </button>
             <p className="mt-6 text-gray-400">
-              Join thousands of Service Pros who've ditched the scripts and started serving humans.
+              Join thousands who've stopped drifting and started designing their lives.
             </p>
           </motion.div>
         </div>
@@ -717,4 +737,4 @@ const ServicePage = ({ navigate }) => {
   );
 };
 
-export default ServicePage;
+export default PersonalPage;

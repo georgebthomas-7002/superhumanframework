@@ -10,6 +10,7 @@ import MarketingPage from './pages/MarketingPage';
 import SalesPage from './pages/SalesPage';
 import HRPage from './pages/HRPage';
 import ServicePage from './pages/ServicePage';
+import PersonalPage from './pages/PersonalPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -750,15 +751,7 @@ const App = () => {
         shiftTo="Spiritual Overflow"
         playbookName="Pastor"
       />;
-      case 'personal': return <VerticalPage 
-        title="Personal Growth" 
-        sub="Win the Battle of You vs. You."
-        problemTitle="Stop Drifting."
-        problemText="You are running on a script society wrote for you. It's time to become the architect of your own existence."
-        shiftFrom="Drifting"
-        shiftTo="Designing"
-        playbookName="Personal Growth"
-      />;
+      case 'personal': return <PersonalPage navigate={navigate} />;
 
       // Services
       case 'workshops': return <ServicesPage 

@@ -236,6 +236,45 @@ const LeadershipPage = ({ navigate }) => {
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
         <ParticleBackground color="#faaa68" />
 
+        {/* Animated Geometric Shapes */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 border border-white/5 rounded-full"
+          animate={{
+            y: [0, -30, 0],
+            rotate: [0, 180, 360]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 right-1/4 w-48 h-48 border border-white/5"
+          animate={{
+            y: [0, 40, 0],
+            rotate: [0, -180, -360]
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 right-1/3 w-32 h-32 border border-white/5 rounded-lg"
+          animate={{
+            y: [0, -20, 0],
+            x: [0, 20, 0],
+            rotate: [0, 90, 180, 270, 360]
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+
         <motion.div
           className="max-w-5xl mx-auto px-4 relative z-10"
           initial="hidden"
@@ -246,7 +285,10 @@ const LeadershipPage = ({ navigate }) => {
             variants={fadeInUp}
             className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm"
           >
-            <span className="text-[#faaa68]">Moving from "The Boss" to "The Leader"</span>
+            <span className="text-[#faaa68] flex items-center gap-2">
+              <Compass className="w-4 h-4" />
+              Moving from "The Boss" to "The Leader"
+            </span>
           </motion.div>
 
           <motion.h1

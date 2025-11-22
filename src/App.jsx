@@ -163,7 +163,7 @@ const Navbar = ({ navigate, currentView, godMode }) => {
 
             {/* Dropdown: Who It's For */}
             <div className="relative group h-full flex items-center">
-              <button className={`text-sm font-bold group-hover:text-[#028393] flex items-center focus:outline-none transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              <button onClick={() => navigate('who')} className={`text-sm font-bold group-hover:text-[#028393] flex items-center focus:outline-none transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 Who It's For <ChevronDown className="ml-1 w-4 h-4" />
               </button>
               <div className={`absolute top-16 left-0 w-64 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left border overflow-hidden z-50 ${godMode ? 'bg-gray-900 border-yellow-500/30' : 'bg-white border-gray-100'}`}>
@@ -224,7 +224,7 @@ const Navbar = ({ navigate, currentView, godMode }) => {
           <button onClick={() => { navigate('the-framework'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-4 text-xl font-bold border-b ${godMode ? 'text-white border-gray-800' : 'text-[#142d63] border-gray-50'}`}>The Framework</button>
           
           <div className={`py-4 border-b ${godMode ? 'border-gray-800' : 'border-gray-50'}`}>
-            <div className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3">Who It's For</div>
+            <button onClick={() => { navigate('who'); setIsMobileMenuOpen(false); }} className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3 hover:text-[#f65625] transition-colors">Who It's For</button>
             {['leadership', 'hr', 'marketing', 'sales', 'service', 'personal', 'pastors'].map((item) => (
               <button key={item} onClick={() => { navigate(item); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-3 pl-4 font-medium capitalize active:text-[#f65625] ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 {item === 'hr' ? 'HR & People' : item === 'personal' ? 'Individuals' : item}

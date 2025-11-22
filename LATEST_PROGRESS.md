@@ -2,8 +2,29 @@
 
 ## Recent Updates (2025-11-22)
 
+### Last Name Capture Added
+**Commit:** `709a8cc`
+
+#### Enhanced Name Collection
+Updated the assessment to capture both first and last names:
+
+**Changes:**
+- Split Step 1 into two separate fields: First Name and Last Name
+- First Name is required, Last Name is optional
+- Both fields send to HubSpot as `firstname` and `lastname` properties
+- Updated all greeting messages to use firstName
+- Clean form layout with proper labels
+- Consistent styling across both input fields
+
+**HubSpot Submission:**
+- `firstname` - User's first name (or "Friend" if skipped)
+- `lastname` - User's last name (or empty string if not provided)
+- Both are standard HubSpot contact properties
+
+---
+
 ### HubSpot CRM Integration
-**Commit:** `f4aa268`
+**Commits:** `f4aa268`, `1572798`
 
 #### Email Capture & Lead Generation System
 Integrated HubSpot Forms API for seamless lead capture and CRM population:

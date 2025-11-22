@@ -9,6 +9,7 @@ import LeadershipPage from './pages/LeadershipPage';
 import MarketingPage from './pages/MarketingPage';
 import SalesPage from './pages/SalesPage';
 import HRPage from './pages/HRPage';
+import ServicePage from './pages/ServicePage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -739,15 +740,7 @@ const App = () => {
       case 'sales': return <SalesPage navigate={navigate} />;
       case 'marketing': return <MarketingPage navigate={navigate} />;
       case 'hr': return <HRPage navigate={navigate} />;
-      case 'service': return <VerticalPage 
-        title="Superhuman Service" 
-        sub="From Tickets to Wins."
-        problemTitle="Don't be a Human Shield."
-        problemText="Stop closing tickets and start creating wins. Move from reactive defense to proactive Success Partnership."
-        shiftFrom="Ticket Resolver"
-        shiftTo="Success Partner"
-        playbookName="Service"
-      />;
+      case 'service': return <ServicePage navigate={navigate} />;
       case 'pastors': return <VerticalPage 
         title="Superhuman Pastors" 
         sub="Lead from Overflow, Not Obligation."

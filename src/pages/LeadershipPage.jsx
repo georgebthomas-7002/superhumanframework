@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import {
   Compass, Heart, Shield, Zap, Download, ArrowRight, CheckCircle,
-  Volume2, Play, Pause, X, TrendingUp, Users, Target, Flame
+  TrendingUp, Users, Target, Flame
 } from 'lucide-react';
 import Particles from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
@@ -107,116 +107,6 @@ const ReadingProgress = () => {
   );
 };
 
-// Voice Narration Player Component
-const VoiceNarrationPlayer = ({ sectionName, audioUrl, onClose }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const audioRef = useRef(null);
-
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
-    }
-  };
-
-  const handleLoadedMetadata = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration);
-    }
-  };
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }}
-      className="fixed bottom-6 right-6 bg-white rounded-2xl shadow-2xl border border-gray-200 p-6 max-w-sm z-50"
-    >
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#f65625] rounded-full flex items-center justify-center">
-            <Volume2 className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <p className="font-bold text-[#142d63] text-sm">Now Playing</p>
-            <p className="text-gray-600 text-xs">{sectionName}</p>
-          </div>
-        </div>
-        <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
-          <X className="w-5 h-5" />
-        </button>
-      </div>
-
-      <div className="mb-4">
-        <div className="w-full bg-gray-200 rounded-full h-1 mb-2">
-          <div
-            className="bg-[#f65625] h-1 rounded-full transition-all"
-            style={{ width: `${(currentTime / duration) * 100 || 0}%` }}
-          />
-        </div>
-        <div className="flex justify-between text-xs text-gray-500">
-          <span>{formatTime(currentTime)}</span>
-          <span>{formatTime(duration)}</span>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-center gap-4">
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={togglePlay}
-          className="w-12 h-12 bg-[#f65625] rounded-full flex items-center justify-center text-white shadow-lg"
-        >
-          {isPlaying ? <Pause className="w-6 h-6" fill="white" /> : <Play className="w-6 h-6 ml-0.5" fill="white" />}
-        </motion.button>
-      </div>
-
-      <audio
-        ref={audioRef}
-        src={audioUrl}
-        onTimeUpdate={handleTimeUpdate}
-        onLoadedMetadata={handleLoadedMetadata}
-        onEnded={() => setIsPlaying(false)}
-      />
-
-      <p className="text-xs text-gray-400 mt-4 text-center">
-        Voice powered by ElevenLabs
-      </p>
-    </motion.div>
-  );
-};
-
-// Listen Button Component
-const ListenButton = ({ onClick, sectionName }) => (
-  <motion.button
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    onClick={onClick}
-    className="inline-flex items-center gap-2 px-6 py-3 bg-[#f65625] hover:bg-[#142d63] text-white rounded-full font-bold text-sm transition-colors shadow-lg hover:shadow-xl"
-  >
-    <Volume2 className="w-5 h-5" />
-    Listen to {sectionName}
-  </motion.button>
-);
-
 // Animated icon components
 const AnimatedCompass = () => (
   <div className="w-full h-full flex items-center justify-center relative">
@@ -300,7 +190,6 @@ const scaleIn = {
 };
 
 const LeadershipPage = ({ navigate }) => {
-  const [playingAudio, setPlayingAudio] = useState(null);
   const [sectionsRead, setSectionsRead] = useState([]);
 
   // Section tracking refs
@@ -336,34 +225,10 @@ const LeadershipPage = ({ navigate }) => {
     return () => observers.forEach(observer => observer.disconnect());
   }, [sectionsRead]);
 
-  // Audio file paths for ElevenLabs integration
-  const audioFiles = {
-    intro: '/audio/leadership-intro.mp3',
-    problem: '/audio/leadership-problem.mp3',
-    purpose: '/audio/leadership-purpose.mp3',
-    passion: '/audio/leadership-passion.mp3',
-    persistence: '/audio/leadership-persistence.mp3',
-    love: '/audio/leadership-love.mp3',
-    habits: '/audio/leadership-habits.mp3'
-  };
-
-  const handlePlayAudio = (sectionName, audioUrl) => {
-    setPlayingAudio({ sectionName, audioUrl });
-  };
-
   return (
     <div className="animate-fade-in">
       {/* Reading Progress Bar */}
       <ReadingProgress />
-
-      {/* Voice Narration Player */}
-      {playingAudio && (
-        <VoiceNarrationPlayer
-          sectionName={playingAudio.sectionName}
-          audioUrl={playingAudio.audioUrl}
-          onClose={() => setPlayingAudio(null)}
-        />
-      )}
 
       {/* HERO SECTION */}
       <section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden">
@@ -404,13 +269,6 @@ const LeadershipPage = ({ navigate }) => {
           >
             Stop managing tasks. Start igniting souls. This is the operating system for leaders who are tired of the "Command and Control" relic and are ready to build a legacy of trust, impact, and sustainable growth.
           </motion.p>
-
-          <motion.div variants={fadeInUp} className="mb-8">
-            <ListenButton
-              onClick={() => handlePlayAudio("Introduction", audioFiles.intro)}
-              sectionName="this section"
-            />
-          </motion.div>
 
           <motion.div
             variants={fadeInUp}
@@ -453,14 +311,7 @@ const LeadershipPage = ({ navigate }) => {
             The Silent Struggle of Success
           </motion.h2>
 
-          <motion.div variants={fadeInUp} className="mb-8">
-            <ListenButton
-              onClick={() => handlePlayAudio("The Problem", audioFiles.problem)}
-              sectionName="this section"
-            />
-          </motion.div>
-
-          <div className="text-xl text-gray-600 leading-relaxed space-y-6 text-left md:text-center">
+          <div className="text-xl text-gray-600 leading-relaxed space-y-6 text-left md:text-center mt-8">
             <motion.p variants={fadeInUp} className="text-2xl font-bold text-[#142d63]">
               You are successful on paper. The revenue is up. The team is growing.
             </motion.p>
@@ -594,11 +445,7 @@ const LeadershipPage = ({ navigate }) => {
                   </div>
                 </div>
                 <p className="text-[#028393] font-bold text-sm mb-4 uppercase tracking-wide">The Shift: {item.shift}</p>
-                <p className="text-gray-600 text-lg leading-relaxed mb-4">{item.desc}</p>
-                <ListenButton
-                  onClick={() => handlePlayAudio(item.title, audioFiles[item.audioKey])}
-                  sectionName={item.title}
-                />
+                <p className="text-gray-600 text-lg leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -627,15 +474,9 @@ const LeadershipPage = ({ navigate }) => {
             <motion.h2 variants={fadeInUp} className="text-5xl md:text-6xl font-extrabold mt-6 mb-4">
               The 10 H Pillars of Leadership
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-gray-300 mt-6 max-w-3xl mx-auto text-xl leading-relaxed mb-8">
+            <motion.p variants={fadeInUp} className="text-gray-300 mt-6 max-w-3xl mx-auto text-xl leading-relaxed">
               The daily behaviors that separate the "Bosses" from the "Superhumans."
             </motion.p>
-            <motion.div variants={fadeInUp}>
-              <ListenButton
-                onClick={() => handlePlayAudio("The 10 H Pillars", audioFiles.habits)}
-                sectionName="all 10 Pillars"
-              />
-            </motion.div>
           </motion.div>
 
           {/* Character Pillars */}

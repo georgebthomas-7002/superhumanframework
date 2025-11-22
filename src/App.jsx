@@ -408,8 +408,8 @@ const HomePage = ({ navigate, godMode }) => (
           
           <div className="lg:col-span-4 relative hidden lg:block">
             <div className="relative z-10 w-full aspect-[4/5] mx-auto max-w-md bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl border border-gray-700 flex items-center justify-center overflow-hidden group transform rotate-3 hover:rotate-0 transition-all duration-500">
-               {/* High Quality Placeholder Image for Preview */}
-               <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="George B. Thomas" className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
+               {/* George B. Thomas Professional Photo */}
+               <img src="https://pbs.twimg.com/profile_images/1724395901077073920/ESajPf4o_400x400.jpg" alt="George B. Thomas" className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
                <div className="absolute inset-0 bg-gradient-to-t from-[#142d63]/80 to-transparent opacity-60"></div>
                
                <div className="relative text-center p-8 mt-auto">
@@ -961,12 +961,12 @@ const App = () => {
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-16 items-center">
             <div className="flex-1">
                 <div className="aspect-[4/5] bg-gray-200 rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-all duration-500">
-                    {/* Placeholder Image */}
-                    <img 
-                      src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                      onError={(e) => {e.target.onerror = null; e.target.src = "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"}}
-                      alt="George B. Thomas" 
-                      className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" 
+                    {/* George B. Thomas Professional Photo */}
+                    <img
+                      src="https://pbs.twimg.com/profile_images/1724395901077073920/ESajPf4o_400x400.jpg"
+                      onError={(e) => {e.target.onerror = null; e.target.src = "https://pbs.twimg.com/profile_images/1724395901077073920/ESajPf4o_400x400.jpg"}}
+                      alt="George B. Thomas"
+                      className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
                     />
                 </div>
             </div>

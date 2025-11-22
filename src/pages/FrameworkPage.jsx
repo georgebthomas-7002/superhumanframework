@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import {
   Compass, Heart, Shield, Zap, BookOpen, TrendingUp, Megaphone,
-  LifeBuoy, User, Download, ArrowRight, CheckCircle, Sparkles
+  LifeBuoy, User, Download, ArrowRight, CheckCircle, Sparkles,
+  Volume2, Play, Pause, X
 } from 'lucide-react';
 import Particles from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
+import Lottie from 'lottie-react';
 
 // Subtle particle configuration - VERY minimal, just adds depth
 const ParticleBackground = ({ color = "#142d63" }) => {
@@ -71,6 +73,204 @@ const ParticleBackground = ({ color = "#142d63" }) => {
   );
 };
 
+// Reading Progress Bar Component
+const ReadingProgress = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    return scrollYProgress.onChange((latest) => {
+      setProgress(Math.round(latest * 100));
+    });
+  }, [scrollYProgress]);
+
+  return (
+    <div className="fixed top-0 left-0 right-0 z-50">
+      <motion.div
+        className="h-1 bg-gradient-to-r from-[#f65625] via-[#faaa68] to-[#028393] origin-left"
+        style={{ scaleX }}
+      />
+      {progress > 5 && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg text-sm font-bold text-[#142d63] border border-gray-100"
+        >
+          {progress}% Complete
+        </motion.div>
+      )}
+    </div>
+  );
+};
+
+// Voice Narration Player Component
+const VoiceNarrationPlayer = ({ sectionName, audioUrl, onClose }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+      className="fixed bottom-6 right-6 bg-white rounded-2xl shadow-2xl border border-gray-200 p-6 max-w-sm z-50"
+    >
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-[#f65625] rounded-full flex items-center justify-center">
+            <Volume2 className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <p className="font-bold text-[#142d63] text-sm">Now Playing</p>
+            <p className="text-gray-600 text-xs">{sectionName}</p>
+          </div>
+        </div>
+        <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      <div className="mb-4">
+        <div className="w-full bg-gray-200 rounded-full h-1 mb-2">
+          <div
+            className="bg-[#f65625] h-1 rounded-full transition-all"
+            style={{ width: `${(currentTime / duration) * 100 || 0}%` }}
+          />
+        </div>
+        <div className="flex justify-between text-xs text-gray-500">
+          <span>{formatTime(currentTime)}</span>
+          <span>{formatTime(duration)}</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center gap-4">
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={togglePlay}
+          className="w-12 h-12 bg-[#f65625] rounded-full flex items-center justify-center text-white shadow-lg"
+        >
+          {isPlaying ? <Pause className="w-6 h-6" fill="white" /> : <Play className="w-6 h-6 ml-0.5" fill="white" />}
+        </motion.button>
+      </div>
+
+      <audio
+        ref={audioRef}
+        src={audioUrl}
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onEnded={() => setIsPlaying(false)}
+      />
+
+      <p className="text-xs text-gray-400 mt-4 text-center">
+        Voice powered by ElevenLabs
+      </p>
+    </motion.div>
+  );
+};
+
+// Listen Button Component
+const ListenButton = ({ onClick, sectionName }) => (
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    onClick={onClick}
+    className="inline-flex items-center gap-2 px-4 py-2 bg-[#f65625]/10 hover:bg-[#f65625]/20 text-[#f65625] rounded-full font-bold text-sm transition-colors border border-[#f65625]/20"
+  >
+    <Volume2 className="w-4 h-4" />
+    Listen to {sectionName}
+  </motion.button>
+);
+
+// Simple animated icon components (CSS-based until user adds Lottie JSON files)
+const AnimatedCompass = () => (
+  <div className="w-full h-full flex items-center justify-center relative">
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+    >
+      <Compass className="w-full h-full" />
+    </motion.div>
+  </div>
+);
+
+const AnimatedFlame = () => (
+  <div className="w-full h-full flex items-center justify-center relative">
+    <motion.div
+      animate={{
+        scale: [1, 1.1, 1],
+        opacity: [1, 0.8, 1]
+      }}
+      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <Zap className="w-full h-full" fill="currentColor" />
+    </motion.div>
+  </div>
+);
+
+const AnimatedShield = () => (
+  <div className="w-full h-full flex items-center justify-center relative">
+    <motion.div
+      animate={{
+        scale: [1, 1.05, 1],
+      }}
+      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <Shield className="w-full h-full" />
+    </motion.div>
+  </div>
+);
+
+const AnimatedHeart = () => (
+  <div className="w-full h-full flex items-center justify-center relative">
+    <motion.div
+      animate={{
+        scale: [1, 1.2, 1],
+      }}
+      transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <Heart className="w-full h-full" fill="currentColor" />
+    </motion.div>
+  </div>
+);
+
 // Animation variants for scroll reveals
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -103,9 +303,71 @@ const scaleIn = {
 
 const FrameworkPage = ({ navigate }) => {
   const [expandedPillar, setExpandedPillar] = useState(null);
+  const [playingAudio, setPlayingAudio] = useState(null);
+  const [sectionsRead, setSectionsRead] = useState([]);
+
+  // Section tracking refs
+  const philosophyRef = useRef(null);
+  const cornerstonesRef = useRef(null);
+  const pillarsRef = useRef(null);
+  const applicationRef = useRef(null);
+
+  // Track which sections have been read
+  useEffect(() => {
+    const observers = [
+      { ref: philosophyRef, name: 'philosophy' },
+      { ref: cornerstonesRef, name: 'cornerstones' },
+      { ref: pillarsRef, name: 'pillars' },
+      { ref: applicationRef, name: 'application' }
+    ].map(({ ref, name }) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !sectionsRead.includes(name)) {
+            setSectionsRead(prev => [...prev, name]);
+          }
+        },
+        { threshold: 0.5 }
+      );
+
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+
+      return observer;
+    });
+
+    return () => observers.forEach(observer => observer.disconnect());
+  }, [sectionsRead]);
+
+  // NOTE: Replace these with actual ElevenLabs API calls
+  // For now, these are placeholder URLs
+  const audioFiles = {
+    philosophy: '/audio/philosophy.mp3', // Replace with actual ElevenLabs generated audio
+    purpose: '/audio/purpose.mp3',
+    passion: '/audio/passion.mp3',
+    persistence: '/audio/persistence.mp3',
+    love: '/audio/love.mp3',
+    pillars: '/audio/pillars.mp3'
+  };
+
+  const handlePlayAudio = (sectionName, audioUrl) => {
+    setPlayingAudio({ sectionName, audioUrl });
+  };
 
   return (
     <div className="animate-fade-in">
+      {/* Reading Progress Bar */}
+      <ReadingProgress />
+
+      {/* Voice Narration Player */}
+      {playingAudio && (
+        <VoiceNarrationPlayer
+          sectionName={playingAudio.sectionName}
+          audioUrl={playingAudio.audioUrl}
+          onClose={() => setPlayingAudio(null)}
+        />
+      )}
+
       {/* HERO SECTION */}
       <section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden">
         {/* Subtle background blurs */}
@@ -167,7 +429,7 @@ const FrameworkPage = ({ navigate }) => {
       </section>
 
       {/* THE PHILOSOPHY */}
-      <section className="py-32 bg-white relative overflow-hidden">
+      <section ref={philosophyRef} className="py-32 bg-white relative overflow-hidden">
         <ParticleBackground color="#142d63" />
 
         <motion.div
@@ -177,6 +439,13 @@ const FrameworkPage = ({ navigate }) => {
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
+          <div className="flex justify-center mb-6">
+            <ListenButton
+              onClick={() => handlePlayAudio("The Philosophy", audioFiles.philosophy)}
+              sectionName="this section"
+            />
+          </div>
+
           <motion.h2
             variants={fadeInUp}
             className="text-4xl md:text-6xl font-extrabold text-[#142d63] mb-8 tracking-tight"
@@ -225,7 +494,7 @@ const FrameworkPage = ({ navigate }) => {
       </section>
 
       {/* PART 1: THE 4 CORNERSTONES */}
-      <section className="py-32 bg-[#F9FAFB] relative overflow-hidden">
+      <section ref={cornerstonesRef} className="py-32 bg-[#F9FAFB] relative overflow-hidden">
         <ParticleBackground color="#f65625" />
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -240,7 +509,7 @@ const FrameworkPage = ({ navigate }) => {
               variants={scaleIn}
               className="text-[#f65625] font-bold uppercase tracking-widest text-sm bg-[#f65625]/10 px-4 py-2 rounded-full inline-block"
             >
-              Part 1
+              Part 1 • {sectionsRead.includes('cornerstones') && <CheckCircle className="w-4 h-4 inline ml-2 text-green-600" />}
             </motion.span>
             <motion.h2 variants={fadeInUp} className="text-5xl md:text-6xl font-extrabold text-[#142d63] mt-6 mb-4">
               The Foundation
@@ -262,25 +531,29 @@ const FrameworkPage = ({ navigate }) => {
                 title: 'Purpose',
                 subtitle: 'The North Star',
                 desc: 'Purpose is the difference between drifting and driving. It is knowing exactly who you are, why you are here, and who you are here to serve. When you lose your Purpose, you become a reactive victim of circumstance. When you have Purpose, every decision becomes clear.',
-                icon: Compass
+                AnimatedIcon: AnimatedCompass,
+                audioKey: 'purpose'
               },
               {
                 title: 'Passion',
                 subtitle: 'The Fuel',
                 desc: 'Passion is not just excitement; it is vitality. It is the electric energy that allows you to influence others. If you are bored, your team will be bored. If you are on fire, the world will come to watch you burn. Passion is the antidote to apathy.',
-                icon: Zap
+                AnimatedIcon: AnimatedFlame,
+                audioKey: 'passion'
               },
               {
                 title: 'Persistence',
                 subtitle: 'The Grit',
                 desc: 'Life will punch you in the mouth. Markets will crash. Strategies will fail. Persistence is the unshakeable resolve to stay in the fight. It is the understanding that failure is not a destination; it is just data. It is the long obedience in the same direction.',
-                icon: Shield
+                AnimatedIcon: AnimatedShield,
+                audioKey: 'persistence'
               },
               {
                 title: 'Love',
                 subtitle: 'The Secret Weapon',
                 desc: 'This is the cornerstone most leaders are afraid of. But in the Superhuman Framework, Love is not a weakness; it is a strategy. It is Agape—radical care for the human beings you lead and serve. If you do not love your team, your customers, or yourself, you are building on sand.',
-                icon: Heart
+                AnimatedIcon: AnimatedHeart,
+                audioKey: 'love'
               }
             ].map((item, i) => (
               <motion.div
@@ -295,14 +568,18 @@ const FrameworkPage = ({ navigate }) => {
                     transition={{ type: "spring", stiffness: 300 }}
                     className="w-20 h-20 bg-[#142d63]/5 rounded-2xl flex items-center justify-center shrink-0 text-[#f65625] group-hover:bg-[#f65625] group-hover:text-white transition-colors"
                   >
-                    <item.icon className="w-10 h-10" />
+                    <item.AnimatedIcon />
                   </motion.div>
                   <div>
                     <h3 className="text-3xl font-bold text-[#142d63] mb-1">{i + 1}. {item.title}</h3>
                     <p className="text-[#f65625] font-bold text-lg">"{item.subtitle}"</p>
                   </div>
                 </div>
-                <p className="text-gray-600 text-lg leading-relaxed">{item.desc}</p>
+                <p className="text-gray-600 text-lg leading-relaxed mb-4">{item.desc}</p>
+                <ListenButton
+                  onClick={() => handlePlayAudio(item.title, audioFiles[item.audioKey])}
+                  sectionName={item.title}
+                />
               </motion.div>
             ))}
           </motion.div>
@@ -310,7 +587,7 @@ const FrameworkPage = ({ navigate }) => {
       </section>
 
       {/* PART 2: THE 10 H PILLARS */}
-      <section className="py-32 bg-[#142d63] text-white relative overflow-hidden">
+      <section ref={pillarsRef} className="py-32 bg-[#142d63] text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
         <ParticleBackground color="#faaa68" />
 
@@ -326,14 +603,20 @@ const FrameworkPage = ({ navigate }) => {
               variants={scaleIn}
               className="text-[#faaa68] font-bold uppercase tracking-widest text-sm bg-[#faaa68]/10 px-4 py-2 rounded-full inline-block"
             >
-              Part 2
+              Part 2 • {sectionsRead.includes('pillars') && <CheckCircle className="w-4 h-4 inline ml-2 text-green-400" />}
             </motion.span>
             <motion.h2 variants={fadeInUp} className="text-5xl md:text-6xl font-extrabold mt-6 mb-4">
               The Habits
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-gray-300 mt-6 max-w-3xl mx-auto text-xl leading-relaxed">
+            <motion.p variants={fadeInUp} className="text-gray-300 mt-6 max-w-3xl mx-auto text-xl leading-relaxed mb-8">
               If the Cornerstones are your mindset, the Pillars are your actions. These are the ten levers you pull every day to create momentum.
             </motion.p>
+            <motion.div variants={fadeInUp}>
+              <ListenButton
+                onClick={() => handlePlayAudio("The 10 H Pillars", audioFiles.pillars)}
+                sectionName="all 10 Pillars"
+              />
+            </motion.div>
           </motion.div>
 
           {/* Character Pillars */}
@@ -444,7 +727,7 @@ const FrameworkPage = ({ navigate }) => {
       </section>
 
       {/* APPLICATION */}
-      <section className="py-32 bg-white relative overflow-hidden">
+      <section ref={applicationRef} className="py-32 bg-white relative overflow-hidden">
         <ParticleBackground color="#028393" />
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">

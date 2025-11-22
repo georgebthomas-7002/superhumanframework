@@ -525,11 +525,15 @@ const HomePage = ({ navigate, godMode }) => (
 
 const QuizPage = ({ navigate, setTriggerConfetti }) => {
   // State Management
-  const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Q1, 3: Q2, 4: Q3, 5: Analysis, 6: Result
+  const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Q1, 3: Q2, 4: Q3, 5: Email, 6: Analysis, 7: Result
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
   const [userPath, setUserPath] = useState(''); // leadership, hr, sales, marketing, service, pastors, personal
   const [q2Answer, setQ2Answer] = useState('');
   const [q3Answer, setQ3Answer] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState('');
 
   // Question Database
   const q1Options = [
@@ -737,9 +741,82 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
   const handleQ3Answer = (answer) => {
     setQ3Answer(answer);
-    setStep(5);
-    // Show analysis screen then result
-    setTimeout(() => setStep(6), 2500);
+    setStep(5); // Go to email capture
+  };
+
+  const handleEmailSubmit = async (e) => {
+    e.preventDefault();
+    if (!email.trim() || !consent) return;
+
+    setIsSubmitting(true);
+    setSubmissionError('');
+
+    try {
+      // Submit to HubSpot Forms API
+      const response = await fetch(
+        `https://api.hsforms.com/submissions/v3/integration/submit/474711/edf2f3d0-1615-4019-aac1-748896643905`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fields: [
+              {
+                name: 'firstname',
+                value: name || 'Friend'
+              },
+              {
+                name: 'email',
+                value: email
+              },
+              {
+                name: 'archetype',
+                value: results[userPath].archetype
+              },
+              {
+                name: 'battlefield',
+                value: userPath
+              },
+              {
+                name: 'pain_point',
+                value: q2Questions[userPath].options.find(opt => opt.id === q2Answer)?.text || ''
+              },
+              {
+                name: 'aspiration',
+                value: q3Questions[userPath].options.find(opt => opt.id === q3Answer)?.text || ''
+              }
+            ],
+            context: {
+              pageUri: window.location.href,
+              pageName: 'Superhuman Archetype Assessment'
+            }
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+
+      // Success - proceed to analysis
+      setStep(6);
+      setTimeout(() => setStep(7), 2500); // Then to results
+    } catch (error) {
+      console.error('HubSpot submission error:', error);
+      setSubmissionError('Something went wrong. But don\'t worry - you can still see your results!');
+      // Still proceed even if submission fails
+      setStep(6);
+      setTimeout(() => setStep(7), 2500);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSkipEmail = () => {
+    // Skip email and go straight to analysis
+    setStep(6);
+    setTimeout(() => setStep(7), 2500);
   };
 
   const handleDownload = () => {
@@ -752,11 +829,12 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
   // Calculate progress
   const getProgress = () => {
-    if (step === 1) return 20;
-    if (step === 2) return 40;
-    if (step === 3) return 60;
-    if (step === 4) return 80;
-    if (step === 5 || step === 6) return 100;
+    if (step === 1) return 15;
+    if (step === 2) return 30;
+    if (step === 3) return 50;
+    if (step === 4) return 70;
+    if (step === 5) return 85;
+    if (step === 6 || step === 7) return 100;
     return 0;
   };
 
@@ -764,7 +842,8 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
     if (step === 1) return "Let's get to know you";
     if (step === 2) return "Identifying your battlefield";
     if (step === 3) return "Understanding your challenge";
-    if (step === 4) return "Almost there!";
+    if (step === 4) return "Defining your vision";
+    if (step === 5) return "Almost done!";
     return "";
   };
 
@@ -779,7 +858,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
       <div className="w-full max-w-4xl px-6 relative z-10">
 
         {/* PROGRESS BAR */}
-        {step > 0 && step < 6 && (
+        {step > 0 && step < 7 && (
             <div className="mb-12">
                 <div className="flex justify-between items-center mb-3">
                     <span className="text-sm font-bold text-gray-500 uppercase tracking-wide">{getProgressMessage()}</span>
@@ -949,8 +1028,125 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           </div>
         )}
 
-        {/* STEP 5: ANALYZING */}
-        {step === 5 && (
+        {/* STEP 5: EMAIL CAPTURE */}
+        {step === 5 && userPath && (
+          <div className="animate-fade-in">
+            <div className="flex items-center justify-between mb-12">
+                <button onClick={() => setStep(4)} className="flex items-center text-gray-400 hover:text-[#142d63] transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
+                <span className="text-[#028393] font-bold uppercase text-sm tracking-widest bg-[#028393]/10 px-4 py-2 rounded-full">One Last Step 🎯</span>
+            </div>
+
+            <div className="text-center mb-8">
+              <div className="inline-block p-6 bg-gradient-to-br from-[#f65625] to-[#faaa68] rounded-3xl mb-6">
+                <Sparkles className="w-12 h-12 text-white" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#142d63] mb-4 leading-snug">
+                Get Your Personalized Playbook
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Enter your email to receive your <strong className="text-[#f65625]">{results[userPath].playbook}</strong> instantly.
+              </p>
+            </div>
+
+            {/* Why We Need This */}
+            <div className="bg-blue-50 border-l-4 border-[#028393] p-6 rounded-r-lg mb-8">
+              <h3 className="font-bold text-[#028393] mb-2 flex items-center gap-2">
+                <Shield className="w-5 h-5" />
+                Why we ask for your email:
+              </h3>
+              <ul className="text-sm text-gray-700 space-y-2">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-[#028393] mt-0.5 shrink-0" />
+                  <span>To send you your personalized playbook PDF immediately</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-[#028393] mt-0.5 shrink-0" />
+                  <span>To provide additional resources specific to your archetype</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-[#028393] mt-0.5 shrink-0" />
+                  <span>No spam, ever. Just valuable insights for your journey.</span>
+                </li>
+              </ul>
+            </div>
+
+            <form onSubmit={handleEmailSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-3">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
+                  className="w-full text-xl px-6 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#f65625] transition-colors bg-white"
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              {/* Consent Checkbox */}
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="consent"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  required
+                  className="mt-1 w-5 h-5 text-[#f65625] border-gray-300 rounded focus:ring-[#f65625]"
+                  disabled={isSubmitting}
+                />
+                <label htmlFor="consent" className="text-sm text-gray-600">
+                  I agree to receive my personalized playbook and occasional emails with valuable insights. I can unsubscribe anytime.
+                </label>
+              </div>
+
+              {/* Error Message */}
+              {submissionError && (
+                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                  <p className="text-sm text-yellow-700">{submissionError}</p>
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={!email.trim() || !consent || isSubmitting}
+                className="w-full bg-[#f65625] text-white px-12 py-5 rounded-full font-bold text-xl shadow-xl hover:bg-[#142d63] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3 active:scale-95"
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-6 h-6" />
+                    Get My Results
+                    <ArrowRight className="w-6 h-6" />
+                  </>
+                )}
+              </button>
+
+              {/* Skip Option */}
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={handleSkipEmail}
+                  className="text-sm text-gray-400 hover:text-gray-600 font-medium transition-colors"
+                  disabled={isSubmitting}
+                >
+                  Skip for now (you won't receive the playbook)
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* STEP 6: ANALYZING */}
+        {step === 6 && (
           <div className="flex flex-col items-center justify-center animate-fade-in text-center py-20">
             <div className="relative mb-12">
                 <div className="w-32 h-32 border-8 border-gray-100 rounded-full"></div>
@@ -975,8 +1171,8 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           </div>
         )}
 
-        {/* STEP 6: RESULT */}
-        {step === 6 && currentResult && (
+        {/* STEP 7: RESULT */}
+        {step === 7 && currentResult && (
           <div className="animate-fade-in">
             <div className="text-center mb-12">
               <div className="inline-block p-8 bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl mb-8 relative">
@@ -1049,7 +1245,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
             <div className="mt-8 text-center">
               <button
-                onClick={() => {setStep(0); setUserPath(''); setName(''); setQ2Answer(''); setQ3Answer('');}}
+                onClick={() => {setStep(0); setUserPath(''); setName(''); setEmail(''); setConsent(false); setQ2Answer(''); setQ3Answer(''); setSubmissionError('');}}
                 className="text-gray-400 hover:text-[#142d63] font-bold text-sm uppercase tracking-wide transition-colors"
               >
                 Take Assessment Again

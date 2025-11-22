@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import FrameworkPage from './pages/FrameworkPage';
 import LeadershipPage from './pages/LeadershipPage';
+import MarketingPage from './pages/MarketingPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -742,15 +743,7 @@ const App = () => {
         shiftTo="Trusted Advisor"
         playbookName="Sales"
       />;
-      case 'marketing': return <VerticalPage 
-        title="Superhuman Marketing" 
-        sub="The Era of H2H (Human to Human)."
-        problemTitle="Stop Shouting. Start Connecting."
-        problemText="Marketing has lost its soul to algorithms. Stop interrupting strangers and start connecting with humans using Empathy, Helpfulness, and Story."
-        shiftFrom="Noise Maker"
-        shiftTo="Trusted Guide"
-        playbookName="Marketing"
-      />;
+      case 'marketing': return <MarketingPage navigate={navigate} />;
       case 'hr': return <VerticalPage 
         title="Superhuman HR" 
         sub="Stop Policing. Start Architecting."

@@ -20,7 +20,8 @@ import {
   Zap,
   Globe,
   Laugh,
-  Download
+  Download,
+  LifeBuoy
 } from 'lucide-react';
 
 // Reading Progress Component

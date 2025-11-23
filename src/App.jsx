@@ -523,6 +523,27 @@ const HomePage = ({ navigate, godMode }) => (
   </div>
 );
 
+// Animation variants for quiz page
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1
+    }
+  }
+};
+
 const QuizPage = ({ navigate, setTriggerConfetti }) => {
   // State Management
   const [step, setStep] = useState(0); // 0: Intro, 1: Name, 2: Q1, 3: Q2, 4: Q3, 5: Email, 6: Analysis, 7: Result
@@ -890,47 +911,107 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
 
         {/* STEP 0: INTRO */}
         {step === 0 && (
-          <div className="animate-fade-in max-w-5xl mx-auto">
+          <div className="animate-fade-in">
             {/* Hero Section */}
-            <div className="text-center mb-16">
-              <div className="inline-block p-8 bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl mb-8 shadow-2xl">
-                <Target className="w-20 h-20 text-white" />
-              </div>
-              <h1 className="text-5xl md:text-7xl font-extrabold text-[#142d63] mb-6 tracking-tight leading-tight">
-                What is Your<br />Superhuman Archetype?
-              </h1>
-              <p className="text-2xl md:text-3xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
-                You are fighting a battle every day.<br className="hidden md:block" /> But <span className="text-[#f65625] font-bold">which one</span>?
-              </p>
-              <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed">
-                Discover your unique leadership archetype and get a personalized playbook with the exact strategies, scripts, and habits you need to win.
-              </p>
+            <section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden mb-24">
+              <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
+              <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
+              <ParticleBackground color="#faaa68" />
 
-              {/* CTA */}
-              <button
-                onClick={() => setStep(1)}
-                className="bg-[#f65625] text-white px-16 py-6 rounded-full text-2xl font-bold shadow-2xl hover:bg-[#142d63] hover:scale-105 transition-all active:scale-95 mb-6 inline-flex items-center gap-3"
+              {/* Breathing Wave Effect */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-full h-full"
+                    style={{
+                      background: `radial-gradient(ellipse at ${20 + i * 20}% ${30 + i * 15}%, rgba(255,255,255,0.03) 0%, transparent 50%)`,
+                    }}
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{
+                      duration: 8 + i * 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.5,
+                    }}
+                  />
+                ))}
+              </div>
+
+              <motion.div
+                className="max-w-5xl mx-auto px-4 relative z-10"
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
               >
-                <Sparkles className="w-7 h-7" />
-                Start Your Assessment
-                <ArrowRight className="w-7 h-7" />
-              </button>
+                <motion.div
+                  variants={fadeInUp}
+                  className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm"
+                >
+                  <span className="text-[#faaa68] flex items-center gap-2">
+                    <Target className="w-4 h-4" />
+                    Discover Your Superhuman Archetype
+                  </span>
+                </motion.div>
 
-              <div className="flex items-center justify-center gap-8 text-sm text-gray-500">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-[#028393]" />
-                  <span>90 seconds</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-[#028393]" />
-                  <span>No email to start</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-[#028393]" />
-                  <span>Free playbook</span>
-                </div>
-              </div>
-            </div>
+                <motion.h1
+                  variants={fadeInUp}
+                  className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight"
+                >
+                  What is Your<br />Superhuman Archetype?
+                </motion.h1>
+
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-2xl md:text-3xl text-gray-300 mb-6 max-w-3xl mx-auto leading-relaxed font-bold"
+                >
+                  You are fighting a battle every day.<br />But <span className="text-[#faaa68]">which one</span>?
+                </motion.p>
+
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
+                >
+                  Discover your unique leadership archetype and get a personalized playbook with the exact strategies, scripts, and habits you need to win.
+                </motion.p>
+
+                <motion.div
+                  variants={fadeInUp}
+                  className="flex flex-col items-center gap-6"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setStep(1)}
+                    className="bg-[#f65625] text-white px-16 py-6 rounded-full text-2xl font-bold shadow-xl hover:bg-white hover:text-[#f65625] transition-colors flex items-center justify-center gap-3"
+                  >
+                    <Sparkles className="w-7 h-7" />
+                    Start Your Assessment
+                    <ArrowRight className="w-7 h-7" />
+                  </motion.button>
+
+                  <div className="flex items-center justify-center gap-8 text-sm text-gray-300">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-[#faaa68]" />
+                      <span>90 seconds</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-[#faaa68]" />
+                      <span>No email to start</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-[#faaa68]" />
+                      <span>Free playbook</span>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </section>
+
+            <div className="max-w-5xl mx-auto px-4">
 
             {/* What You'll Discover */}
             <div className="bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl p-12 mb-16 text-white">
@@ -1025,6 +1106,7 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
               <p className="mt-6 text-sm text-gray-500 font-medium">
                 Join thousands who have discovered their Superhuman archetype
               </p>
+            </div>
             </div>
           </div>
         )}

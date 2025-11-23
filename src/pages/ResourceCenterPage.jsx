@@ -46,6 +46,7 @@ const ResourceCenterPage = ({ navigate }) => {
   // Load content on mount
   useEffect(() => {
     const content = loadAllContent();
+    console.log('ResourceCenterPage - loaded content:', content);
     setAllContent(content);
     setFilteredContent(content);
     setCategories(getCategories());
@@ -400,6 +401,31 @@ const ResourceCenterPage = ({ navigate }) => {
           <p className="text-gray-600">
             Showing <span className="font-bold text-[#142d63]">{filteredContent.length}</span> {filteredContent.length === 1 ? 'result' : 'results'}
           </p>
+        </div>
+
+        {/* DEBUG INFO - TEMPORARY */}
+        <div className="mb-6 bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6">
+          <h3 className="text-lg font-bold text-yellow-800 mb-4">🔍 DEBUG INFO (Temporary)</h3>
+          <div className="space-y-2 text-sm">
+            <p><strong>Total Content Loaded:</strong> {allContent.length}</p>
+            <p><strong>Articles:</strong> {allContent.filter(i => i.type === 'article').length}</p>
+            <p><strong>Podcasts:</strong> {allContent.filter(i => i.type === 'podcast').length}</p>
+            <p><strong>Offers:</strong> {allContent.filter(i => i.type === 'offer').length}</p>
+            <p><strong>Filtered Results:</strong> {filteredContent.length}</p>
+            {allContent.length > 0 && (
+              <details className="mt-4">
+                <summary className="cursor-pointer font-bold text-yellow-800">Show All Loaded Items</summary>
+                <ul className="mt-2 space-y-1 text-xs">
+                  {allContent.map(item => (
+                    <li key={item.id}>• {item.title} ({item.type})</li>
+                  ))}
+                </ul>
+              </details>
+            )}
+            {allContent.length === 0 && (
+              <p className="mt-4 text-red-600 font-bold">⚠️ NO CONTENT LOADED - This is the problem!</p>
+            )}
+          </div>
         </div>
 
         {/* Content Grid */}

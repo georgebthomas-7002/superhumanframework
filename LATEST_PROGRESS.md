@@ -2,6 +2,117 @@
 
 ## Recent Updates (2025-11-22)
 
+### Keynote Speaking Page Creation
+**Commit:** `6500ca7`
+
+#### Created Comprehensive Speaker/Keynote Page Under Services
+Built a dedicated, full-featured page for keynote speaking services with booking form and detailed offerings:
+
+**Page Structure:**
+
+**1. Hero Section (Full-Width)**
+- Dark navy background with ParticleBackground and breathing waves
+- Badge: "The Antidote to Boring Business Conferences"
+- Headline: "I Don't Just Speak. I Ignite the Room."
+- Subhead: "No fluff. No corporate jargon."
+- Description: "High-energy, actionable truth that transforms culture before lunch"
+- Two CTA buttons:
+  - Primary: "Check Availability" (scrolls to booking form)
+  - Secondary: "Watch Sizzle Reel" (frosted glass style)
+
+**2. The Problem Section**
+- Headline: "Most Business Conferences Have a Problem..."
+- Subhead: "They are boring."
+- Detailed copy addressing pain points
+- Builds case: Audiences deserve a "Catalyst"
+- Emphasizes: "Education" + "Entertainment"
+- Positions speaker as solution: "I install an Operating System"
+
+**3. The Menu: Signature Keynotes**
+Three keynote offerings in expandable cards:
+
+- **The Superhuman Leader** (Flame icon, orange)
+  - Hook: "Stop Managing. Start Leading."
+  - Best For: Executive Summits, Leadership Retreats, Management Training
+  - Focus: 4 Cornerstones from "Command & Control" to "Connection & Culture"
+  - Takeaway: Blueprint for trust, performance, end burnout
+
+- **The H2H Revenue Revolution** (Heart icon, teal)
+  - Hook: "Kill the Pitch & Connect with the Human."
+  - Best For: Sales Kickoffs (SKO), Marketing Conferences, Revenue Teams
+  - Focus: B2B → H2H, dismantling "Commission Breath"
+  - Takeaway: Building relationships that close
+
+- **Stop Drifting, Start Designing** (Target icon, soft orange)
+  - Hook: "Win the Battle of You vs. You."
+  - Best For: All-Hands Meetings, Associations, Motivational Events
+  - Focus: Kill autopilot, embrace Purpose & Passion
+  - Takeaway: Motivated workforce taking ownership
+
+**4. The Planner Promise ("Zero Diva" Policy)**
+Four commitments to event planners:
+- ✓ I Show Up Early (sound check on your schedule)
+- ✓ I Respect the Clock (never go over time)
+- ✓ I Bring the Energy (110% fire, any slot)
+- ✓ No Weird Demands (just water and a mic)
+
+**5. Social Proof Section**
+- "Trusted by Event Planners at:" headline
+- Logo bar (placeholder for client logos)
+- Testimonial section ready
+
+**6. Booking Inquiry Form**
+Full-featured contact form:
+- Name (required)
+- Email (required)
+- Event Date (date picker, required)
+- Location (City, State, required)
+- Estimated Audience Size (e.g., "200-300")
+- Event Goal (textarea: "We want them to leave feeling...")
+- Submit button with loading state
+- Success message display
+- Form validation
+- Smooth scroll anchor (#booking-form)
+
+**7. Final CTA Section**
+- Gradient download icon with rotation animation
+- "Ready to Transform Your Event?"
+- "Get Started Today" button
+- Scrolls to booking form
+
+**Design Features:**
+- Reading progress bar (fixed top)
+- Full-width hero matching site pattern
+- Section tracking with IntersectionObserver
+- Staggered animations (fadeInUp, scaleIn, staggerContainer)
+- Hover effects on all interactive elements
+- Card-based layout with borders
+- Color coding by keynote type
+- Mobile-responsive grid layouts
+- Professional frosted glass effects
+
+**Technical Implementation:**
+- New file: `src/pages/SpeakerPage.jsx` (678 lines)
+- Import added to App.jsx
+- Routes: 'speaking' and 'speaker' (both work)
+- Removed old ServicesPage placeholder
+- Form state management with hooks
+- Smooth scroll navigation
+- Build size: 678.66KB (+18KB)
+
+**Navigation Integration:**
+- Already in Services dropdown menu
+- Accessible from mobile menu
+- URLs: /speaking or /speaker
+
+**Copy Highlights:**
+- "I Don't Just Speak. I Ignite."
+- "When I take the stage, I don't just deliver a speech. I install an Operating System."
+- "I make them laugh, I make them think, and most importantly, I make them move."
+- Professional yet energetic tone throughout
+
+---
+
 ### Quiz Result Screen Hero Enhancement
 **Commit:** `6b1cb17`
 
@@ -593,8 +704,9 @@ src/
 
 ## Branch Information
 **Current Branch:** `claude/superhuman-framework-website-01DVSeLYFNWahG8yqp61Aj1s`
-**Latest Commit:** `6b1cb17` - Add full-width hero section to quiz result screen (Step 7)
+**Latest Commit:** `6500ca7` - Create dedicated Keynote Speaking page with full features
 **Previous Commits:**
+- `6b1cb17` - Add full-width hero section to quiz result screen (Step 7)
 - `9fe0374` - Fix quiz hero section to span full screen width
 - `1235d9a` - Make quiz hero section consistent with other pages
 - `ca5a9b5` - Redesign quiz landing page with enhanced UX and clearer value proposition

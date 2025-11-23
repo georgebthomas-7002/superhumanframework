@@ -14,6 +14,7 @@ import ServicePage from './pages/ServicePage';
 import PersonalPage from './pages/PersonalPage';
 import PastorsPage from './pages/PastorsPage';
 import WhoPage from './pages/WhoPage';
+import SpeakerPage from './pages/SpeakerPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -1676,6 +1677,8 @@ const App = () => {
       case 'personal': return <PersonalPage navigate={navigate} />;
 
       // Services
+      case 'speaking': return <SpeakerPage navigate={navigate} />;
+      case 'speaker': return <SpeakerPage navigate={navigate} />;
       case 'workshops': return <ServicesPage 
         title="Team Workshops"
         sub="Don't just learn the framework. Install it."
@@ -1737,33 +1740,6 @@ const App = () => {
                     <p className="text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">A curated group of 20 humans holding the line together. Bi-weekly war rooms. Deep connection. No drift.</p>
                     <button className="bg-[#f65625] text-white px-12 py-6 rounded-full font-bold text-xl hover:bg-white hover:text-[#f65625] transition-all shadow-2xl hover:-translate-y-1 active:scale-95">Apply for Waitlist</button>
                  </div>
-             </div>
-          </div>
-        }
-      />;
-      case 'speaking': return <ServicesPage 
-        title="Keynote Speaking"
-        sub="I Don't Just Speak. I Ignite."
-        content={
-          <div className="max-w-5xl mx-auto">
-             <h2 className="text-4xl font-bold text-[#142d63] mb-16 text-center">Most conferences are boring. Yours won't be.</h2>
-             <div className="grid md:grid-cols-2 gap-12">
-                <div className="p-12 border border-gray-100 rounded-3xl bg-white shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all">
-                    <div className="w-16 h-16 bg-[#f65625]/10 rounded-2xl flex items-center justify-center text-[#f65625] mb-8">
-                        <Zap className="w-8 h-8" />
-                    </div>
-                    <h3 className="font-bold text-3xl mb-4 text-[#142d63]">The Superhuman Leader</h3>
-                    <p className="text-gray-600 leading-relaxed mb-8 text-lg">Stop Managing. Start Leading. A high-octane session on shifting from transactional management to transformational leadership.</p>
-                    <button className="text-[#f65625] font-bold flex items-center text-lg group">Book This Keynote <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" /></button>
-                </div>
-                 <div className="p-12 border border-gray-100 rounded-3xl bg-white shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all">
-                    <div className="w-16 h-16 bg-[#028393]/10 rounded-2xl flex items-center justify-center text-[#028393] mb-8">
-                        <Heart className="w-8 h-8" />
-                    </div>
-                    <h3 className="font-bold text-3xl mb-4 text-[#142d63]">The H2H Revenue Revolution</h3>
-                    <p className="text-gray-600 leading-relaxed mb-8 text-lg">Kill the pitch & connect with humans. How to build trust in a skeptical world using the 10 H Pillars.</p>
-                    <button className="text-[#028393] font-bold flex items-center text-lg group">Book This Keynote <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" /></button>
-                </div>
              </div>
           </div>
         }

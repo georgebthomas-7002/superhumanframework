@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { ArrowLeft, Clock, Calendar, Share2, Linkedin, Twitter, Facebook, Mail, Copy, Check } from 'lucide-react';
 import { loadContentBySlug, getRelatedContent } from '../utils/contentLoader';
 import ResourceCard from '../components/ResourceCenter/ResourceCard';
 import FAQAccordion from '../components/FAQAccordion';
+import TableOfContents from '../components/TableOfContents';
 import SEO from '../components/SEO';
 import { seoConfig } from '../config/seo.config';
 
@@ -56,35 +59,44 @@ const ArticleDetailPage = ({ navigate, slug }) => {
     return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   };
 
-  // Parse FAQs from markdown content
-  const parseFAQs = (content) => {
-    if (!content) return { faqs: [], contentWithoutFAQs: content };
+  // Parse article content into sections
+  const parseArticleContent = (content) => {
+    if (!content) return { featuredSnippet: null, mainContent: content, faqs: [] };
 
-    // Find FAQ section (case insensitive)
+    let workingContent = content;
+    let featuredSnippet = null;
+    let faqs = [];
+
+    // Extract featured snippet (blockquote right after H1)
+    const snippetRegex = /^#\s+.*?\n\n>\s*\*\*Featured Insight:\*\*\s*([\s\S]*?)\n\n---/m;
+    const snippetMatch = workingContent.match(snippetRegex);
+    if (snippetMatch) {
+      featuredSnippet = snippetMatch[1].trim();
+      // Remove the featured snippet section from content
+      workingContent = workingContent.replace(/>\s*\*\*Featured Insight:\*\*[\s\S]*?\n\n---\n\n/, '');
+    }
+
+    // Extract FAQs
     const faqRegex = /##\s*\*?\*?Frequently Asked Questions.*?\*?\*?[\s\S]*$/i;
-    const faqMatch = content.match(faqRegex);
+    const faqMatch = workingContent.match(faqRegex);
 
-    if (!faqMatch) {
-      return { faqs: [], contentWithoutFAQs: content };
+    if (faqMatch) {
+      const faqSection = faqMatch[0];
+      workingContent = workingContent.replace(faqRegex, '').trim();
+
+      // Parse individual FAQ items
+      const faqItemRegex = /\*\*\d+\.\s*(.*?)\*\*\s*\n\n([\s\S]*?)(?=\n\n\*\*\d+\.|\n\n##|$)/g;
+      let match;
+
+      while ((match = faqItemRegex.exec(faqSection)) !== null) {
+        faqs.push({
+          question: match[1].trim(),
+          answer: match[2].trim()
+        });
+      }
     }
 
-    const faqSection = faqMatch[0];
-    const contentWithoutFAQs = content.replace(faqRegex, '').trim();
-
-    // Parse individual FAQ items
-    // Pattern: **1. Question?** followed by answer text
-    const faqItemRegex = /\*\*\d+\.\s*(.*?)\*\*\s*\n\n([\s\S]*?)(?=\n\n\*\*\d+\.|\n\n##|$)/g;
-    const faqs = [];
-    let match;
-
-    while ((match = faqItemRegex.exec(faqSection)) !== null) {
-      faqs.push({
-        question: match[1].trim(),
-        answer: match[2].trim()
-      });
-    }
-
-    return { faqs, contentWithoutFAQs };
+    return { featuredSnippet, mainContent: workingContent, faqs };
   };
 
   if (!article) {
@@ -236,12 +248,39 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           </div>
         </motion.div>
 
+        {/* Featured Snippet */}
+        {parseArticleContent(article.content).featuredSnippet && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-gradient-to-br from-[#028393] to-[#142d63] rounded-2xl p-8 mb-12 shadow-xl border-2 border-[#028393]/30"
+          >
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <span className="text-2xl">💡</span>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-3">Key Takeaway</h3>
+                <p className="text-white/95 text-lg leading-relaxed">
+                  {parseArticleContent(article.content).featuredSnippet}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Table of Contents */}
+        <TableOfContents content={article.content} />
+
         {/* Featured Image */}
         {article.featuredImage && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="mb-12 rounded-2xl overflow-hidden shadow-2xl"
           >
             <img
@@ -256,38 +295,47 @@ const ArticleDetailPage = ({ navigate, slug }) => {
         <motion.article
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           className="prose prose-lg max-w-none
             prose-headings:text-[#142d63] prose-headings:font-bold prose-headings:tracking-tight
             prose-h1:text-4xl prose-h1:leading-tight prose-h1:mb-8
-            prose-h2:text-3xl prose-h2:leading-snug prose-h2:mt-16 prose-h2:mb-8 prose-h2:font-extrabold prose-h2:border-b-2 prose-h2:border-[#028393]/20 prose-h2:pb-3
+            prose-h2:text-3xl prose-h2:leading-snug prose-h2:mt-16 prose-h2:mb-8 prose-h2:font-extrabold prose-h2:pb-4 prose-h2:border-b-4 prose-h2:border-[#f65625]/30
             prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-5 prose-h3:font-bold
-            prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-4 prose-h4:font-semibold
-            prose-p:text-gray-700 prose-p:text-lg prose-p:leading-relaxed prose-p:py-[5px] prose-p:mb-4
+            prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-4 prose-h4:font-semibold prose-h4:text-[#028393]
+            prose-p:text-gray-700 prose-p:text-lg prose-p:leading-relaxed prose-p:py-[5px] prose-p:mb-5
             prose-a:text-[#f65625] prose-a:font-bold prose-a:no-underline hover:prose-a:underline hover:prose-a:text-[#142d63] prose-a:transition-colors
-            prose-strong:text-[#142d63] prose-strong:font-bold
+            prose-strong:text-[#142d63] prose-strong:font-extrabold
             prose-em:text-gray-800 prose-em:italic
-            prose-ul:my-6 prose-ul:space-y-3 prose-ol:my-6 prose-ol:space-y-3
-            prose-li:text-gray-700 prose-li:text-lg prose-li:leading-relaxed
-            prose-blockquote:border-l-4 prose-blockquote:border-[#028393] prose-blockquote:bg-gradient-to-r prose-blockquote:from-[#028393]/10 prose-blockquote:to-[#028393]/5 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:my-8 prose-blockquote:rounded-r-2xl prose-blockquote:shadow-sm prose-blockquote:italic
-            prose-code:text-[#028393] prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-sm
+            prose-ul:my-6 prose-ul:space-y-2 prose-ol:my-6 prose-ol:space-y-2
+            prose-li:text-gray-700 prose-li:text-lg prose-li:leading-relaxed prose-li:pl-2
+            prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-[#f65625] prose-blockquote:bg-gradient-to-r prose-blockquote:from-[#f65625]/5 prose-blockquote:to-transparent prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:my-10 prose-blockquote:rounded-r-2xl prose-blockquote:shadow-md
+            prose-blockquote:text-xl prose-blockquote:font-semibold prose-blockquote:text-[#142d63]
+            prose-code:text-[#028393] prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-base
             prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-xl prose-pre:shadow-lg
-            prose-img:rounded-xl prose-img:shadow-lg prose-img:my-8
-            prose-hr:border-gray-200 prose-hr:my-12"
+            prose-img:rounded-2xl prose-img:shadow-2xl prose-img:my-10 prose-img:border-2 prose-img:border-gray-200
+            prose-hr:border-gray-300 prose-hr:my-12"
         >
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-            {parseFAQs(article.content).contentWithoutFAQs}
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[
+              rehypeRaw,
+              rehypeSlug,
+              [rehypeAutolinkHeadings, { behavior: 'wrap' }]
+            ]}
+          >
+            {parseArticleContent(article.content).mainContent}
           </ReactMarkdown>
         </motion.article>
 
         {/* FAQ Accordion */}
-        {parseFAQs(article.content).faqs.length > 0 && (
+        {parseArticleContent(article.content).faqs.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-16"
           >
-            <FAQAccordion faqs={parseFAQs(article.content).faqs} />
+            <FAQAccordion faqs={parseArticleContent(article.content).faqs} />
           </motion.div>
         )}
 
@@ -309,18 +357,42 @@ const ArticleDetailPage = ({ navigate, slug }) => {
         )}
 
         {/* CTA Section */}
-        <div className="mt-12 bg-gradient-to-br from-[#f65625] to-[#faaa68] rounded-2xl p-8 text-center text-white">
-          <h3 className="text-2xl font-bold mb-3">Ready to Go Superhuman?</h3>
-          <p className="text-white/90 mb-6 max-w-xl mx-auto">
-            Get weekly insights, frameworks, and strategies delivered to your inbox.
-          </p>
-          <button
-            onClick={() => navigate('/')}
-            className="bg-white text-[#f65625] px-8 py-3 rounded-full font-bold hover:bg-[#142d63] hover:text-white transition-colors shadow-lg"
-          >
-            Explore More Resources
-          </button>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-20 bg-gradient-to-br from-[#f65625] via-[#f65625] to-[#faaa68] rounded-3xl p-12 text-center text-white shadow-2xl border-2 border-[#f65625]/30 relative overflow-hidden"
+        >
+          {/* Decorative background pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full translate-y-1/2 -translate-x-1/2"></div>
+          </div>
+
+          <div className="relative z-10">
+            <div className="inline-block mb-4 p-4 bg-white/20 rounded-2xl">
+              <span className="text-5xl">🚀</span>
+            </div>
+            <h3 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Go Superhuman?</h3>
+            <p className="text-xl text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Join thousands of professionals transforming their approach with weekly insights, frameworks, and strategies from the Superhuman Framework.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => navigate('resources')}
+                className="bg-white text-[#f65625] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#142d63] hover:text-white transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform"
+              >
+                Explore More Resources
+              </button>
+              <button
+                onClick={() => navigate('/')}
+                className="bg-[#142d63] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-[#f65625] transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform border-2 border-white/30"
+              >
+                Learn About the Framework
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       {/* Related Content */}

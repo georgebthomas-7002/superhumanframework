@@ -2,10 +2,11 @@ import matter from 'gray-matter';
 
 // This will be populated with actual content files
 // Content files should be in /src/content/{type}/{slug}.md
+// NOTE: Using relative paths from src/utils directory for better production compatibility
 const contentModules = {
-  articles: import.meta.glob('/src/content/articles/*.md', { query: '?raw', import: 'default', eager: true }),
-  podcasts: import.meta.glob('/src/content/podcasts/*.md', { query: '?raw', import: 'default', eager: true }),
-  offers: import.meta.glob('/src/content/offers/*.md', { query: '?raw', import: 'default', eager: true })
+  articles: import.meta.glob('../content/articles/*.md', { query: '?raw', import: 'default', eager: true }),
+  podcasts: import.meta.glob('../content/podcasts/*.md', { query: '?raw', import: 'default', eager: true }),
+  offers: import.meta.glob('../content/offers/*.md', { query: '?raw', import: 'default', eager: true })
 };
 
 /**

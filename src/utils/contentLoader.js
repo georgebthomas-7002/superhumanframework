@@ -40,38 +40,19 @@ const contentFiles = {
  * Load all content from markdown files
  * @returns {Array} Array of all content items with metadata
  */
-// Global debug log that will be displayed in UI
-export const debugLog = [];
-
 export const loadAllContent = () => {
   const allContent = [];
-  debugLog.length = 0; // Clear previous logs
-
-  // Debug logging
-  debugLog.push('===== START LOADING CONTENT =====');
-  debugLog.push(`contentFiles defined? ${typeof contentFiles}`);
-  debugLog.push(`contentFiles keys: ${contentFiles ? Object.keys(contentFiles).join(', ') : 'UNDEFINED'}`);
-  debugLog.push(`article1 type: ${typeof article1}`);
-  debugLog.push(`article1 length: ${article1 ? article1.length : 'undefined'}`);
-  debugLog.push(`article1 preview: ${article1 ? article1.substring(0, 50) + '...' : 'undefined'}`);
 
   // Process each content type
   Object.entries(contentFiles).forEach(([type, files]) => {
-    debugLog.push(`Processing ${type}: ${Object.keys(files).length} files`);
-
     Object.entries(files).forEach(([slug, raw]) => {
-      debugLog.push(`  - ${slug}: type=${typeof raw}, length=${raw ? raw.length : 0}`);
-
       try {
         if (!raw || typeof raw !== 'string') {
-          const error = `Invalid raw content for ${slug}: type is ${typeof raw}`;
-          debugLog.push(`    ✗ ERROR: ${error}`);
-          throw new Error(error);
+          console.error(`Invalid raw content for ${slug}: type is ${typeof raw}`);
+          return;
         }
 
-        debugLog.push(`    Parsing with gray-matter...`);
         const { data, content } = matter(raw);
-        debugLog.push(`    ✓ Matter parsed! Title: ${data.title || 'NO TITLE'}`);
 
         // Calculate read time for articles (rough estimate: 200 words per minute)
         let readTime = null;
@@ -88,25 +69,18 @@ export const loadAllContent = () => {
           readTime,
           ...data
         });
-        debugLog.push(`    ✓ Item added to allContent array`);
       } catch (error) {
-        debugLog.push(`    ✗ EXCEPTION: ${error.message}`);
-        debugLog.push(`    Stack: ${error.stack?.substring(0, 150) || 'no stack'}`);
         console.error(`Error loading content ${slug}:`, error);
       }
     });
   });
 
   // Sort by publish date (newest first)
-  const sorted = allContent.sort((a, b) => {
+  return allContent.sort((a, b) => {
     const dateA = new Date(a.publishDate || 0);
     const dateB = new Date(b.publishDate || 0);
     return dateB - dateA;
   });
-
-  debugLog.push(`===== TOTAL LOADED: ${sorted.length} items =====`);
-
-  return sorted;
 };
 
 /**

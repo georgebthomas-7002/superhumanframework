@@ -6,6 +6,7 @@ import rehypeRaw from 'rehype-raw';
 import { ArrowLeft, Clock, Calendar, Share2, Linkedin, Twitter, Facebook, Mail, Copy, Check } from 'lucide-react';
 import { loadContentBySlug, getRelatedContent } from '../utils/contentLoader';
 import ResourceCard from '../components/ResourceCenter/ResourceCard';
+import FAQAccordion from '../components/FAQAccordion';
 import SEO from '../components/SEO';
 import { seoConfig } from '../config/seo.config';
 
@@ -53,6 +54,37 @@ const ArticleDetailPage = ({ navigate, slug }) => {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  };
+
+  // Parse FAQs from markdown content
+  const parseFAQs = (content) => {
+    if (!content) return { faqs: [], contentWithoutFAQs: content };
+
+    // Find FAQ section (case insensitive)
+    const faqRegex = /##\s*\*?\*?Frequently Asked Questions.*?\*?\*?[\s\S]*$/i;
+    const faqMatch = content.match(faqRegex);
+
+    if (!faqMatch) {
+      return { faqs: [], contentWithoutFAQs: content };
+    }
+
+    const faqSection = faqMatch[0];
+    const contentWithoutFAQs = content.replace(faqRegex, '').trim();
+
+    // Parse individual FAQ items
+    // Pattern: **1. Question?** followed by answer text
+    const faqItemRegex = /\*\*\d+\.\s*(.*?)\*\*\s*\n\n([\s\S]*?)(?=\n\n\*\*\d+\.|\n\n##|$)/g;
+    const faqs = [];
+    let match;
+
+    while ((match = faqItemRegex.exec(faqSection)) !== null) {
+      faqs.push({
+        question: match[1].trim(),
+        answer: match[2].trim()
+      });
+    }
+
+    return { faqs, contentWithoutFAQs };
   };
 
   if (!article) {
@@ -234,19 +266,30 @@ const ArticleDetailPage = ({ navigate, slug }) => {
             prose-strong:text-[#142d63] prose-strong:font-bold
             prose-ul:my-6 prose-ol:my-6
             prose-li:text-gray-700 prose-li:my-2
-            prose-blockquote:border-l-4 prose-blockquote:border-[#f65625] prose-blockquote:bg-gray-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:my-8
+            prose-blockquote:border-l-4 prose-blockquote:border-[#028393] prose-blockquote:bg-gradient-to-r prose-blockquote:from-[#028393]/10 prose-blockquote:to-[#028393]/5 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:my-8 prose-blockquote:rounded-r-2xl prose-blockquote:shadow-sm
             prose-code:text-[#028393] prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded
             prose-pre:bg-gray-900 prose-pre:text-gray-100
             prose-img:rounded-xl prose-img:shadow-lg"
         >
           <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-            {article.content}
+            {parseFAQs(article.content).contentWithoutFAQs}
           </ReactMarkdown>
         </motion.article>
 
+        {/* FAQ Accordion */}
+        {parseFAQs(article.content).faqs.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <FAQAccordion faqs={parseFAQs(article.content).faqs} />
+          </motion.div>
+        )}
+
         {/* Tags */}
         {article.tags && article.tags.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-gray-200">
+          <div className="mt-20 pt-8 border-t border-gray-200">
             <div className="flex flex-wrap gap-2">
               <span className="text-sm font-bold text-gray-600 mr-2">Tags:</span>
               {article.tags.map((tag, index) => (

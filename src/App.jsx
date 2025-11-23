@@ -15,6 +15,7 @@ import PersonalPage from './pages/PersonalPage';
 import PastorsPage from './pages/PastorsPage';
 import WhoPage from './pages/WhoPage';
 import SpeakerPage from './pages/SpeakerPage';
+import WorkshopsPage from './pages/WorkshopsPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -1679,26 +1680,7 @@ const App = () => {
       // Services
       case 'speaking': return <SpeakerPage navigate={navigate} />;
       case 'speaker': return <SpeakerPage navigate={navigate} />;
-      case 'workshops': return <ServicesPage 
-        title="Team Workshops"
-        sub="Don't just learn the framework. Install it."
-        content={
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {[
-              {t: 'Sales Track', d: 'Kill the pitch. Install the "Humble Inquiry" script.'},
-              {t: 'Marketing Track', d: 'Audit your messaging for corporate speak. Move to H2H.'},
-              {t: 'HR Track', d: 'Redesign the employee experience from compliance to connection.'}
-            ].map((item, i) => (
-              <div key={i} className="p-10 border border-gray-100 rounded-3xl shadow-sm bg-white hover:border-[#f65625] hover:-translate-y-2 transition-all group">
-                <div className="w-16 h-16 bg-[#142d63] rounded-2xl mb-8 flex items-center justify-center text-white font-bold text-2xl">{i+1}</div>
-                <h3 className="text-3xl font-bold text-[#142d63] mb-4">{item.t}</h3>
-                <p className="text-gray-600 mb-10 leading-relaxed text-lg">{item.d}</p>
-                <button className="w-full bg-white border-2 border-[#142d63] text-[#142d63] py-4 rounded-xl font-bold group-hover:bg-[#142d63] group-hover:text-white transition-all">Inquire</button>
-              </div>
-            ))}
-          </div>
-        }
-      />;
+      case 'workshops': return <WorkshopsPage navigate={navigate} />;
       case 'coaching': return <ServicesPage 
         title="1:1 Coaching"
         sub="You can't read the label from inside the jar."

@@ -207,6 +207,10 @@ const Navbar = ({ navigate, currentView, godMode }) => {
               </div>
             </div>
 
+            <button onClick={() => navigate('resources')} className={`text-sm font-bold hover:text-[#028393] transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Resources
+            </button>
+
             {/* Dropdown: About */}
             <div className="relative group h-full flex items-center">
               <button className={`text-sm font-bold group-hover:text-[#028393] flex items-center focus:outline-none transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -220,10 +224,6 @@ const Navbar = ({ navigate, currentView, godMode }) => {
                 </div>
               </div>
             </div>
-
-            <button onClick={() => navigate('resources')} className={`text-sm font-bold hover:text-[#028393] transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              Resources
-            </button>
 
             <button 
               onClick={() => navigate('quiz')} 
@@ -265,14 +265,14 @@ const Navbar = ({ navigate, currentView, godMode }) => {
             ))}
           </div>
 
+          <button onClick={() => { navigate('resources'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-4 text-xl font-bold border-b ${godMode ? 'text-white border-gray-800' : 'text-[#142d63] border-gray-50'}`}>Resources</button>
+
           <div className={`py-4 border-b ${godMode ? 'border-gray-800' : 'border-gray-50'}`}>
             <div className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3">About</div>
             <button onClick={() => { navigate('founder'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-3 pl-4 font-medium active:text-[#f65625] ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
               The Founder
             </button>
           </div>
-
-          <button onClick={() => { navigate('resources'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-4 text-xl font-bold border-b ${godMode ? 'text-white border-gray-800' : 'text-[#142d63] border-gray-50'}`}>Resources</button>
 
           <button onClick={() => { navigate('quiz'); setIsMobileMenuOpen(false); }} className="block w-full text-center mt-8 bg-[#f65625] text-white py-4 rounded-xl font-bold text-lg shadow-lg active:scale-95 transition-transform">
             Take Assessment

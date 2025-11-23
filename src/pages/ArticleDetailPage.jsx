@@ -6,6 +6,8 @@ import rehypeRaw from 'rehype-raw';
 import { ArrowLeft, Clock, Calendar, Share2, Linkedin, Twitter, Facebook, Mail, Copy, Check } from 'lucide-react';
 import { loadContentBySlug, getRelatedContent } from '../utils/contentLoader';
 import ResourceCard from '../components/ResourceCenter/ResourceCard';
+import SEO from '../components/SEO';
+import { seoConfig } from '../config/seo.config';
 
 const ArticleDetailPage = ({ navigate, slug }) => {
   const [article, setArticle] = useState(null);
@@ -71,6 +73,26 @@ const ArticleDetailPage = ({ navigate, slug }) => {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* SEO Meta Tags */}
+      {article && (
+        <SEO
+          title={article.title}
+          description={article.excerpt}
+          slug={`resource/article/${slug}`}
+          type="article"
+          image={article.featuredImage}
+          publishedTime={article.publishDate ? new Date(article.publishDate).toISOString() : undefined}
+          author={article.author || seoConfig.defaultAuthor.name}
+          tags={article.tags || []}
+          categories={article.categories || []}
+          breadcrumbs={[
+            { name: 'Home', url: seoConfig.siteUrl },
+            { name: 'Resources', url: `${seoConfig.siteUrl}/resources` },
+            { name: article.title, url: `${seoConfig.siteUrl}/resource/article/${slug}` }
+          ]}
+        />
+      )}
+
       {/* Back Button */}
       <div className="bg-gray-50 border-b border-gray-100">
         <div className="container mx-auto px-6 py-4">

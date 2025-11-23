@@ -1,0 +1,50 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#142d63;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#028393;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#142d63;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Decorative Elements -->
+  <circle cx="100" cy="100" r="40" fill="#faaa68" opacity="0.2"/>
+  <circle cx="1100" cy="530" r="50" fill="#f65625" opacity="0.2"/>
+  <rect x="950" y="50" width="200" height="200" fill="#028393" opacity="0.1" transform="rotate(45 1050 150)"/>
+
+  <!-- Logo/Icon (Pillars) -->
+  <g transform="translate(100, 250)">
+    <!-- Base -->
+    <rect x="0" y="120" width="100" height="10" fill="white"/>
+    <!-- Pillar 1 -->
+    <path d="M10 110 V40 L20 30 V110 Z" fill="#faaa68"/>
+    <!-- Pillar 2 (Tallest) -->
+    <path d="M30 110 V10 L40 0 V110 Z" fill="white"/>
+    <!-- Pillar 3 (Tallest) -->
+    <path d="M50 110 V10 L60 0 V110 Z" fill="white"/>
+    <!-- Pillar 4 -->
+    <path d="M70 110 V40 L80 30 V110 Z" fill="#faaa68"/>
+  </g>
+
+  <!-- Main Text -->
+  <text x="250" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="900" fill="white" letter-spacing="-2">
+    SUPERHUMAN
+  </text>
+  <text x="250" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#faaa68" letter-spacing="8">
+    FRAMEWORK
+  </text>
+
+  <!-- Tagline -->
+  <text x="250" y="430" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="white" opacity="0.9">
+    Stop Drifting. Start Designing.
+  </text>
+
+  <!-- Domain -->
+  <text x="250" y="490" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600" fill="#f65625">
+    sidekickstrategies.com
+  </text>
+</svg>

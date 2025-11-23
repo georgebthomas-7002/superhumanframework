@@ -4,6 +4,7 @@ import { Search, Filter, X, ChevronDown, Grid, List, Sparkles, TrendingUp, Calen
 import Fuse from 'fuse.js';
 import { loadAllContent, getCategories } from '../utils/contentLoader';
 import ResourceCard from '../components/ResourceCenter/ResourceCard';
+import SEO from '../components/SEO';
 
 const ResourceCenterPage = ({ navigate }) => {
   const [allContent, setAllContent] = useState([]);
@@ -101,6 +102,14 @@ const ResourceCenterPage = ({ navigate }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* SEO Meta Tags */}
+      <SEO
+        title="Resource Center"
+        description="Need helpful content on leadership, marketing, or sales? Explore articles, podcasts, and resources to become superhuman..."
+        slug="/resources"
+        type="website"
+      />
+
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-[#142d63] via-[#028393] to-[#142d63] text-white py-20">
         <div className="container mx-auto px-6">

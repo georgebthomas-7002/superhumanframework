@@ -2,6 +2,53 @@
 
 ## Recent Updates (2025-11-22)
 
+### Quiz Hero Full-Width Fix
+**Commit:** `9fe0374`
+
+#### Fixed Hero Section to Span Full Screen Width
+Restructured QuizPage component to allow hero section to break out of constrained containers and match other pages:
+
+**Problem Identified:**
+- Hero section was constrained by parent `max-w-4xl` container
+- Not spanning full screen width like LeadershipPage, SalesPage, MarketingPage
+- Dark navy background didn't extend edge-to-edge
+- Inconsistent visual experience across site
+
+**Solution Implemented:**
+- Moved Step 0 (intro/hero) outside of constrained wrapper
+- Hero section now renders at component root level (full-width)
+- Steps 1-7 remain in constrained layout with centered max-width
+- Proper component structure with separate wrappers for different sections
+
+**New Structure:**
+```
+QuizPage
+├── Step 0: Full-width hero section
+│   └── Content sections with max-w-5xl below hero
+└── Steps 1-7: Constrained layout wrapper (min-h-[90vh])
+    ├── Background blobs
+    ├── Progress bar
+    └── Content (max-w-4xl)
+```
+
+**Visual Result:**
+- Hero section now spans full viewport width
+- Dark navy (#142d63) background extends edge-to-edge
+- ParticleBackground and breathing waves across full screen
+- Blur circles positioned at viewport edges
+- Perfect match with all other vertical page heroes
+- Content sections below hero properly constrained for readability
+
+**Technical Details:**
+- Files modified: `src/App.jsx` (lines 888-1500)
+- Restructured return statement with conditional wrappers
+- Step 0: No constraints, full-width rendering
+- Steps 1-7: Wrapped in centered layout with decorative blobs
+- Build size: 658.08KB (no change)
+- No functionality changes or regressions
+
+---
+
 ### Quiz Hero Section Consistency Update
 **Commit:** `1235d9a`
 
@@ -487,8 +534,9 @@ src/
 
 ## Branch Information
 **Current Branch:** `claude/superhuman-framework-website-01DVSeLYFNWahG8yqp61Aj1s`
-**Latest Commit:** `1235d9a` - Make quiz hero section consistent with other pages
+**Latest Commit:** `9fe0374` - Fix quiz hero section to span full screen width
 **Previous Commits:**
+- `1235d9a` - Make quiz hero section consistent with other pages
 - `ca5a9b5` - Redesign quiz landing page with enhanced UX and clearer value proposition
 - `a2eeab9` - Fix HR page: add missing Download icon import
 - `372a0d7` - Update footer logo to white knockout style

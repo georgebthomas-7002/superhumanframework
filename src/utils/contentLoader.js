@@ -15,6 +15,13 @@ const contentModules = {
 export const loadAllContent = () => {
   const allContent = [];
 
+  // Debug logging
+  console.log('[ContentLoader] Loading content...');
+  console.log('[ContentLoader] Content modules:', Object.keys(contentModules));
+  Object.entries(contentModules).forEach(([type, modules]) => {
+    console.log(`[ContentLoader] ${type}: ${Object.keys(modules).length} files`);
+  });
+
   // Process each content type
   Object.entries(contentModules).forEach(([type, modules]) => {
     Object.entries(modules).forEach(([filepath, raw]) => {
@@ -46,11 +53,16 @@ export const loadAllContent = () => {
   });
 
   // Sort by publish date (newest first)
-  return allContent.sort((a, b) => {
+  const sorted = allContent.sort((a, b) => {
     const dateA = new Date(a.publishDate || 0);
     const dateB = new Date(b.publishDate || 0);
     return dateB - dateA;
   });
+
+  console.log(`[ContentLoader] Total content loaded: ${sorted.length}`);
+  console.log('[ContentLoader] Content items:', sorted.map(item => ({ slug: item.slug, type: item.type, title: item.title })));
+
+  return sorted;
 };
 
 /**

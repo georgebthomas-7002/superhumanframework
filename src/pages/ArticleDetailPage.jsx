@@ -138,33 +138,33 @@ const ArticleDetailPage = ({ navigate, slug }) => {
         />
       )}
 
-      {/* Back Button */}
-      <div className="bg-gray-50 border-b border-gray-100">
-        <div className="container mx-auto px-6 py-4">
+      {/* Back Button - Cleaner design */}
+      <div className="bg-white border-b border-gray-100 sticky top-0 z-50 backdrop-blur-sm bg-white/90">
+        <div className="container mx-auto px-6 py-5">
           <button
             onClick={() => navigate('resources')}
-            className="flex items-center gap-2 text-gray-600 hover:text-[#f65625] font-bold transition-colors"
+            className="flex items-center gap-2 text-gray-600 hover:text-[#f65625] font-bold transition-all hover:gap-3 group"
           >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Resource Center
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            Back to Articles
           </button>
         </div>
       </div>
 
-      {/* Article Header */}
-      <div className="container mx-auto px-6 py-12 max-w-4xl">
+      {/* Article Header - More spacious and clean */}
+      <div className="container mx-auto px-6 py-16 max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Categories */}
+          {/* Categories - Cleaner badges */}
           {article.categories && (
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-3 mb-8">
               {article.categories.map((category, index) => (
                 <span
                   key={index}
-                  className="px-4 py-2 bg-[#028393]/10 text-[#028393] rounded-full text-sm font-bold"
+                  className="px-5 py-2 bg-[#028393]/10 text-[#028393] rounded-lg text-sm font-bold border border-[#028393]/20"
                 >
                   {category}
                 </span>
@@ -172,76 +172,76 @@ const ArticleDetailPage = ({ navigate, slug }) => {
             </div>
           )}
 
-          {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-6 leading-tight">
+          {/* Title - Larger, more impactful */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#142d63] mb-8 leading-[1.1] tracking-tight">
             {article.title}
           </h1>
 
-          {/* Excerpt */}
+          {/* Excerpt - Larger, more prominent */}
           {article.excerpt && (
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-2xl text-gray-600 mb-12 leading-relaxed font-light">
               {article.excerpt}
             </p>
           )}
 
-          {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-8 pb-8 border-b border-gray-200">
+          {/* Meta Info - More spacious */}
+          <div className="flex flex-wrap items-center gap-8 text-gray-600 mb-10 pb-10 border-b-2 border-gray-200">
             {article.author && (
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#f65625] to-[#faaa68] rounded-full flex items-center justify-center text-white font-bold">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#f65625] to-[#faaa68] rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md">
                   {article.author.charAt(0)}
                 </div>
-                <span className="font-medium">{article.author}</span>
+                <span className="font-bold text-lg">{article.author}</span>
               </div>
             )}
             {article.publishDate && (
               <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5" />
-                <span>{formatDate(article.publishDate)}</span>
+                <Calendar className="w-5 h-5 text-[#028393]" />
+                <span className="font-medium">{formatDate(article.publishDate)}</span>
               </div>
             )}
             {article.readTime && (
               <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5" />
-                <span>{article.readTime} min read</span>
+                <Clock className="w-5 h-5 text-[#f65625]" />
+                <span className="font-medium">{article.readTime} min read</span>
               </div>
             )}
           </div>
 
-          {/* Share Buttons */}
-          <div className="flex items-center gap-3 mb-8">
-            <span className="text-sm font-bold text-gray-600 mr-2">Share:</span>
+          {/* Share Buttons - More prominent */}
+          <div className="flex flex-wrap items-center gap-4 mb-12">
+            <span className="text-base font-bold text-gray-700">Share this article:</span>
             <button
               onClick={() => handleShare('linkedin')}
-              className="p-2 bg-[#0077b5] text-white rounded-full hover:scale-110 transition-transform"
+              className="p-3 bg-[#0077b5] text-white rounded-xl hover:scale-110 transition-all shadow-md hover:shadow-lg"
               title="Share on LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
             </button>
             <button
               onClick={() => handleShare('twitter')}
-              className="p-2 bg-[#1DA1F2] text-white rounded-full hover:scale-110 transition-transform"
+              className="p-3 bg-[#1DA1F2] text-white rounded-xl hover:scale-110 transition-all shadow-md hover:shadow-lg"
               title="Share on Twitter"
             >
               <Twitter className="w-5 h-5" />
             </button>
             <button
               onClick={() => handleShare('facebook')}
-              className="p-2 bg-[#4267B2] text-white rounded-full hover:scale-110 transition-transform"
+              className="p-3 bg-[#4267B2] text-white rounded-xl hover:scale-110 transition-all shadow-md hover:shadow-lg"
               title="Share on Facebook"
             >
               <Facebook className="w-5 h-5" />
             </button>
             <button
               onClick={() => handleShare('email')}
-              className="p-2 bg-gray-600 text-white rounded-full hover:scale-110 transition-transform"
+              className="p-3 bg-gray-600 text-white rounded-xl hover:scale-110 transition-all shadow-md hover:shadow-lg"
               title="Share via Email"
             >
               <Mail className="w-5 h-5" />
             </button>
             <button
               onClick={() => handleShare('copy')}
-              className="p-2 bg-[#f65625] text-white rounded-full hover:scale-110 transition-transform"
+              className="p-3 bg-[#f65625] text-white rounded-xl hover:scale-110 transition-all shadow-md hover:shadow-lg"
               title="Copy link"
             >
               {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
@@ -249,23 +249,27 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           </div>
         </motion.div>
 
-        {/* Featured Snippet */}
+        {/* Featured Snippet - More prominent */}
         {parseArticleContent(article.content).featuredSnippet && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-gradient-to-br from-[#028393] to-[#142d63] rounded-2xl p-8 mb-12 shadow-xl border-2 border-[#028393]/30"
+            className="bg-gradient-to-br from-[#028393] to-[#142d63] rounded-3xl p-10 mb-16 shadow-2xl border-2 border-[#028393]/30 relative overflow-hidden"
           >
-            <div className="flex items-start gap-4">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+
+            <div className="flex items-start gap-6 relative z-10">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <span className="text-2xl">💡</span>
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-3xl">💡</span>
                 </div>
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-3">Key Takeaway</h3>
-                <p className="text-white/95 text-lg leading-relaxed">
+                <h3 className="text-2xl font-extrabold text-white mb-4">Key Takeaway</h3>
+                <p className="text-white/95 text-xl leading-relaxed">
                   {parseArticleContent(article.content).featuredSnippet}
                 </p>
               </div>
@@ -276,13 +280,13 @@ const ArticleDetailPage = ({ navigate, slug }) => {
         {/* Table of Contents */}
         <TableOfContents content={article.content} />
 
-        {/* Featured Image */}
+        {/* Featured Image - Larger, more prominent */}
         {article.featuredImage && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-12 rounded-2xl overflow-hidden shadow-2xl"
+            className="mb-16 rounded-3xl overflow-hidden shadow-2xl"
           >
             <img
               src={article.featuredImage}
@@ -292,15 +296,15 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           </motion.div>
         )}
 
-        {/* Article Content */}
+        {/* Article Content - With generous margins */}
         <motion.article
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="article-content prose prose-lg max-w-none
+          className="article-content prose prose-lg max-w-none mb-16
             prose-headings:scroll-mt-24
             prose-p:text-gray-700
-            prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-6 prose-pre:my-6 prose-pre:overflow-x-auto"
+            prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-xl prose-pre:p-8 prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:shadow-2xl"
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
@@ -326,15 +330,15 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           </motion.div>
         )}
 
-        {/* Tags */}
+        {/* Tags - More prominent */}
         {article.tags && article.tags.length > 0 && (
-          <div className="mt-20 pt-8 border-t border-gray-200">
-            <div className="flex flex-wrap gap-2">
-              <span className="text-sm font-bold text-gray-600 mr-2">Tags:</span>
+          <div className="mt-24 pt-10 border-t-2 border-gray-200">
+            <div className="flex flex-wrap gap-3">
+              <span className="text-base font-bold text-gray-700 mr-2">Related Topics:</span>
               {article.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-bold hover:bg-[#f65625] hover:text-white transition-all cursor-pointer border border-gray-200 hover:border-[#f65625] shadow-sm hover:shadow-md"
                 >
                   #{tag}
                 </span>
@@ -343,12 +347,12 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           </div>
         )}
 
-        {/* CTA Section */}
+        {/* CTA Section - More impactful */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-20 bg-gradient-to-br from-[#f65625] via-[#f65625] to-[#faaa68] rounded-3xl p-12 text-center text-white shadow-2xl border-2 border-[#f65625]/30 relative overflow-hidden"
+          className="mt-24 bg-gradient-to-br from-[#f65625] via-[#f65625] to-[#faaa68] rounded-3xl p-16 text-center text-white shadow-2xl relative overflow-hidden"
         >
           {/* Decorative background pattern */}
           <div className="absolute inset-0 opacity-10">
@@ -357,23 +361,23 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           </div>
 
           <div className="relative z-10">
-            <div className="inline-block mb-4 p-4 bg-white/20 rounded-2xl">
-              <span className="text-5xl">🚀</span>
+            <div className="inline-block mb-6 p-5 bg-white/20 backdrop-blur-sm rounded-3xl shadow-lg">
+              <span className="text-6xl">🚀</span>
             </div>
-            <h3 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Go Superhuman?</h3>
-            <p className="text-xl text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <h3 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">Ready to Go Superhuman?</h3>
+            <p className="text-2xl text-white/95 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
               Join thousands of professionals transforming their approach with weekly insights, frameworks, and strategies from the Superhuman Framework.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-5 justify-center">
               <button
                 onClick={() => navigate('resources')}
-                className="bg-white text-[#f65625] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#142d63] hover:text-white transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform"
+                className="bg-white text-[#f65625] px-12 py-5 rounded-2xl font-bold text-lg hover:bg-[#142d63] hover:text-white transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform"
               >
                 Explore More Resources
               </button>
               <button
                 onClick={() => navigate('/')}
-                className="bg-[#142d63] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-[#f65625] transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform border-2 border-white/30"
+                className="bg-[#142d63] text-white px-12 py-5 rounded-2xl font-bold text-lg hover:bg-white hover:text-[#f65625] transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform border-2 border-white/30"
               >
                 Learn About the Framework
               </button>
@@ -382,12 +386,15 @@ const ArticleDetailPage = ({ navigate, slug }) => {
         </motion.div>
       </div>
 
-      {/* Related Content */}
+      {/* Related Content - More spacious and clean */}
       {relatedContent.length > 0 && (
-        <div className="bg-gray-50 py-16">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <h2 className="text-3xl font-bold text-[#142d63] mb-8">Related Content</h2>
-            <div className="grid md:grid-cols-3 gap-8">
+        <div className="bg-gradient-to-b from-gray-50 to-white py-24">
+          <div className="container mx-auto px-6 max-w-7xl">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-4">Continue Reading</h2>
+              <p className="text-xl text-gray-600">More insights to fuel your superhuman journey</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-10">
               {relatedContent.map((item) => (
                 <ResourceCard
                   key={item.id}

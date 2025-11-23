@@ -1,73 +1,101 @@
-/* Professional Blog Article Typography */
+/* ====================================
+   SUPERHUMAN FRAMEWORK ARTICLE DESIGN
+   Inspired by Digital Marmalade's clean aesthetic
+   ==================================== */
 
-/* Optimal reading width for long-form content */
+/* Optimal reading width with generous breathing room */
 .article-content {
-  max-width: 720px;
+  max-width: 750px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 1.125rem;
+  color: #374151;
 }
 
-/* Paragraph spacing - professional blog standard */
+/* Paragraph spacing - generous for comfortable reading */
 .article-content p {
-  margin-bottom: 1.75rem;
-  line-height: 1.75;
+  margin-bottom: 2rem;
+  line-height: 1.8;
   letter-spacing: 0.01em;
+  color: #4b5563;
 }
 
 .article-content p + p {
   margin-top: 0;
 }
 
-/* First paragraph - emphasis without drop cap */
+/* First paragraph - larger, inviting introduction */
 .article-content > p:first-of-type {
-  font-size: 1.25rem;
-  line-height: 1.7;
+  font-size: 1.375rem;
+  line-height: 1.75;
   color: #1f2937;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
 }
 
-/* H2 section headers - clean professional style */
+/* H2 section headers - bold, minimal, elegant */
 .article-content h2 {
   color: #142d63;
-  font-weight: 700;
-  font-size: 2rem;
-  line-height: 1.3;
+  font-weight: 800;
+  font-size: 2.25rem;
+  line-height: 1.2;
+  margin-top: 4rem;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.025em;
   position: relative;
-  padding-bottom: 0.75rem;
-  margin-top: 3.5rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 3px solid #f65625;
-  letter-spacing: -0.02em;
 }
 
-/* H3 subsection headers - minimal and clean */
+/* Subtle accent line for H2 */
+.article-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: -0.75rem;
+  left: 0;
+  width: 4rem;
+  height: 4px;
+  background: linear-gradient(90deg, #f65625 0%, #faaa68 100%);
+  border-radius: 2px;
+}
+
+/* H3 subsection headers - clean hierarchy */
 .article-content h3 {
   color: #142d63;
-  font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 1.4;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.35;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.015em;
 }
 
-/* Lists - clean professional style */
+/* Lists - spacious and readable */
 .article-content ul,
 .article-content ol {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding-left: 2rem;
 }
 
 .article-content li {
-  margin-bottom: 0.75rem;
-  line-height: 1.7;
-  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+  padding-left: 0.75rem;
+  color: #4b5563;
 }
 
 .article-content li:last-child {
   margin-bottom: 0;
+}
+
+/* Custom bullet points */
+.article-content ul li {
+  position: relative;
+}
+
+.article-content ul li::marker {
+  color: #f65625;
+  font-size: 1.2em;
 }
 
 /* Nested lists */
@@ -75,13 +103,8 @@
 .article-content ol ol,
 .article-content ul ol,
 .article-content ol ul {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   margin-bottom: 0;
-}
-
-/* Reading progress indicator */
-.article-content {
-  position: relative;
 }
 
 /* Smooth scroll behavior for anchor links */
@@ -89,21 +112,24 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Paragraph first-child special styling */
-.article-content > p:first-of-type {
-  margin-top: 2rem;
-}
-
-/* Links - professional style */
+/* Links - clean with subtle underline */
 .article-content a {
   color: #f65625;
   text-decoration: none;
-  border-bottom: 1px solid rgba(246, 86, 37, 0.3);
-  transition: border-color 0.2s ease;
+  background-image: linear-gradient(90deg, #f65625 0%, #faaa68 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
 }
 
 .article-content a:hover {
-  border-bottom-color: #f65625;
+  background-size: 100% 100%;
+  color: white;
+  padding: 2px 6px;
+  margin: 0 -6px;
+  border-radius: 4px;
 }
 
 /* Strong and emphasis text */
@@ -117,7 +143,14 @@ html {
   color: #374151;
 }
 
-/* Code blocks syntax highlighting prep */
+/* Code blocks - clean and modern */
+.article-content pre {
+  margin: 3rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(20, 45, 99, 0.1);
+}
+
 .article-content pre code {
   display: block;
   padding: 0;
@@ -126,16 +159,30 @@ html {
   line-height: 1.75;
 }
 
-/* Blockquotes - professional blog style */
+/* Blockquotes - elegant and spacious */
 .article-content blockquote {
-  margin: 2.5rem 0;
-  padding: 1.5rem 2rem;
-  border-left: 4px solid #f65625;
-  background-color: #f9fafb;
-  font-size: 1.125rem;
-  line-height: 1.7;
+  margin: 3.5rem 0;
+  padding: 2rem 2.5rem;
+  border-left: 5px solid #f65625;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  font-size: 1.25rem;
+  line-height: 1.8;
   color: #374151;
   font-style: italic;
+  border-radius: 0 12px 12px 0;
+  position: relative;
+}
+
+.article-content blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -0.5rem;
+  left: 1.5rem;
+  font-size: 4rem;
+  color: #f65625;
+  opacity: 0.2;
+  font-family: Georgia, serif;
+  line-height: 1;
 }
 
 .article-content blockquote p {
@@ -146,63 +193,82 @@ html {
   margin-bottom: 0;
 }
 
-/* Images - professional presentation */
+/* Images - clean with subtle shadow */
 .article-content img {
-  margin: 2.5rem auto;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin: 3.5rem auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(20, 45, 99, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Code inline */
+.article-content img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 25px 60px rgba(20, 45, 99, 0.2);
+}
+
+/* Code inline - subtle background */
 .article-content code {
   background-color: #f3f4f6;
   color: #1f2937;
-  padding: 0.2em 0.4em;
-  border-radius: 0.25rem;
+  padding: 0.3em 0.6em;
+  border-radius: 6px;
   font-size: 0.9em;
   font-family: 'Monaco', 'Courier New', monospace;
+  border: 1px solid #e5e7eb;
 }
 
-/* Tables - clean professional style */
+/* Tables - modern and clean */
 .article-content table {
   width: 100%;
-  margin: 2.5rem 0;
-  border-collapse: collapse;
-  font-size: 0.95rem;
+  margin: 3rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(20, 45, 99, 0.08);
 }
 
 .article-content thead {
-  background-color: #f9fafb;
-  border-bottom: 2px solid #e5e7eb;
+  background: linear-gradient(135deg, #142d63 0%, #028393 100%);
 }
 
 .article-content th {
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.5rem;
   text-align: left;
-  font-weight: 600;
-  color: #374151;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
 }
 
 .article-content td {
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid #e5e7eb;
+  background-color: white;
+  color: #4b5563;
 }
 
 .article-content tbody tr:hover {
   background-color: #f9fafb;
 }
 
-/* Horizontal rules - minimal */
-.article-content hr {
-  border: none;
-  height: 1px;
-  background-color: #e5e7eb;
-  margin: 3rem 0;
+.article-content tbody tr:last-child td {
+  border-bottom: none;
 }
 
-/* Selection color */
+/* Horizontal rules - decorative */
+.article-content hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #f65625 50%, transparent 100%);
+  margin: 4rem 0;
+}
+
+/* Selection color - brand colors */
 .article-content ::selection {
-  background-color: rgba(246, 86, 37, 0.2);
+  background-color: rgba(246, 86, 37, 0.25);
   color: #142d63;
 }
 
@@ -233,33 +299,58 @@ html {
   }
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments - mobile optimization */
 @media (max-width: 768px) {
   .article-content {
     max-width: 100%;
+    font-size: 1rem;
   }
 
   .article-content h2 {
-    font-size: 1.75rem;
-    margin-top: 2.5rem;
+    font-size: 1.875rem;
+    margin-top: 3rem;
+  }
+
+  .article-content h2::after {
+    width: 3rem;
+    height: 3px;
   }
 
   .article-content h3 {
-    font-size: 1.25rem;
-    margin-top: 2rem;
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
   }
 
   .article-content > p:first-of-type {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
   }
 
   .article-content blockquote {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+    padding: 1.5rem 1.75rem;
+    font-size: 1.125rem;
+    margin: 2.5rem 0;
+  }
+
+  .article-content blockquote::before {
+    font-size: 3rem;
+    left: 1rem;
   }
 
   .article-content ul,
   .article-content ol {
-    padding-left: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  .article-content img {
+    margin: 2.5rem auto;
+  }
+
+  .article-content table {
+    font-size: 0.875rem;
+  }
+
+  .article-content th,
+  .article-content td {
+    padding: 0.75rem 1rem;
   }
 }

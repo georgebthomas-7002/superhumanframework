@@ -886,34 +886,12 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
   const currentResult = results[userPath];
 
   return (
-    <div className="min-h-[90vh] flex flex-col items-center justify-center bg-white relative overflow-hidden py-20">
-      {/* Background blobs */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-[#faaa68]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#028393]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
-
-      <div className="w-full max-w-4xl px-6 relative z-10">
-
-        {/* PROGRESS BAR */}
-        {step > 0 && step < 7 && (
-            <div className="mb-12">
-                <div className="flex justify-between items-center mb-3">
-                    <span className="text-sm font-bold text-gray-500 uppercase tracking-wide">{getProgressMessage()}</span>
-                    <span className="text-sm font-bold text-[#f65625]">{getProgress()}%</span>
-                </div>
-                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                        className="h-full bg-gradient-to-r from-[#f65625] to-[#faaa68] transition-all duration-500 ease-out"
-                        style={{width: `${getProgress()}%`}}
-                    ></div>
-                </div>
-            </div>
-        )}
-
-        {/* STEP 0: INTRO */}
-        {step === 0 && (
-          <div className="animate-fade-in">
-            {/* Hero Section */}
-            <section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden mb-24">
+    <div className="bg-white">
+      {/* STEP 0: INTRO - Full width hero */}
+      {step === 0 && (
+        <div className="animate-fade-in">
+          {/* Hero Section - Full Width */}
+          <section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden">
               <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
               <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
               <ParticleBackground color="#faaa68" />
@@ -1111,9 +1089,33 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
           </div>
         )}
 
-        {/* STEP 1: NAME */}
-        {step === 1 && (
-          <div className="animate-fade-in">
+      {/* STEPS 1-7: Constrained layout with background blobs */}
+      {step > 0 && (
+        <div className="min-h-[90vh] flex flex-col items-center justify-center bg-white relative overflow-hidden py-20">
+          {/* Background blobs */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-[#faaa68]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#028393]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+
+          <div className="w-full max-w-4xl px-6 relative z-10">
+            {/* PROGRESS BAR */}
+            {step > 0 && step < 7 && (
+              <div className="mb-12">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-sm font-bold text-gray-500 uppercase tracking-wide">{getProgressMessage()}</span>
+                  <span className="text-sm font-bold text-[#f65625]">{getProgress()}%</span>
+                </div>
+                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#f65625] to-[#faaa68] transition-all duration-500 ease-out"
+                    style={{width: `${getProgress()}%`}}
+                  ></div>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 1: NAME */}
+            {step === 1 && (
+              <div className="animate-fade-in">
             <button onClick={() => setStep(0)} className="flex items-center text-gray-400 hover:text-[#142d63] mb-12 transition-colors font-bold uppercase tracking-wide text-sm"><ArrowLeft className="w-4 h-4 mr-2"/> Back</button>
             <h2 className="text-4xl font-bold text-[#142d63] mb-4">Let's get started.</h2>
             <p className="text-gray-500 mb-12 text-xl">First things first, what should we call you?</p>
@@ -1414,26 +1416,79 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
         {/* STEP 7: RESULT */}
         {step === 7 && currentResult && (
           <div className="animate-fade-in">
-            <div className="text-center mb-12">
-              <div className="inline-block p-8 bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl mb-8 relative">
-                <div className="absolute inset-0 bg-white/10 rounded-3xl blur-xl"></div>
-                <currentResult.icon className="w-20 h-20 text-white relative z-10" />
+            {/* Result Hero Section - Full Width */}
+            <section className="bg-[#142d63] text-white py-32 md:py-40 text-center relative overflow-hidden mb-16">
+              <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
+              <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
+              <ParticleBackground color="#faaa68" />
+
+              {/* Breathing Wave Effect */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-full h-full"
+                    style={{
+                      background: `radial-gradient(ellipse at ${20 + i * 20}% ${30 + i * 15}%, rgba(255,255,255,0.03) 0%, transparent 50%)`,
+                    }}
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{
+                      duration: 8 + i * 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.5,
+                    }}
+                  />
+                ))}
               </div>
 
-              <div className="inline-block bg-[#faaa68]/20 px-6 py-2 rounded-full mb-6">
-                <span className="text-[#142d63] font-bold text-sm uppercase tracking-widest">Your Archetype</span>
-              </div>
+              <motion.div
+                className="max-w-5xl mx-auto px-4 relative z-10"
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
+              >
+                <motion.div
+                  variants={fadeInUp}
+                  className="inline-block p-8 bg-white/10 backdrop-blur-sm rounded-3xl mb-8 relative border border-white/20"
+                >
+                  <currentResult.icon className="w-20 h-20 text-[#faaa68]" />
+                </motion.div>
 
-              <h1 className="text-5xl md:text-6xl font-extrabold text-[#142d63] mb-4 leading-tight">
-                {currentResult.archetype}
-              </h1>
-              <p className="text-2xl md:text-3xl text-gray-500 mb-8 font-medium">
-                ({currentResult.trapped})
-              </p>
-              <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-                {currentResult.subhead}
-              </p>
-            </div>
+                <motion.div
+                  variants={fadeInUp}
+                  className="inline-block bg-[#faaa68]/20 px-6 py-2 rounded-full mb-6 backdrop-blur-sm border border-[#faaa68]/30"
+                >
+                  <span className="text-[#faaa68] font-bold text-sm uppercase tracking-widest">Your Archetype</span>
+                </motion.div>
+
+                <motion.h1
+                  variants={fadeInUp}
+                  className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight"
+                >
+                  {currentResult.archetype}
+                </motion.h1>
+
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-2xl md:text-3xl text-gray-300 mb-6 font-medium"
+                >
+                  ({currentResult.trapped})
+                </motion.p>
+
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-xl md:text-2xl text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed"
+                >
+                  {currentResult.subhead}
+                </motion.p>
+              </motion.div>
+            </section>
+
+            <div className="max-w-4xl mx-auto px-6">
 
             <div className="bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl p-12 text-center text-white relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
@@ -1491,9 +1546,12 @@ const QuizPage = ({ navigate, setTriggerConfetti }) => {
                 Take Assessment Again
               </button>
             </div>
+            </div>
           </div>
         )}
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

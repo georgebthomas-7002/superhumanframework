@@ -204,10 +204,20 @@ const Navbar = ({ navigate, currentView, godMode }) => {
               </div>
             </div>
 
-            <button onClick={() => navigate('founder')} className={`text-sm font-bold hover:text-[#028393] transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              The Founder
-            </button>
-            
+            {/* Dropdown: About */}
+            <div className="relative group h-full flex items-center">
+              <button className={`text-sm font-bold group-hover:text-[#028393] flex items-center focus:outline-none transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                About <ChevronDown className="ml-1 w-4 h-4" />
+              </button>
+              <div className={`absolute top-16 left-0 w-56 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left border overflow-hidden z-50 ${godMode ? 'bg-gray-900 border-yellow-500/30' : 'bg-white border-gray-100'}`}>
+                <div className="p-2">
+                  <button onClick={() => navigate('founder')} className={`block w-full text-left px-4 py-3 text-sm font-medium hover:bg-[#f65625]/10 hover:text-[#f65625] rounded-lg ${godMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    The Founder
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <button 
               onClick={() => navigate('quiz')} 
               className={`px-6 py-3 rounded-full text-sm font-bold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:scale-95 ${godMode ? 'bg-[#fbbf24] text-black hover:bg-white' : 'bg-[#f65625] text-white hover:bg-[#142d63]'}`}
@@ -246,6 +256,13 @@ const Navbar = ({ navigate, currentView, godMode }) => {
                 {item}
               </button>
             ))}
+          </div>
+
+          <div className={`py-4 border-b ${godMode ? 'border-gray-800' : 'border-gray-50'}`}>
+            <div className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3">About</div>
+            <button onClick={() => { navigate('founder'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-3 pl-4 font-medium active:text-[#f65625] ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              The Founder
+            </button>
           </div>
 
           <button onClick={() => { navigate('quiz'); setIsMobileMenuOpen(false); }} className="block w-full text-center mt-8 bg-[#f65625] text-white py-4 rounded-xl font-bold text-lg shadow-lg active:scale-95 transition-transform">
@@ -448,9 +465,6 @@ const HomePage = ({ navigate, godMode }) => (
                <div className="absolute inset-0 bg-gradient-to-t from-[#142d63]/80 to-transparent opacity-60"></div>
                
                <div className="relative text-center p-8 mt-auto">
-                  <div className={`w-24 h-24 rounded-full flex items-center justify-center text-white mx-auto mb-6 shadow-lg border-4 transition-colors duration-700 ${godMode ? 'bg-[#fbbf24] border-white' : 'bg-[#f65625] border-[#142d63]'}`}>
-                    {godMode ? <Star className="w-12 h-12" fill="currentColor" /> : <Zap className="w-12 h-12" fill="currentColor" />}
-                  </div>
                   <h3 className="text-3xl font-bold text-white mb-2">The Framework</h3>
                   <p className="text-[#faaa68] font-medium text-lg">Founder: George B. Thomas</p>
                </div>

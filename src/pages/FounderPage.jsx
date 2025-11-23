@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import {
-  Megaphone, Heart, Target, Shield, Zap, ArrowRight,
-  Sparkles, User, BookOpen, Users
+  Megaphone, Heart, Target, Shield, ArrowRight,
+  Sparkles, BookOpen, Users, Play, Image as ImageIcon
 } from 'lucide-react';
 
 // Particle Background Component
@@ -140,193 +140,320 @@ const FounderPage = ({ navigate }) => {
       {/* Reading Progress Bar */}
       <ReadingProgress />
 
-      {/* HERO SECTION */}
-      <section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden">
+      {/* HERO SECTION WITH LARGE IMAGE */}
+      <section className="bg-[#142d63] text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
         <ParticleBackground color="#faaa68" />
 
-        {/* Breathing Wave Effect */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(5)].map((_, i) => (
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center py-20">
+            {/* Left: Text Content */}
             <motion.div
-              key={i}
-              className="absolute w-full h-full"
-              style={{
-                background: `radial-gradient(ellipse at ${20 + i * 20}% ${30 + i * 15}%, rgba(255,255,255,0.03) 0%, transparent 50%)`,
-              }}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 8 + i * 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.5,
-              }}
-            />
-          ))}
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+              className="order-2 md:order-1"
+            >
+              <motion.div
+                variants={fadeInUp}
+                className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm"
+              >
+                <span className="text-[#faaa68] flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
+                  I mastered the machine. Then I realized the humans were broken.
+                </span>
+              </motion.div>
+
+              <motion.h1
+                variants={fadeInUp}
+                className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight"
+              >
+                I'm George B. Thomas.
+              </motion.h1>
+
+              <motion.p
+                variants={fadeInUp}
+                className="text-2xl md:text-3xl text-gray-300 mb-8 leading-relaxed font-bold"
+              >
+                Speaker. Catalyst. Guide.
+              </motion.p>
+
+              <motion.div
+                variants={fadeInUp}
+                className="prose prose-lg prose-invert"
+              >
+                <p className="text-lg text-gray-300 leading-relaxed mb-4">
+                  For the last decade, you probably knew me as <strong className="text-white">"The HubSpot Guy."</strong>
+                </p>
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  I hold world records for certifications. I've trained thousands of companies. I've helped organizations generate millions in revenue.
+                </p>
+              </motion.div>
+            </motion.div>
+
+            {/* Right: Hero Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="order-1 md:order-2"
+            >
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5] bg-gradient-to-br from-gray-700 to-gray-900">
+                {/* Placeholder for George's Photo */}
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#142d63] to-[#028393]">
+                  <ImageIcon className="w-24 h-24 text-white/30" />
+                  <div className="absolute bottom-8 left-8 right-8 text-center">
+                    <p className="text-white/60 text-sm font-medium">Add professional photo of George B. Thomas</p>
+                    <p className="text-white/40 text-xs mt-2">Recommended: 4:5 aspect ratio</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
-
-        <motion.div
-          className="max-w-5xl mx-auto px-4 relative z-10"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <motion.div
-            variants={fadeInUp}
-            className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm"
-          >
-            <span className="text-[#faaa68] flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              I mastered the machine. Then I realized the humans were broken.
-            </span>
-          </motion.div>
-
-          <motion.h1
-            variants={fadeInUp}
-            className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight"
-          >
-            I'm George B. Thomas.
-          </motion.h1>
-
-          <motion.p
-            variants={fadeInUp}
-            className="text-2xl md:text-3xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-bold"
-          >
-            Speaker. Catalyst. Guide.
-          </motion.p>
-
-          <motion.div
-            variants={fadeInUp}
-            className="prose prose-lg prose-invert max-w-3xl mx-auto"
-          >
-            <p className="text-xl text-gray-300 leading-relaxed mb-4">
-              For the last decade, you probably knew me as <strong className="text-white">"The HubSpot Guy."</strong>
-            </p>
-            <p className="text-xl text-gray-300 leading-relaxed mb-4">
-              I hold world records for certifications. I've trained thousands of companies. I've helped organizations generate millions in revenue.
-            </p>
-            <p className="text-xl text-gray-300 leading-relaxed mb-6">
-              But after 10 years of fixing businesses, I realized something terrifying:
-            </p>
-            <p className="text-2xl text-[#f65625] font-bold leading-relaxed">
-              We were optimizing the software, but destroying the soul.
-            </p>
-          </motion.div>
-        </motion.div>
       </section>
 
-      {/* THE ORIGIN STORY SECTION */}
-      <section ref={originRef} className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* VIDEO SECTION */}
+      <section className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true }}
             variants={staggerContainer}
             className="text-center mb-12"
           >
             <motion.h2
               variants={fadeInUp}
-              className="text-4xl md:text-6xl font-extrabold text-[#142d63] mb-8"
+              className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-4"
             >
-              The Day the Hoodie & Hat<br />Stopped Being Enough
+              Meet George
             </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-gray-600"
+            >
+              Watch the story behind the framework
+            </motion.p>
           </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative rounded-3xl overflow-hidden shadow-2xl bg-gray-900 aspect-video"
+          >
+            {/* Video Placeholder */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#142d63] to-[#028393]">
+              <Play className="w-24 h-24 text-white mb-6" />
+              <p className="text-white font-bold text-xl mb-2">Embed YouTube or Vimeo Video Here</p>
+              <p className="text-white/60 text-sm">Replace with iframe embed code</p>
+              <div className="mt-6 bg-white/10 backdrop-blur-sm rounded-lg p-4 max-w-md mx-4">
+                <code className="text-xs text-white/80 break-all">
+                  {'<iframe src="https://youtube.com/embed/..." />'}
+                </code>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* THE ORIGIN STORY SECTION WITH IMAGE */}
+      <section ref={originRef} className="py-24 bg-[#F9FAFB]">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            {/* Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3] bg-gradient-to-br from-gray-700 to-gray-900">
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#f65625] to-[#faaa68]">
+                  <ImageIcon className="w-20 h-20 text-white/30" />
+                  <div className="absolute bottom-6 left-6 right-6 text-center">
+                    <p className="text-white/80 text-sm font-medium">Early career photo</p>
+                    <p className="text-white/60 text-xs mt-1">George in signature hoodie & hat</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Content */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.h2
+                variants={fadeInUp}
+                className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-8"
+              >
+                The Day the Hoodie & Hat<br />Stopped Being Enough
+              </motion.h2>
+
+              <motion.div
+                variants={fadeInUp}
+                className="prose prose-lg"
+              >
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  I didn't start as a guru. I started as a <strong className="text-[#142d63]">high school dropout</strong> who was hungry for a better life.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  I hustled. I learned. I became obsessed with "Inbound" and the power of connecting people to solutions.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  I spent years on the road, standing on stages in my signature hoodie and hat, teaching marketers how to use automation, workflows, and CRMs.
+                </p>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Realization Section */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="prose prose-lg max-w-3xl mx-auto"
+            className="mt-16 max-w-4xl mx-auto"
           >
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              I didn't start as a guru. I started as a <strong className="text-[#142d63]">high school dropout</strong> who was hungry for a better life.
-            </p>
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              I hustled. I learned. I became obsessed with "Inbound" and the power of connecting people to solutions.
-            </p>
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              I spent years on the road, standing on stages in my signature hoodie and hat, teaching marketers how to use automation, workflows, and CRMs. I brought the energy. I became the "fixer" for broken sales funnels.
-            </p>
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              But then I started looking closer at the leaders I was helping.
-            </p>
+            <div className="bg-white rounded-3xl p-12 shadow-lg border-2 border-gray-100">
+              <p className="text-xl text-gray-700 leading-relaxed mb-6">
+                But then I started looking closer at the leaders I was helping...
+              </p>
 
-            <ul className="space-y-3 mb-6 text-xl text-gray-700">
-              <li className="flex items-start gap-3">
-                <span className="text-[#f65625] font-bold">•</span>
-                <span>I saw CEOs who hit their revenue targets but hadn't had dinner with their families in a month.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#f65625] font-bold">•</span>
-                <span>I saw Sales Reps who were crushing quotas but were visibly shaking from anxiety.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#f65625] font-bold">•</span>
-                <span>I saw Pastors who were growing their churches but losing their faith.</span>
-              </li>
-            </ul>
+              <ul className="space-y-3 mb-8 text-lg text-gray-700">
+                <li className="flex items-start gap-3">
+                  <span className="text-[#f65625] font-bold">•</span>
+                  <span>I saw CEOs who hit their revenue targets but hadn't had dinner with their families in a month.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#f65625] font-bold">•</span>
+                  <span>I saw Sales Reps who were crushing quotas but were visibly shaking from anxiety.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#f65625] font-bold">•</span>
+                  <span>I saw Pastors who were growing their churches but losing their faith.</span>
+                </li>
+              </ul>
 
-            <p className="text-2xl text-[#f65625] font-bold leading-relaxed mb-6">
-              I realized that better software doesn't fix a broken operating system.
-            </p>
+              <p className="text-2xl text-[#f65625] font-bold leading-relaxed mb-6">
+                I realized that better software doesn't fix a broken operating system.
+              </p>
 
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              If you give a Ferrari to a driver who hasn't slept in three days, they don't win the race. <strong className="text-[#142d63]">They crash faster.</strong>
-            </p>
-
-            <p className="text-xl text-gray-700 leading-relaxed">
-              I realized I was teaching people how to <em>do</em> more, but they didn't know how to <strong className="text-[#f65625]">be</strong> more.
-            </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                If you give a Ferrari to a driver who hasn't slept in three days, they don't win the race. <strong className="text-[#142d63]">They crash faster.</strong>
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* THE PIVOT SECTION */}
-      <section ref={pivotRef} className="py-24 bg-[#F9FAFB]">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* THE PIVOT SECTION WITH IMAGE */}
+      <section ref={pivotRef} className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            {/* Content */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              <motion.h2
+                variants={fadeInUp}
+                className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-8"
+              >
+                Why I Built the<br />Superhuman Framework
+              </motion.h2>
+
+              <motion.div
+                variants={fadeInUp}
+                className="prose prose-lg"
+              >
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  I didn't create this framework to write a book. <strong className="text-[#f65625]">I created it because I needed it.</strong>
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  I needed a way to balance the <strong>"Hungry Hustle"</strong> of building a legacy with the <strong>"Holistic Living"</strong> required to be a good father and husband.
+                </p>
+                <p className="text-2xl text-[#142d63] font-bold leading-relaxed mb-6">
+                  I realized that the strategies we use to grow companies—Purpose, Passion, Persistence, Love—are the exact same strategies we need to grow humans.
+                </p>
+                <p className="text-xl text-[#f65625] font-bold leading-relaxed">
+                  I started teaching the Human.
+                </p>
+              </motion.div>
+            </motion.div>
+
+            {/* Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-square bg-gradient-to-br from-gray-700 to-gray-900">
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#028393] to-[#142d63]">
+                  <ImageIcon className="w-20 h-20 text-white/30" />
+                  <div className="absolute bottom-6 left-6 right-6 text-center">
+                    <p className="text-white/80 text-sm font-medium">George with family</p>
+                    <p className="text-white/60 text-xs mt-1">The FEAM (Family + Team)</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* PHOTO GALLERY SECTION */}
+      <section className="py-24 bg-[#F9FAFB]">
+        <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerContainer}
+            className="text-center mb-16"
           >
             <motion.h2
               variants={fadeInUp}
-              className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-8 text-center"
+              className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-4"
             >
-              Why I Built the<br />Superhuman Framework
+              The Journey
             </motion.h2>
-
-            <motion.div
+            <motion.p
               variants={fadeInUp}
-              className="prose prose-lg max-w-3xl mx-auto"
+              className="text-xl text-gray-600"
             >
-              <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                I didn't create this framework to write a book. <strong className="text-[#f65625]">I created it because I needed it.</strong>
-              </p>
-              <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                I needed a way to balance the <strong>"Hungry Hustle"</strong> of building a legacy with the <strong>"Holistic Living"</strong> required to be a good father and husband.
-              </p>
-              <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                I needed a way to be a <strong className="text-[#f65625]">"Beast"</strong> in business but a <strong className="text-[#028393]">"Servant"</strong> in life.
-              </p>
-              <p className="text-2xl text-[#142d63] font-bold leading-relaxed mb-6">
-                I realized that the strategies we use to grow companies—Purpose, Passion, Persistence, Love—are the exact same strategies we need to grow humans.
-              </p>
-              <p className="text-xl text-gray-700 leading-relaxed mb-4">
-                So, I stopped just teaching the tool (HubSpot).
-              </p>
-              <p className="text-2xl text-[#f65625] font-bold leading-relaxed">
-                I started teaching the Human.
-              </p>
-            </motion.div>
+              From HubSpot trainer to human transformation catalyst
+            </motion.p>
           </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow group cursor-pointer"
+              >
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900 group-hover:scale-110 transition-transform duration-500">
+                  <ImageIcon className="w-12 h-12 text-white/20" />
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <p className="text-white/60 text-xs">Photo {index}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -350,7 +477,7 @@ const FounderPage = ({ navigate }) => {
               variants={fadeInUp}
               className="prose prose-lg max-w-3xl mx-auto mb-12"
             >
-              <p className="text-xl text-gray-700 leading-relaxed mb-8">
+              <p className="text-xl text-gray-700 leading-relaxed mb-8 text-center">
                 My philosophy is simple: <strong className="text-[#f65625]">Business is Human-to-Human.</strong>
               </p>
             </motion.div>
@@ -389,7 +516,7 @@ const FounderPage = ({ navigate }) => {
 
             <motion.div
               variants={fadeInUp}
-              className="prose prose-lg max-w-3xl mx-auto mt-12"
+              className="prose prose-lg max-w-3xl mx-auto mt-12 text-center"
             >
               <p className="text-2xl text-[#f65625] font-bold leading-relaxed mb-4">
                 When you get the Human part right, the business part gets easy.

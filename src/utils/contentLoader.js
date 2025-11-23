@@ -10,6 +10,7 @@ if (typeof window !== 'undefined') {
 import article1 from '../content/articles/death-of-closer-rise-of-helper.md?raw';
 import article2 from '../content/articles/ceo-dilemma-scale-humanity.md?raw';
 import article3 from '../content/articles/stop-buying-ping-pong-tables.md?raw';
+import article4 from '../content/articles/ticket-solver-to-day-maker.md?raw';
 
 // Map of all content files with their types
 const contentFiles = {
@@ -17,6 +18,7 @@ const contentFiles = {
     'death-of-closer-rise-of-helper': article1,
     'ceo-dilemma-scale-humanity': article2,
     'stop-buying-ping-pong-tables': article3,
+    'ticket-solver-to-day-maker': article4,
   },
   podcasts: {
     // Add podcasts here as you create them

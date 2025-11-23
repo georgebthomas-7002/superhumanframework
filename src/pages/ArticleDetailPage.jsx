@@ -300,9 +300,8 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           className="article-content prose prose-xl max-w-none
             prose-headings:text-[#142d63] prose-headings:font-bold prose-headings:tracking-tight prose-headings:scroll-mt-24
             prose-h1:text-5xl prose-h1:leading-tight prose-h1:mb-10 prose-h1:font-black
-            prose-h2:text-4xl prose-h2:leading-tight prose-h2:mt-20 prose-h2:mb-10 prose-h2:font-black prose-h2:pb-6
-            prose-h2:bg-gradient-to-r prose-h2:from-[#142d63] prose-h2:to-[#028393] prose-h2:bg-clip-text prose-h2:text-transparent
-            prose-h2:border-b-[6px] prose-h2:border-[#f65625]
+            prose-h2:text-4xl prose-h2:leading-tight prose-h2:mt-20 prose-h2:mb-10 prose-h2:font-extrabold prose-h2:pb-6
+            prose-h2:text-[#142d63] prose-h2:border-b-[6px] prose-h2:border-[#f65625]
             prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6 prose-h3:font-extrabold prose-h3:text-[#142d63]
             prose-h3:pl-6 prose-h3:border-l-4 prose-h3:border-[#028393]
             prose-h4:text-xl prose-h4:mt-10 prose-h4:mb-5 prose-h4:font-bold prose-h4:text-[#028393] prose-h4:uppercase prose-h4:tracking-wide prose-h4:text-sm

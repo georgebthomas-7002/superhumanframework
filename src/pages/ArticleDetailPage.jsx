@@ -258,18 +258,22 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           className="prose prose-lg max-w-none
-            prose-headings:text-[#142d63] prose-headings:font-bold
-            prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-            prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-            prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6
-            prose-a:text-[#f65625] prose-a:font-bold prose-a:no-underline hover:prose-a:underline
+            prose-headings:text-[#142d63] prose-headings:font-bold prose-headings:tracking-tight
+            prose-h1:text-4xl prose-h1:leading-tight prose-h1:mb-8
+            prose-h2:text-3xl prose-h2:leading-snug prose-h2:mt-16 prose-h2:mb-8 prose-h2:font-extrabold prose-h2:border-b-2 prose-h2:border-[#028393]/20 prose-h2:pb-3
+            prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-5 prose-h3:font-bold
+            prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-4 prose-h4:font-semibold
+            prose-p:text-gray-700 prose-p:text-lg prose-p:leading-relaxed prose-p:py-[5px] prose-p:mb-4
+            prose-a:text-[#f65625] prose-a:font-bold prose-a:no-underline hover:prose-a:underline hover:prose-a:text-[#142d63] prose-a:transition-colors
             prose-strong:text-[#142d63] prose-strong:font-bold
-            prose-ul:my-6 prose-ol:my-6
-            prose-li:text-gray-700 prose-li:my-2
-            prose-blockquote:border-l-4 prose-blockquote:border-[#028393] prose-blockquote:bg-gradient-to-r prose-blockquote:from-[#028393]/10 prose-blockquote:to-[#028393]/5 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:my-8 prose-blockquote:rounded-r-2xl prose-blockquote:shadow-sm
-            prose-code:text-[#028393] prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded
-            prose-pre:bg-gray-900 prose-pre:text-gray-100
-            prose-img:rounded-xl prose-img:shadow-lg"
+            prose-em:text-gray-800 prose-em:italic
+            prose-ul:my-6 prose-ul:space-y-3 prose-ol:my-6 prose-ol:space-y-3
+            prose-li:text-gray-700 prose-li:text-lg prose-li:leading-relaxed
+            prose-blockquote:border-l-4 prose-blockquote:border-[#028393] prose-blockquote:bg-gradient-to-r prose-blockquote:from-[#028393]/10 prose-blockquote:to-[#028393]/5 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:my-8 prose-blockquote:rounded-r-2xl prose-blockquote:shadow-sm prose-blockquote:italic
+            prose-code:text-[#028393] prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-sm
+            prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-xl prose-pre:shadow-lg
+            prose-img:rounded-xl prose-img:shadow-lg prose-img:my-8
+            prose-hr:border-gray-200 prose-hr:my-12"
         >
           <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
             {parseFAQs(article.content).contentWithoutFAQs}

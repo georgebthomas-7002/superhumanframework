@@ -215,29 +215,6 @@ const ResourceCenterPage = ({ navigate }) => {
             Articles, podcasts, and resources to help you become superhuman in business and life.
           </motion.p>
 
-          {/* Search Bar */}
-          <motion.div
-            variants={fadeInUp}
-            className="relative max-w-2xl mx-auto mb-8"
-          >
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search articles, podcasts, guides..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-12 py-4 rounded-full text-gray-800 text-lg focus:outline-none focus:ring-4 focus:ring-[#f65625]/30 shadow-xl"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors"
-              >
-                <X className="w-5 h-5 text-gray-400" />
-              </button>
-            )}
-          </motion.div>
-
           {/* Quick Stats */}
           <motion.div
             variants={fadeInUp}
@@ -259,18 +236,20 @@ const ResourceCenterPage = ({ navigate }) => {
         </motion.div>
       </section>
 
-      {/* Featured Content */}
+      {/* Featured Content - Overlapping Hero */}
       {!searchQuery && selectedType === 'all' && selectedCategory === 'all' && featuredContent.length > 0 && (
-        <div className="container mx-auto px-6 -mt-12">
+        <div className="container mx-auto px-6 relative z-20 -mt-32">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white rounded-3xl shadow-2xl p-8 mb-12"
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="bg-white rounded-3xl shadow-2xl p-8 mb-16 border border-gray-100"
           >
             <div className="flex items-center gap-2 mb-6">
-              <TrendingUp className="w-6 h-6 text-[#f65625]" />
-              <h2 className="text-2xl font-bold text-[#142d63]">Featured Content</h2>
+              <div className="w-10 h-10 bg-gradient-to-br from-[#f65625] to-[#faaa68] rounded-xl flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-white" />
+              </div>
+              <h2 className="text-3xl font-bold text-[#142d63]">Featured Content</h2>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {featuredContent.map((item) => (
@@ -283,19 +262,40 @@ const ResourceCenterPage = ({ navigate }) => {
 
       {/* Filters & Content */}
       <div className="container mx-auto px-6 py-12">
-        {/* Filter Bar */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-4">
-            {/* Type Filter */}
+        {/* Unified Search & Filter Bar */}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 mb-8 relative z-10">
+          {/* Search Bar - Top Row */}
+          <div className="relative mb-6">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search articles, podcasts, resources..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-14 pr-12 py-4 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-800 text-base focus:outline-none focus:border-[#f65625] focus:bg-white transition-all"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 hover:bg-gray-200 rounded-full transition-colors"
+              >
+                <X className="w-4 h-4 text-gray-500" />
+              </button>
+            )}
+          </div>
+
+          {/* Filters Row */}
+          <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+            {/* Type Filter Buttons */}
             <div className="flex flex-wrap gap-2">
               {['all', 'article', 'podcast', 'offer'].map((type) => (
                 <button
                   key={type}
                   onClick={() => setSelectedType(type)}
-                  className={`px-4 py-2 rounded-full font-bold text-sm transition-all ${
+                  className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${
                     selectedType === type
-                      ? 'bg-[#f65625] text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-gradient-to-r from-[#f65625] to-[#faaa68] text-white shadow-lg scale-105'
+                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-2 border-gray-200'
                   }`}
                 >
                   {type === 'all' ? 'All Content' : `${type.charAt(0).toUpperCase() + type.slice(1)}s`}
@@ -308,12 +308,13 @@ const ResourceCenterPage = ({ navigate }) => {
 
             <div className="flex-1"></div>
 
-            {/* Category Dropdown */}
-            <div className="relative">
+            {/* Category Dropdown - Enhanced */}
+            <div className="relative group">
+              <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="appearance-none bg-gray-100 text-gray-700 px-4 py-2 pr-10 rounded-full font-bold text-sm hover:bg-gray-200 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#f65625]"
+                className="appearance-none bg-gray-50 border-2 border-gray-200 text-gray-700 pl-11 pr-10 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-100 hover:border-gray-300 transition-all cursor-pointer focus:outline-none focus:border-[#f65625] focus:bg-white"
               >
                 <option value="all">All Categories</option>
                 {categories.map((category) => (
@@ -323,12 +324,13 @@ const ResourceCenterPage = ({ navigate }) => {
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
             </div>
 
-            {/* Sort Dropdown */}
-            <div className="relative">
+            {/* Sort Dropdown - Enhanced */}
+            <div className="relative group">
+              <CalendarIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none bg-gray-100 text-gray-700 px-4 py-2 pr-10 rounded-full font-bold text-sm hover:bg-gray-200 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#f65625]"
+                className="appearance-none bg-gray-50 border-2 border-gray-200 text-gray-700 pl-11 pr-10 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-100 hover:border-gray-300 transition-all cursor-pointer focus:outline-none focus:border-[#f65625] focus:bg-white"
               >
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
@@ -337,58 +339,60 @@ const ResourceCenterPage = ({ navigate }) => {
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
             </div>
 
-            {/* View Mode Toggle */}
-            <div className="flex gap-2 bg-gray-100 p-1 rounded-full">
+            {/* View Mode Toggle - Enhanced */}
+            <div className="flex gap-1 bg-gray-50 p-1.5 rounded-xl border-2 border-gray-200">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-full transition-all ${
-                  viewMode === 'grid' ? 'bg-white shadow-md' : 'text-gray-400'
+                className={`p-2.5 rounded-lg transition-all ${
+                  viewMode === 'grid' ? 'bg-white shadow-md border-2 border-[#f65625]' : 'text-gray-400 hover:text-gray-600'
                 }`}
+                title="Grid View"
               >
                 <Grid className="w-5 h-5" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2 rounded-full transition-all ${
-                  viewMode === 'list' ? 'bg-white shadow-md' : 'text-gray-400'
+                className={`p-2.5 rounded-lg transition-all ${
+                  viewMode === 'list' ? 'bg-white shadow-md border-2 border-[#f65625]' : 'text-gray-400 hover:text-gray-600'
                 }`}
+                title="List View"
               >
                 <List className="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          {/* Active Filters */}
+          {/* Active Filters - Enhanced */}
           {(selectedType !== 'all' || selectedCategory !== 'all' || searchQuery) && (
-            <div className="flex items-center gap-2 pt-4 border-t border-gray-100">
-              <span className="text-sm text-gray-600 font-medium">Active filters:</span>
+            <div className="flex items-center gap-2 pt-6 mt-6 border-t-2 border-gray-100">
+              <span className="text-sm text-gray-600 font-bold">Active:</span>
               {searchQuery && (
-                <span className="inline-flex items-center gap-1 bg-[#028393] text-white px-3 py-1 rounded-full text-xs font-bold">
+                <span className="inline-flex items-center gap-2 bg-gradient-to-r from-[#028393] to-[#028393]/80 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md">
                   Search: "{searchQuery}"
-                  <button onClick={() => setSearchQuery('')} className="hover:bg-white/20 rounded-full p-0.5">
+                  <button onClick={() => setSearchQuery('')} className="hover:bg-white/20 rounded-full p-1 transition-colors">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
               )}
               {selectedType !== 'all' && (
-                <span className="inline-flex items-center gap-1 bg-[#f65625] text-white px-3 py-1 rounded-full text-xs font-bold">
+                <span className="inline-flex items-center gap-2 bg-gradient-to-r from-[#f65625] to-[#faaa68] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md">
                   {selectedType}
-                  <button onClick={() => setSelectedType('all')} className="hover:bg-white/20 rounded-full p-0.5">
+                  <button onClick={() => setSelectedType('all')} className="hover:bg-white/20 rounded-full p-1 transition-colors">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
               )}
               {selectedCategory !== 'all' && (
-                <span className="inline-flex items-center gap-1 bg-[#142d63] text-white px-3 py-1 rounded-full text-xs font-bold">
+                <span className="inline-flex items-center gap-2 bg-gradient-to-r from-[#142d63] to-[#028393] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md">
                   {selectedCategory}
-                  <button onClick={() => setSelectedCategory('all')} className="hover:bg-white/20 rounded-full p-0.5">
+                  <button onClick={() => setSelectedCategory('all')} className="hover:bg-white/20 rounded-full p-1 transition-colors">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
               )}
               <button
                 onClick={clearFilters}
-                className="ml-auto text-sm text-[#f65625] font-bold hover:underline"
+                className="ml-auto text-sm text-[#f65625] font-bold hover:text-[#142d63] transition-colors px-4 py-2 hover:bg-gray-50 rounded-xl"
               >
                 Clear all
               </button>

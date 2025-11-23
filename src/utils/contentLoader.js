@@ -59,12 +59,13 @@ export const loadAllContent = () => {
       try {
         if (!raw || typeof raw !== 'string') {
           const error = `Invalid raw content for ${slug}: type is ${typeof raw}`;
-          debugLog.push(`  ERROR: ${error}`);
+          debugLog.push(`    ✗ ERROR: ${error}`);
           throw new Error(error);
         }
 
+        debugLog.push(`    Parsing with gray-matter...`);
         const { data, content } = matter(raw);
-        debugLog.push(`  ✓ Parsed: ${data.title || 'NO TITLE'}`);
+        debugLog.push(`    ✓ Matter parsed! Title: ${data.title || 'NO TITLE'}`);
 
         // Calculate read time for articles (rough estimate: 200 words per minute)
         let readTime = null;
@@ -81,7 +82,10 @@ export const loadAllContent = () => {
           readTime,
           ...data
         });
+        debugLog.push(`    ✓ Item added to allContent array`);
       } catch (error) {
+        debugLog.push(`    ✗ EXCEPTION: ${error.message}`);
+        debugLog.push(`    Stack: ${error.stack?.substring(0, 150) || 'no stack'}`);
         console.error(`Error loading content ${slug}:`, error);
       }
     });

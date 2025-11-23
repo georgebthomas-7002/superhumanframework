@@ -5,6 +5,17 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.md'], // Ensure markdown files are treated as assets
+
+  // Polyfill Node.js globals for browser (needed for gray-matter)
+  define: {
+    'global': 'globalThis',
+  },
+  resolve: {
+    alias: {
+      'buffer': 'buffer',
+    }
+  },
+
   build: {
     // Increase chunk size warning limit (we have markdown content bundled)
     chunkSizeWarningLimit: 2000, // 2MB instead of default 500KB

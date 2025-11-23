@@ -1,4 +1,10 @@
 import matter from 'gray-matter';
+import { Buffer } from 'buffer';
+
+// Make Buffer available globally for gray-matter
+if (typeof window !== 'undefined') {
+  window.Buffer = Buffer;
+}
 
 // EXPLICIT IMPORTS - More reliable than glob in production
 import article1 from '../content/articles/building-trust-at-scale.md?raw';

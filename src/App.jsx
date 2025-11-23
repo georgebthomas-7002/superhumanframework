@@ -17,6 +17,7 @@ import WhoPage from './pages/WhoPage';
 import SpeakerPage from './pages/SpeakerPage';
 import WorkshopsPage from './pages/WorkshopsPage';
 import CoachingPage from './pages/CoachingPage';
+import MastermindPage from './pages/MastermindPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -1683,22 +1684,7 @@ const App = () => {
       case 'speaker': return <SpeakerPage navigate={navigate} />;
       case 'workshops': return <WorkshopsPage navigate={navigate} />;
       case 'coaching': return <CoachingPage navigate={navigate} />;
-      case 'mastermind': return <ServicesPage 
-        title="The Mastermind"
-        sub="Never Fight Alone Again."
-        content={
-          <div className="max-w-5xl mx-auto text-center">
-             <div className="bg-[#142d63] rounded-[2.5rem] p-12 md:p-24 text-white relative overflow-hidden">
-                 <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-                 <div className="relative z-10">
-                    <h2 className="text-5xl font-bold mb-8">The 2026 Cohort</h2>
-                    <p className="text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">A curated group of 20 humans holding the line together. Bi-weekly war rooms. Deep connection. No drift.</p>
-                    <button className="bg-[#f65625] text-white px-12 py-6 rounded-full font-bold text-xl hover:bg-white hover:text-[#f65625] transition-all shadow-2xl hover:-translate-y-1 active:scale-95">Apply for Waitlist</button>
-                 </div>
-             </div>
-          </div>
-        }
-      />;
+      case 'mastermind': return <MastermindPage navigate={navigate} />;
       case 'contact': return <ServicesPage 
           title="Contact"
           sub="Let's Connect. Human to Human."

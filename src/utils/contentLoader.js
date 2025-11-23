@@ -6,33 +6,23 @@ if (typeof window !== 'undefined') {
   window.Buffer = Buffer;
 }
 
-// EXPLICIT IMPORTS - More reliable than glob in production
-import article1 from '../content/articles/building-trust-at-scale.md?raw';
-import article2 from '../content/articles/ceo-dilemma-scale-humanity.md?raw';
-import article3 from '../content/articles/from-transactional-to-transformational-leadership.md?raw';
-import article4 from '../content/articles/stop-buying-ping-pong-tables.md?raw';
-import article5 from '../content/articles/the-art-of-helpful-content.md?raw';
+// EXPLICIT IMPORTS - Only your published articles
+import article1 from '../content/articles/ceo-dilemma-scale-humanity.md?raw';
+import article2 from '../content/articles/stop-buying-ping-pong-tables.md?raw';
 
-import podcast1 from '../content/podcasts/ep-001-from-burnout-to-breakthrough.md?raw';
-import podcast2 from '../content/podcasts/ep-002-the-five-pillars-framework.md?raw';
-
-import offer1 from '../content/offers/superhuman-leadership-assessment.md?raw';
+// Add podcasts and offers as you create them
 
 // Map of all content files with their types
 const contentFiles = {
   articles: {
-    'building-trust-at-scale': article1,
-    'ceo-dilemma-scale-humanity': article2,
-    'from-transactional-to-transformational-leadership': article3,
-    'stop-buying-ping-pong-tables': article4,
-    'the-art-of-helpful-content': article5,
+    'ceo-dilemma-scale-humanity': article1,
+    'stop-buying-ping-pong-tables': article2,
   },
   podcasts: {
-    'ep-001-from-burnout-to-breakthrough': podcast1,
-    'ep-002-the-five-pillars-framework': podcast2,
+    // Add podcasts here as you create them
   },
   offers: {
-    'superhuman-leadership-assessment': offer1,
+    // Add offers here as you create them
   }
 };
 

@@ -24,6 +24,7 @@ import ArticleDetailPage from './pages/ArticleDetailPage';
 import PodcastDetailPage from './pages/PodcastDetailPage';
 import DebugContentPage from './pages/DebugContentPage';
 import ContactSlideOut from './components/ContactSlideOut';
+import MobileMenu from './components/MobileMenu';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -243,43 +244,13 @@ const Navbar = ({ navigate, currentView, godMode }) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className={`md:hidden border-t p-4 h-screen overflow-y-auto pb-32 fixed w-full ${godMode ? 'bg-gray-900 border-gray-800 text-white' : 'bg-white border-gray-100'}`}>
-          <button onClick={() => { navigate('the-framework'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-4 text-xl font-bold border-b ${godMode ? 'text-white border-gray-800' : 'text-[#142d63] border-gray-50'}`}>The Framework</button>
-          
-          <div className={`py-4 border-b ${godMode ? 'border-gray-800' : 'border-gray-50'}`}>
-            <button onClick={() => { navigate('who'); setIsMobileMenuOpen(false); }} className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3 hover:text-[#f65625] transition-colors">Who It's For</button>
-            {['leadership', 'hr', 'marketing', 'sales', 'service', 'personal', 'pastors'].map((item) => (
-              <button key={item} onClick={() => { navigate(item); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-3 pl-4 font-medium capitalize active:text-[#f65625] ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                {item === 'hr' ? 'HR & People' : item === 'personal' ? 'Individuals' : item}
-              </button>
-            ))}
-          </div>
-
-          <div className={`py-4 border-b ${godMode ? 'border-gray-800' : 'border-gray-50'}`}>
-            <div className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3">Services</div>
-            {['speaking', 'workshops', 'coaching', 'mastermind'].map((item) => (
-              <button key={item} onClick={() => { navigate(item); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-3 pl-4 font-medium capitalize active:text-[#f65625] ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                {item}
-              </button>
-            ))}
-          </div>
-
-          <button onClick={() => { navigate('resources'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-4 text-xl font-bold border-b ${godMode ? 'text-white border-gray-800' : 'text-[#142d63] border-gray-50'}`}>Resources</button>
-
-          <div className={`py-4 border-b ${godMode ? 'border-gray-800' : 'border-gray-50'}`}>
-            <div className="text-sm font-bold text-[#028393] uppercase tracking-wider mb-3">About</div>
-            <button onClick={() => { navigate('founder'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-3 pl-4 font-medium active:text-[#f65625] ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              The Founder
-            </button>
-          </div>
-
-          <button onClick={() => { navigate('quiz'); setIsMobileMenuOpen(false); }} className="block w-full text-center mt-8 bg-[#f65625] text-white py-4 rounded-xl font-bold text-lg shadow-lg active:scale-95 transition-transform">
-            Take Assessment
-          </button>
-        </div>
-      )}
+      {/* Mobile Menu - New Full-Screen Design */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        navigate={navigate}
+        godMode={godMode}
+      />
     </nav>
   );
 };
@@ -1795,7 +1766,10 @@ const App = () => {
         {renderView()}
       </main>
       <Footer navigate={navigate} godMode={godMode} />
-      <ContactSlideOut />
+      {/* Contact SlideOut - Hidden on mobile since contact info is in mobile menu */}
+      <div className="hidden md:block">
+        <ContactSlideOut />
+      </div>
     </div>
   );
 };

@@ -2,6 +2,137 @@
 
 ## Recent Updates (2025-11-22)
 
+### Founder Page (WhoPage) Complete Rewrite
+**Commit:** `cac81e1`
+
+#### Rewrote Founder Page with George's Personal Origin Story
+Completely transformed the page from a vertical directory to a biographical founder story:
+
+**Page Structure:**
+
+**1. Hero Section (Full-Width)**
+- Badge: "I mastered the machine. Then I realized the humans were broken."
+- Headline: "I'm George B. Thomas."
+- Subhead: "Speaker. Catalyst. Guide."
+- Origin: "For the last decade, you probably knew me as 'The HubSpot Guy.'"
+- Credentials: World records for certifications, trained thousands, generated millions
+- Realization: "We were optimizing the software, but destroying the soul."
+- Full-width hero with ParticleBackground and breathing waves
+
+**2. The Origin Story: "The Day the Hoodie & Hat Stopped Being Enough"**
+- Humble beginnings: High school dropout hungry for better life
+- The hustle: Obsessed with Inbound, connecting people to solutions
+- The signature look: Years on the road in hoodie and hat
+- The "fixer" role: Teaching automation, workflows, CRMs
+- The wake-up call: Looking closer at leaders being helped
+  - CEOs hitting revenue targets but no family dinners
+  - Sales Reps crushing quotas but shaking from anxiety
+  - Pastors growing churches but losing faith
+- Core insight: "Better software doesn't fix a broken operating system"
+- Ferrari metaphor: Sleep-deprived driver crashes faster
+- The gap: Teaching people how to DO more, not how to BE more
+
+**3. The Pivot: "Why I Built the Superhuman Framework"**
+- Personal necessity: "I created it because I needed it"
+- Balance challenge: Hungry Hustle vs. Holistic Living
+- Duality: Beast in business, Servant in life
+- Universal strategies: Purpose, Passion, Persistence, Love
+- Work for companies = work for humans
+- The shift: "I stopped just teaching the tool (HubSpot). I started teaching the Human."
+
+**4. The Philosophy: "It's Not B2B. It's H2H."**
+- Core belief: Business is Human-to-Human
+- Three gradient cards:
+  - Not managing "resources" → Leading humans (orange gradient)
+  - Not selling to "leads" → Helping humans (teal gradient)
+  - Not marketing to "segments" → Connecting with humans (navy gradient)
+- The cascade effect:
+  - Get the Human part right → business gets easy
+  - Fix the leader → team heals
+  - Fix the culture → profits follow
+
+**5. My Role Now: "I Am a Catalyst"**
+- Definition: "A substance that increases the rate of a chemical reaction without itself undergoing any permanent chemical change"
+- Mission: Speed up reaction, ignite fire, get you unstuck
+
+Three role cards:
+- **As a Speaker** (Megaphone, orange)
+  - Wake up the room, no boring
+  - Hard truths wrapped in humor and energy
+
+- **As a Coach** (Heart, teal)
+  - Safe harbor for masked leaders
+  - Design life that feels as good as it looks on paper
+
+- **As a Guide** (Target, soft orange)
+  - Install Superhuman Operating System
+  - Stop drifting, start designing
+
+**6. The FEAM: "Who I Am When the Mic is Off"**
+- Gradient card (navy to teal) with Users icon
+- The name: "The FEAM" (Family + Team)
+- Core values:
+  - Hustle for last name, not first name
+  - Everything for family
+  - Humor is a holy weapon
+  - Love is a business strategy
+  - Untapped reservoir of potential in everyone
+- Goal statement: "Not to be your guru, but to be the mirror that shows you who you really are—and who you could be"
+
+**7. Call to Action: "Ready to Upgrade Your OS?"**
+- Gradient background (navy to darker navy)
+- Shield icon with scale animation
+- Headline: "Ready to Upgrade Your OS?"
+- Subhead: "We have work to do. Let's stop talking about it and start being about it."
+- Two CTA buttons:
+  - "Book George to Speak" (orange primary)
+  - "Explore the Framework" (white outline)
+
+**Design Features:**
+- Reading progress bar (fixed top, animated)
+- Full-width hero matching site pattern
+- Section tracking with IntersectionObserver
+- Staggered animations (fadeInUp, scaleIn, staggerContainer)
+- Hover effects on role cards
+- Gradient cards for philosophy statements
+- Professional white cards for key messages
+- Mobile-responsive throughout
+- Removed old tsparticles interactive background
+
+**Technical Implementation:**
+- Modified file: `src/pages/WhoPage.jsx` (635 lines, was 468 lines)
+- Removed: Vertical directory with 7 verticals (Leadership, HR, Sales, Marketing, Service, Ministry, Personal)
+- Removed: tsparticles engine and Particles component
+- Simplified: Cleaner imports (removed Church, User, Compass, LifeBuoy, TrendingUp)
+- Added: Users icon for FEAM section
+- Section tracking: 5 refs (origin, pivot, philosophy, role, feam)
+- Build size: 764.77KB (+5.46KB)
+
+**Navigation:**
+- Still accessible via "Who" in main navigation
+- URL: /who
+- Now tells George's personal story instead of framework directory
+
+**Copy Highlights:**
+- "I mastered the machine. Then I realized the humans were broken."
+- "The Day the Hoodie & Hat Stopped Being Enough"
+- "We were optimizing the software, but destroying the soul."
+- "If you give a Ferrari to a driver who hasn't slept in three days, they don't win the race. They crash faster."
+- "I realized I was teaching people how to DO more, but they didn't know how to BE more."
+- "I didn't create this framework to write a book. I created it because I needed it."
+- "Business is Human-to-Human"
+- "I Am a Catalyst"
+- "The FEAM (Family + Team)"
+- "Humor is a holy weapon. Love is a business strategy."
+- Personal, vulnerable, authentic tone throughout
+
+**Before vs. After:**
+- **Before:** Directory page listing different verticals (Leadership, Sales, HR, etc.) with "Choose Your Path" cards
+- **After:** Biographical founder story page with George's journey from "HubSpot Guy" to Superhuman Framework creator
+- **Impact:** More personal, more story-driven, establishes credibility and relatability
+
+---
+
 ### The Mastermind Page Creation
 **Commit:** `a937b0c`
 
@@ -1164,15 +1295,14 @@ src/
 
 ## Branch Information
 **Current Branch:** `claude/superhuman-framework-website-01DVSeLYFNWahG8yqp61Aj1s`
-**Latest Commit:** `a937b0c` - Create comprehensive Mastermind page with application system
+**Latest Commit:** `cac81e1` - Rewrite Founder page (WhoPage) with George's origin story
 **Previous Commits:**
+- `a937b0c` - Create comprehensive Mastermind page with application system
 - `5cd8c78` - Create comprehensive 1:1 Coaching page with application form
 - `f5315b9` - Create comprehensive Team Workshops page with all tracks and formats
 - `6500ca7` - Create dedicated Keynote Speaking page with full features
 - `6b1cb17` - Add full-width hero section to quiz result screen (Step 7)
 - `9fe0374` - Fix quiz hero section to span full screen width
-- `1235d9a` - Make quiz hero section consistent with other pages
-- `ca5a9b5` - Redesign quiz landing page with enhanced UX and clearer value proposition
 - `a2eeab9` - Fix HR page: add missing Download icon import
 - `372a0d7` - Update footer logo to white knockout style
 - `b352f13` - Restrict ParticleBackground animations to hero sections only

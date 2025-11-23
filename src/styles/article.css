@@ -17,12 +17,10 @@
   font-family: Georgia, serif;
 }
 
-/* H2 section headers - ensure gradient shows */
+/* H2 section headers - match site-wide style */
 .article-content h2 {
-  background: linear-gradient(135deg, #142d63 0%, #028393 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #142d63;
+  font-weight: 800;
   position: relative;
   padding-bottom: 1.5rem;
   border-bottom: 6px solid #f65625;

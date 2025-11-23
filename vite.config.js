@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  assetsInclude: ['**/*.md'], // Ensure markdown files are treated as assets
   build: {
     // Increase chunk size warning limit (we have markdown content bundled)
     chunkSizeWarningLimit: 2000, // 2MB instead of default 500KB

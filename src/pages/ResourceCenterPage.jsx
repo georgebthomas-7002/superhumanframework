@@ -238,12 +238,12 @@ const ResourceCenterPage = ({ navigate }) => {
 
       {/* Featured Content - Overlapping Hero */}
       {!searchQuery && selectedType === 'all' && selectedCategory === 'all' && featuredContent.length > 0 && (
-        <div className="container mx-auto px-6 relative z-20 -mt-32">
+        <div className="container mx-auto px-6 relative z-20 -mt-32 pt-16 pb-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="bg-white rounded-3xl shadow-2xl p-8 mb-16 border border-gray-100"
+            className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100"
           >
             <div className="flex items-center gap-2 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-[#f65625] to-[#faaa68] rounded-xl flex items-center justify-center">
@@ -263,23 +263,23 @@ const ResourceCenterPage = ({ navigate }) => {
       {/* Filters & Content */}
       <div className="container mx-auto px-6 py-12">
         {/* Unified Search & Filter Bar */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 mb-8 relative z-10">
+        <div className="bg-[#142d63] rounded-2xl shadow-xl border border-[#028393]/30 p-6 mb-8 relative z-10">
           {/* Search Bar - Top Row */}
           <div className="relative mb-6">
-            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
             <input
               type="text"
               placeholder="Search articles, podcasts, resources..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-14 pr-12 py-4 bg-gray-50 border-2 border-gray-200 rounded-2xl text-gray-800 text-base focus:outline-none focus:border-[#f65625] focus:bg-white transition-all"
+              className="w-full pl-14 pr-12 py-4 bg-white/10 border-2 border-white/20 rounded-2xl text-white placeholder-white/60 text-base focus:outline-none focus:border-[#f65625] focus:bg-white/20 transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 hover:bg-gray-200 rounded-full transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 hover:bg-white/20 rounded-full transition-colors"
               >
-                <X className="w-4 h-4 text-gray-500" />
+                <X className="w-4 h-4 text-white/80" />
               </button>
             )}
           </div>
@@ -295,7 +295,7 @@ const ResourceCenterPage = ({ navigate }) => {
                   className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${
                     selectedType === type
                       ? 'bg-gradient-to-r from-[#f65625] to-[#faaa68] text-white shadow-lg scale-105'
-                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-2 border-gray-200'
+                      : 'bg-white/10 text-white hover:bg-white/20 border-2 border-white/20'
                   }`}
                 >
                   {type === 'all' ? 'All Content' : `${type.charAt(0).toUpperCase() + type.slice(1)}s`}
@@ -310,41 +310,41 @@ const ResourceCenterPage = ({ navigate }) => {
 
             {/* Category Dropdown - Enhanced */}
             <div className="relative group">
-              <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+              <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" />
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="appearance-none bg-gray-50 border-2 border-gray-200 text-gray-700 pl-11 pr-10 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-100 hover:border-gray-300 transition-all cursor-pointer focus:outline-none focus:border-[#f65625] focus:bg-white"
+                className="appearance-none bg-white/10 border-2 border-white/20 text-white pl-11 pr-10 py-2.5 rounded-xl font-bold text-sm hover:bg-white/20 hover:border-white/30 transition-all cursor-pointer focus:outline-none focus:border-[#f65625] focus:bg-white/20"
               >
                 <option value="all">All Categories</option>
                 {categories.map((category) => (
-                  <option key={category} value={category}>{category}</option>
+                  <option key={category} value={category} className="bg-[#142d63] text-white">{category}</option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" />
             </div>
 
             {/* Sort Dropdown - Enhanced */}
             <div className="relative group">
-              <CalendarIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+              <CalendarIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none bg-gray-50 border-2 border-gray-200 text-gray-700 pl-11 pr-10 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-100 hover:border-gray-300 transition-all cursor-pointer focus:outline-none focus:border-[#f65625] focus:bg-white"
+                className="appearance-none bg-white/10 border-2 border-white/20 text-white pl-11 pr-10 py-2.5 rounded-xl font-bold text-sm hover:bg-white/20 hover:border-white/30 transition-all cursor-pointer focus:outline-none focus:border-[#f65625] focus:bg-white/20"
               >
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-                <option value="title">A-Z</option>
+                <option value="newest" className="bg-[#142d63] text-white">Newest First</option>
+                <option value="oldest" className="bg-[#142d63] text-white">Oldest First</option>
+                <option value="title" className="bg-[#142d63] text-white">A-Z</option>
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" />
             </div>
 
             {/* View Mode Toggle - Enhanced */}
-            <div className="flex gap-1 bg-gray-50 p-1.5 rounded-xl border-2 border-gray-200">
+            <div className="flex gap-1 bg-white/10 p-1.5 rounded-xl border-2 border-white/20">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-2.5 rounded-lg transition-all ${
-                  viewMode === 'grid' ? 'bg-white shadow-md border-2 border-[#f65625]' : 'text-gray-400 hover:text-gray-600'
+                  viewMode === 'grid' ? 'bg-white text-[#142d63] shadow-md' : 'text-white/60 hover:text-white'
                 }`}
                 title="Grid View"
               >
@@ -353,7 +353,7 @@ const ResourceCenterPage = ({ navigate }) => {
               <button
                 onClick={() => setViewMode('list')}
                 className={`p-2.5 rounded-lg transition-all ${
-                  viewMode === 'list' ? 'bg-white shadow-md border-2 border-[#f65625]' : 'text-gray-400 hover:text-gray-600'
+                  viewMode === 'list' ? 'bg-white text-[#142d63] shadow-md' : 'text-white/60 hover:text-white'
                 }`}
                 title="List View"
               >
@@ -364,8 +364,8 @@ const ResourceCenterPage = ({ navigate }) => {
 
           {/* Active Filters - Enhanced */}
           {(selectedType !== 'all' || selectedCategory !== 'all' || searchQuery) && (
-            <div className="flex items-center gap-2 pt-6 mt-6 border-t-2 border-gray-100">
-              <span className="text-sm text-gray-600 font-bold">Active:</span>
+            <div className="flex items-center gap-2 pt-6 mt-6 border-t-2 border-white/20">
+              <span className="text-sm text-white/80 font-bold">Active:</span>
               {searchQuery && (
                 <span className="inline-flex items-center gap-2 bg-gradient-to-r from-[#028393] to-[#028393]/80 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md">
                   Search: "{searchQuery}"
@@ -392,7 +392,7 @@ const ResourceCenterPage = ({ navigate }) => {
               )}
               <button
                 onClick={clearFilters}
-                className="ml-auto text-sm text-[#f65625] font-bold hover:text-[#142d63] transition-colors px-4 py-2 hover:bg-gray-50 rounded-xl"
+                className="ml-auto text-sm text-[#faaa68] font-bold hover:text-white transition-colors px-4 py-2 hover:bg-white/10 rounded-xl"
               >
                 Clear all
               </button>

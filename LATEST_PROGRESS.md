@@ -2,6 +2,59 @@
 
 ## Recent Updates (2025-11-22)
 
+### Quiz Hero Section Consistency Update
+**Commit:** `1235d9a`
+
+#### Aligned Quiz Page Hero with Site-Wide Design Pattern
+Updated Step 0 hero section to match the consistent design pattern used across all other pages:
+
+**Hero Section Transformation:**
+- Changed from white background to dark navy (#142d63) with white text
+- Added ParticleBackground component with 30 floating dots (#faaa68)
+- Added breathing wave effect (5 animated radial gradients)
+- Added gradient blur circles (teal 800px top-right, orange 600px bottom-left)
+- Increased vertical spacing: py-32 md:py-48 (matching Leadership/Sales/Marketing pages)
+- Relative positioning with overflow hidden for layered effects
+
+**Animation System:**
+- Added fadeInUp variant (opacity 0→1, y 40→0, 0.6s duration)
+- Added staggerContainer variant (0.15s stagger, 0.1s delay)
+- Smooth staggered reveal of all hero content elements
+- Motion button with hover effects (scale 1.05, translateY -2px)
+- Tap effect (scale 0.95) for touch interactions
+
+**Visual Elements:**
+- Badge/pill at top with Target icon and soft orange accent
+- Large 7xl headline with tight tracking
+- Bold subheadline in gray-300 with soft orange highlight
+- Description text in gray-400
+- CTA button: orange bg → white bg on hover (text inverts)
+- Trust indicators with soft orange CheckCircle icons
+
+**Content Structure:**
+- Hero section wrapped in `<section>` with full effects
+- "What You'll Discover" section below hero (unchanged)
+- "How It Works" numbered steps (unchanged)
+- Final CTA card at bottom (unchanged)
+- All existing content and functionality preserved
+
+**Design Consistency Achieved:**
+- Now matches LeadershipPage, SalesPage, MarketingPage hero patterns
+- Same ParticleBackground implementation
+- Same breathing wave animation system
+- Same color palette (#faaa68, #142d63, #028393, #f65625)
+- Same motion animation patterns
+- Professional, cohesive experience across entire site
+
+**Technical Details:**
+- Files modified: `src/App.jsx` (lines 526-545 variants, lines 891-991 hero)
+- Build size: 658.03KB (+1.34KB for animation system)
+- No breaking changes
+- All assessment flow preserved
+- Mobile-responsive throughout
+
+---
+
 ### Quiz Landing Page Redesign
 **Commit:** `ca5a9b5`
 
@@ -434,8 +487,9 @@ src/
 
 ## Branch Information
 **Current Branch:** `claude/superhuman-framework-website-01DVSeLYFNWahG8yqp61Aj1s`
-**Latest Commit:** `ca5a9b5` - Redesign quiz landing page with enhanced UX and clearer value proposition
+**Latest Commit:** `1235d9a` - Make quiz hero section consistent with other pages
 **Previous Commits:**
+- `ca5a9b5` - Redesign quiz landing page with enhanced UX and clearer value proposition
 - `a2eeab9` - Fix HR page: add missing Download icon import
 - `372a0d7` - Update footer logo to white knockout style
 - `b352f13` - Restrict ParticleBackground animations to hero sections only

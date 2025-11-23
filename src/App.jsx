@@ -19,6 +19,7 @@ import SpeakerPage from './pages/SpeakerPage';
 import WorkshopsPage from './pages/WorkshopsPage';
 import CoachingPage from './pages/CoachingPage';
 import MastermindPage from './pages/MastermindPage';
+import ContactSlideOut from './components/ContactSlideOut';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -1751,6 +1752,7 @@ const App = () => {
         {renderView()}
       </main>
       <Footer navigate={navigate} godMode={godMode} />
+      <ContactSlideOut />
     </div>
   );
 };

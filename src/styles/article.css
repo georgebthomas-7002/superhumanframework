@@ -1,73 +1,82 @@
-/* Premium Article Typography */
+/* Professional Blog Article Typography */
 
-/* Paragraph spacing for readability */
+/* Optimal reading width for long-form content */
+.article-content {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Paragraph spacing - professional blog standard */
+.article-content p {
+  margin-bottom: 1.75rem;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
 .article-content p + p {
-  margin-top: 1.5rem;
+  margin-top: 0;
 }
 
-/* First paragraph drop cap */
-.article-content > p:first-of-type::first-letter {
-  float: left;
-  font-size: 5.5rem;
-  line-height: 0.85;
-  font-weight: 900;
-  margin-right: 0.15em;
-  margin-top: 0.1em;
-  color: #f65625;
-  font-family: Georgia, serif;
+/* First paragraph - emphasis without drop cap */
+.article-content > p:first-of-type {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: #1f2937;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-/* H2 section headers - match site-wide style */
+/* H2 section headers - clean professional style */
 .article-content h2 {
   color: #142d63;
-  font-weight: 800;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.3;
   position: relative;
-  padding-bottom: 1.5rem;
-  border-bottom: 6px solid #f65625;
-  margin-top: 5rem;
-  margin-bottom: 2.5rem;
-}
-
-/* H3 subsection headers - clear visual distinction */
-.article-content h3 {
-  padding-left: 1.5rem;
-  border-left: 4px solid #028393;
-  margin-top: 3rem;
+  padding-bottom: 0.75rem;
+  margin-top: 3.5rem;
   margin-bottom: 1.5rem;
+  border-bottom: 3px solid #f65625;
+  letter-spacing: -0.02em;
 }
 
-/* Custom bullet points */
-.article-content ul > li::before {
-  content: "●";
-  top: 0;
+/* H3 subsection headers - minimal and clean */
+.article-content h3 {
+  color: #142d63;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
 }
 
-/* Custom numbered lists */
+/* Lists - clean professional style */
+.article-content ul,
 .article-content ol {
-  counter-reset: list-counter;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
 }
 
-.article-content ol > li {
-  counter-increment: list-counter;
-  padding-left: 3rem;
+.article-content li {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+  padding-left: 0.5rem;
 }
 
-.article-content ol > li::before {
-  content: counter(list-counter);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: linear-gradient(135deg, #f65625, #faaa68);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.125rem;
-  line-height: 1;
+.article-content li:last-child {
+  margin-bottom: 0;
+}
+
+/* Nested lists */
+.article-content ul ul,
+.article-content ol ol,
+.article-content ul ol,
+.article-content ol ul {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
 }
 
 /* Reading progress indicator */
@@ -85,24 +94,27 @@ html {
   margin-top: 2rem;
 }
 
-/* Link hover effects */
+/* Links - professional style */
 .article-content a {
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #f65625;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(246, 86, 37, 0.3);
+  transition: border-color 0.2s ease;
 }
 
 .article-content a:hover {
-  color: #142d63;
-  transform: translateY(-1px);
+  border-bottom-color: #f65625;
 }
 
-/* Strong text subtle animations */
+/* Strong and emphasis text */
 .article-content strong {
-  transition: all 0.2s ease;
+  font-weight: 700;
+  color: #142d63;
 }
 
-.article-content strong:hover {
-  background-color: rgba(246, 86, 37, 0.1);
+.article-content em {
+  font-style: italic;
+  color: #374151;
 }
 
 /* Code blocks syntax highlighting prep */
@@ -114,72 +126,78 @@ html {
   line-height: 1.75;
 }
 
-/* Blockquote author attribution */
-.article-content blockquote p:last-child {
-  margin-bottom: 0;
+/* Blockquotes - professional blog style */
+.article-content blockquote {
+  margin: 2.5rem 0;
+  padding: 1.5rem 2rem;
+  border-left: 4px solid #f65625;
+  background-color: #f9fafb;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #374151;
+  font-style: italic;
 }
 
-/* Blockquote spacing for readability */
 .article-content blockquote p {
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .article-content blockquote p:last-child {
   margin-bottom: 0;
 }
 
-/* Table styling if needed */
+/* Images - professional presentation */
+.article-content img {
+  margin: 2.5rem auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Code inline */
+.article-content code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+/* Tables - clean professional style */
 .article-content table {
   width: 100%;
-  margin: 3rem 0;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin: 2.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
 }
 
 .article-content thead {
-  background: linear-gradient(135deg, #142d63, #028393);
-  color: white;
+  background-color: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
 }
 
 .article-content th {
-  padding: 1.25rem 1.5rem;
+  padding: 0.75rem 1rem;
   text-align: left;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: #374151;
 }
 
 .article-content td {
-  padding: 1.25rem 1.5rem;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid #e5e7eb;
 }
 
 .article-content tbody tr:hover {
-  background-color: rgba(2, 131, 147, 0.03);
+  background-color: #f9fafb;
 }
 
-/* Custom horizontal rule styling */
+/* Horizontal rules - minimal */
 .article-content hr {
-  position: relative;
-  margin: 4rem 0;
-}
-
-.article-content hr::after {
-  content: "* * *";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 0 2rem;
-  color: #028393;
-  font-size: 1rem;
-  letter-spacing: 1rem;
-  font-weight: bold;
+  border: none;
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 3rem 0;
 }
 
 /* Selection color */
@@ -217,25 +235,31 @@ html {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .article-content > p:first-of-type::first-letter {
-    font-size: 4rem;
+  .article-content {
+    max-width: 100%;
   }
 
   .article-content h2 {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
   }
 
   .article-content h3 {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
+    margin-top: 2rem;
   }
 
-  .article-content p,
-  .article-content li {
+  .article-content > p:first-of-type {
     font-size: 1.125rem;
   }
 
   .article-content blockquote {
-    font-size: 1.5rem;
-    padding: 1.5rem 1.25rem;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .article-content ul,
+  .article-content ol {
+    padding-left: 1.25rem;
   }
 }

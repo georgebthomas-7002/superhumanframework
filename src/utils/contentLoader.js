@@ -8,11 +8,13 @@ if (typeof window !== 'undefined') {
 
 // EXPLICIT IMPORTS - Add your articles, podcasts, and offers here
 import article1 from '../content/articles/death-of-closer-rise-of-helper.md?raw';
+import article2 from '../content/articles/ceo-dilemma-scale-humanity.md?raw';
 
 // Map of all content files with their types
 const contentFiles = {
   articles: {
     'death-of-closer-rise-of-helper': article1,
+    'ceo-dilemma-scale-humanity': article2,
   },
   podcasts: {
     // Add podcasts here as you create them

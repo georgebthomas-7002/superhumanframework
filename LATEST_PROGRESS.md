@@ -2,6 +2,154 @@
 
 ## Recent Updates (2025-11-22)
 
+### Team Workshops Page Creation
+**Commit:** `f5315b9`
+
+#### Created Comprehensive Workshops Page with All Tracks and Formats
+Built a dedicated, full-featured page for team workshop services with multiple tracks and delivery formats:
+
+**Page Structure:**
+
+**1. Hero Section (Full-Width)**
+- Dark navy with ParticleBackground and breathing waves
+- Tagline: "Get in the trenches and fix the culture"
+- Headline: "Move from Inspiration to Implementation"
+- Subhead: "Keynotes inspire, but workshops transform"
+- Description: "Install the Superhuman Operating System into team DNA"
+- CTA: "Inquire About Workshops"
+
+**2. The Problem: "Monday Morning" Problem**
+- Addresses post-conference inspiration fade
+- Copy progression:
+  - Team goes to conference, gets hyped
+  - Monday morning hits → emails pile up
+  - Within 48 hours, back to old habits
+- Key insight: "Information alone doesn't change behavior"
+- Solution positioning: "You need a System"
+
+**3. The Solution: "This is Not a Lecture. It's a Lab."**
+- High-octane, interactive Labs (not lectures)
+- Roll up sleeves, have hard conversations
+- Dismantle roadblocks, rebuild operating system
+- Use 4 Cornerstones & 10 H Pillars
+- "We don't just talk about it—we build the roadmap to do it"
+
+**4. Choose Your Track (4 Workshop Tracks)**
+Each track in expandable card with icon, color-coding:
+
+- **Superhuman SALES** (TrendingUp, orange)
+  - Tagline: "From Commission Breath to Collaborative Breath"
+  - Problem: Pushing too hard, robotic, getting blocked
+  - Work: Kill pitch, role-play Humble Inquiry, rebuild as H2H
+  - Outcome: Trusted Advisors not pushy vendors
+
+- **Superhuman MARKETING** (Megaphone, teal)
+  - Tagline: "From Noise Makers to Trusted Guides"
+  - Problem: Content checks boxes, doesn't connect souls
+  - Work: Audit Corporate Speak → Human Speak, align on Purpose
+  - Outcome: Marketing engine with genuine H2H connection
+
+- **Superhuman HR & CULTURE** (Heart, soft orange)
+  - Tagline: "From Compliance to Connection"
+  - Problem: Viewed as "Fun Police" or "Principal's Office"
+  - Work: Redesign experience, Gatekeeping → Pathfinding
+  - Outcome: Culture that attracts and retains talent
+
+- **Superhuman SERVICE** (LifeBuoy, navy)
+  - Tagline: "From Tickets to Wins"
+  - Problem: Team feels like "Human Shield," burning out
+  - Work: Burn scripts, teach de-escalation, Speed → Success
+  - Outcome: Support team turns angry users into raving fans
+
+**5. Choose Your Format (3 Delivery Options)**
+Three-column grid with differentiated styling:
+
+- **The Superhuman Jumpstart** (teal accent)
+  - Format: 1/2 Day Virtual (Zoom/Teams)
+  - Vibe: Fast, Focused, Foundational
+  - Best For: Remote teams, culture reset, language alignment
+  - Deliverable: Common language, identify #1 Blocker
+
+- **The Culture Catalyst** ⭐ MOST POPULAR (featured)
+  - Format: 1 Full Day On-Location
+  - Vibe: High Energy, Deep Connection, Breakthrough
+  - Best For: Sales Kickoffs (SKO), Department Retreats, teams in rut
+  - Deliverable: Audit 10 Pillars, 90-day action plan
+  - **Special styling:** Gradient background (orange to soft orange), scale-105, "MOST POPULAR" badge at top
+
+- **The Mastermind Deep Dive** (navy accent)
+  - Format: 2 Full Days On-Location
+  - Vibe: Strategic, Transformational, Intensive
+  - Best For: Executive Leadership, Crisis Turnarounds, Mergers
+  - Deliverable: Complete transformation, custom "Constitution"
+
+**6. Who Is This For: "Can We Handle the Heat?"**
+Two-column comparison with color-coded cards:
+
+- **NOT FOR** (red background, X icons):
+  - Teams who just want to "check a box"
+  - Leaders who aren't willing to be vulnerable
+  - Companies wanting "polite" validation
+
+- **ARE FOR** (green background, CheckCircle icons):
+  - Leaders tired of the status quo
+  - Teams hungry for greatness
+  - Humans ready to stop drifting and start designing
+
+**7. Booking Inquiry Form**
+Comprehensive form in white rounded card:
+- Fields:
+  - Contact Name, Email, Company Name
+  - Which Track? (dropdown: Sales/Marketing/HR/Service/Leadership)
+  - Which Format? (dropdown: Virtual/1-Day/2-Day)
+  - Estimated Team Size
+  - The "One Thing" (textarea for #1 pain point)
+- Features:
+  - Full validation
+  - Loading state with spinner
+  - Success message display
+  - Smooth scroll anchor (#booking-form)
+
+**8. Final CTA Section**
+- Gradient card (navy to teal) with shadow
+- Users icon in frosted glass circle
+- Headline: "Don't Just Learn It. Install It."
+- Subhead: "No fluff. No theory. Just implementation."
+- Button: "Start the Conversation" (scrolls to form)
+
+**Design Features:**
+- Reading progress bar (fixed top, animated)
+- Full-width hero matching site pattern
+- Section tracking with IntersectionObserver
+- Staggered animations throughout (fadeInUp, scaleIn, staggerContainer)
+- Hover effects: cards lift (-translate-y-2), borders change color
+- Color coding by track type (consistent with brand)
+- Professional gradients and frosted glass effects
+- Mobile-responsive grid layouts (stack on mobile, multi-col on desktop)
+
+**Technical Implementation:**
+- New file: `src/pages/WorkshopsPage.jsx` (850 lines)
+- Import added to App.jsx
+- Route: 'workshops'
+- Removed old ServicesPage placeholder (saved 20 lines)
+- Form state management with React hooks
+- Smooth scroll navigation
+- Build size: 706.04KB (+25KB for new comprehensive page)
+
+**Navigation Integration:**
+- Already in Services dropdown menu
+- Accessible from mobile menu
+- URL: /workshops
+
+**Copy Highlights:**
+- "Don't Just Learn the Framework. Install It."
+- "Move from Inspiration to Implementation"
+- "We don't just talk about Trust or Hustle—we build the roadmap to actually do it."
+- "Can We Handle the Heat?"
+- Professional yet energetic transformation tone throughout
+
+---
+
 ### Keynote Speaking Page Creation
 **Commit:** `6500ca7`
 
@@ -704,8 +852,9 @@ src/
 
 ## Branch Information
 **Current Branch:** `claude/superhuman-framework-website-01DVSeLYFNWahG8yqp61Aj1s`
-**Latest Commit:** `6500ca7` - Create dedicated Keynote Speaking page with full features
+**Latest Commit:** `f5315b9` - Create comprehensive Team Workshops page with all tracks and formats
 **Previous Commits:**
+- `6500ca7` - Create dedicated Keynote Speaking page with full features
 - `6b1cb17` - Add full-width hero section to quiz result screen (Step 7)
 - `9fe0374` - Fix quiz hero section to span full screen width
 - `1235d9a` - Make quiz hero section consistent with other pages

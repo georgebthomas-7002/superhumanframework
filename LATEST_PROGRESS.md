@@ -2,6 +2,164 @@
 
 ## Recent Updates (2025-11-22)
 
+### The Mastermind Page Creation
+**Commit:** `a937b0c`
+
+#### Created Comprehensive Mastermind Community Page with Application System
+Built a dedicated, full-featured page for the year-long mastermind community with pricing and detailed application:
+
+**Page Structure:**
+
+**1. Hero Section (Full-Width)**
+- Dark navy with ParticleBackground and breathing waves
+- Badge: "Never Fight Alone Again"
+- Headline: "The Inner Circle for Superhuman Growth"
+- Subhead: "A year-long, curated community of 20 humans dedicated to living the framework, holding the line, and growing together"
+- Highlight: "Limited to 20 Spots. By Application Only"
+- CTA: "Apply for the 2026 Cohort"
+
+**2. The Problem: "The Most Dangerous Thing You Can Do is Drift Alone"**
+- Addresses loneliness at the top
+- Target: CEOs, Pastors, Founders asking their own questions
+- Key questions:
+  - Who challenges you?
+  - Who calls you out on your excuses?
+  - Who celebrates your wins without jealousy?
+- Core insight: High-achievers have employees, fans, families but lack Peers
+- Solution positioning: "You need a War Room. And you need a Support Group."
+
+**3. The Solution: "Welcome to The Superhuman Mastermind"**
+- Not a course, no pre-recorded videos
+- "Living, breathing ecosystem of excellence"
+- Curating 20 Humans committed to installing the framework
+- Three key benefits with CheckCircle icons:
+  - **We Cross-Pollinate:** Pastors learn from CEOs, CEOs from Creatives (diversity = strength)
+  - **We Go Deep:** Real numbers, real struggles (no surface-level small talk)
+  - **We Hold the Line:** Accountability is the currency
+
+**4. The Experience: "What Happens Inside?" (3 Components)**
+Each in detailed card with icon, color-coding:
+
+- **Bi-Weekly War Rooms** (2x Month) (Users icon, orange)
+  - 90-minute virtual meetings
+  - The Deep Dive: Unpack 10 H Pillars, apply to real-time challenges
+  - The Hot Seat: One member presents biggest challenge, collective genius solves it
+  - Facilitated by George
+
+- **The "Superhuman" Support Group** (Heart icon, teal)
+  - Safe harbor (what's said stays in Mastermind)
+  - Place to be Humble (struggling), Honest (real data), Human (drop mask)
+  - No judgment zone
+
+- **The 24/7 Lifeline** (MessageCircle icon, soft orange)
+  - Private community channel access
+  - Direct access to 19 other Superhumans and George
+  - Tuesday afternoon wall-hitting support
+
+**5. The Investment: "A Seat at the Table"**
+Pricing section with two-column comparison:
+
+- Intro: Group capped at 20 members, doors close when full
+- **Monthly Option** (white card, $1,000/month)
+  - Bi-weekly War Rooms
+  - 24/7 Community Access
+  - Hot Seat Opportunities
+
+- **Yearly Option - BEST VALUE** ⭐ (gradient featured card)
+  - $9,000/year (save $3,000 = 25% discount)
+  - All monthly benefits
+  - Full commitment discount highlighted
+  - Orange-to-soft-orange gradient, scale-105, "BEST VALUE" badge
+
+- **What You're Buying** (white info card)
+  - Not paying for "Zoom calls"
+  - Paying for: Access, Accountability, Breakthroughs
+  - "One idea, connection, or breakthrough that pays for the entire year in a single month"
+
+**6. Who Is This For: "Are You One of the 20?"**
+Three DNA types in gradient cards:
+
+- **The Givers** (Heart, orange gradient) - Share wisdom to help others grow
+- **The Growers** (TrendingUp, teal gradient) - Actively improving, not just maintaining
+- **The Gritty** (Shield, navy gradient) - Looking for breakthrough, not pity party
+
+Mix includes: Executives, Business Owners, Ministry Leaders, High-Performance Creatives
+
+**7. Application & Waitlist: "Claim Your Spot"**
+- Status badge: "Applications for 2026 Cohort currently [OPEN/REVIEWING]"
+- Comprehensive application form (white rounded card):
+  - Name, Email (required)
+  - LinkedIn Profile URL
+  - Current Role, Organization (required)
+  - Why join? (Be specific) (textarea, required)
+  - Superpower you bring to group (textarea, required)
+  - Kryptonite you need help with (textarea, required)
+  - Ready to invest? (dropdown: Yes-Yearly/$9k, Yes-Monthly/$1k, Need discussion)
+  - Submit button with loading state
+  - Success message: "Application received! Review within 72 hours"
+  - Full validation, form state management
+
+**8. Priority Waitlist Section**
+- Separate card below application
+- Clock icon, teal theme
+- "Planning Ahead? Get First Dibs on the Next Cohort"
+- Because limited to 20, next year fills before public launch
+- Priority List: Application link 48 hours before public
+- "Join Priority Waitlist" button
+
+**9. Final CTA Section**
+- Gradient card (navy to teal)
+- Shield icon in frosted glass circle with scale animation
+- Headline: "Never Fight Alone Again"
+- Subhead: "Join curated circle of 20 high-performers committed to growth, accountability, excellence"
+- Button: "Apply Now" (scrolls to form)
+
+**Design Features:**
+- Reading progress bar (fixed top, animated)
+- Full-width hero matching site pattern
+- Section tracking with IntersectionObserver
+- Staggered animations (fadeInUp, scaleIn, staggerContainer)
+- Hover effects: cards border changes, lift effect
+- Color coding (orange/teal/soft orange/navy)
+- Featured pricing card with gradient and scale
+- Professional white cards throughout
+- Bullet lists with icon indicators
+- Mobile-responsive grid layouts
+
+**Technical Implementation:**
+- New file: `src/pages/MastermindPage.jsx` (978 lines)
+- Import added to App.jsx
+- Route: 'mastermind'
+- Removed old ServicesPage placeholder (saved 14 lines)
+- Form state management with React hooks
+- Cohort status state (OPEN/REVIEWING/FULL)
+- Smooth scroll navigation (#application-form anchor)
+- Build size: 759.31KB (+28KB for comprehensive page)
+
+**Navigation Integration:**
+- Already in Services dropdown menu
+- Accessible from mobile menu
+- URL: /mastermind
+
+**Copy Highlights:**
+- "Never Fight Alone Again"
+- "The Inner Circle for Superhuman Growth"
+- "The Most Dangerous Thing You Can Do is Drift Alone"
+- "You need a War Room. And you need a Support Group."
+- "Living, breathing ecosystem of excellence"
+- "Accountability is the currency of this room"
+- "What is said in the Mastermind stays in the Mastermind"
+- Professional, exclusive, community-focused tone throughout
+
+**Application System:**
+- Thoughtful questions (Superpower/Kryptonite framework)
+- Financial commitment clarity upfront
+- Priority waitlist for future planning
+- Curated, selective positioning
+- Strong emphasis on giving, growing, grit
+
+---
+
 ### 1:1 Coaching Page Creation
 **Commit:** `5cd8c78`
 
@@ -1006,8 +1164,9 @@ src/
 
 ## Branch Information
 **Current Branch:** `claude/superhuman-framework-website-01DVSeLYFNWahG8yqp61Aj1s`
-**Latest Commit:** `5cd8c78` - Create comprehensive 1:1 Coaching page with application form
+**Latest Commit:** `a937b0c` - Create comprehensive Mastermind page with application system
 **Previous Commits:**
+- `5cd8c78` - Create comprehensive 1:1 Coaching page with application form
 - `f5315b9` - Create comprehensive Team Workshops page with all tracks and formats
 - `6500ca7` - Create dedicated Keynote Speaking page with full features
 - `6b1cb17` - Add full-width hero section to quiz result screen (Step 7)

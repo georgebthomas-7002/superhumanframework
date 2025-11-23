@@ -19,6 +19,9 @@ import SpeakerPage from './pages/SpeakerPage';
 import WorkshopsPage from './pages/WorkshopsPage';
 import CoachingPage from './pages/CoachingPage';
 import MastermindPage from './pages/MastermindPage';
+import ResourceCenterPage from './pages/ResourceCenterPage';
+import ArticleDetailPage from './pages/ArticleDetailPage';
+import PodcastDetailPage from './pages/PodcastDetailPage';
 import ContactSlideOut from './components/ContactSlideOut';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
@@ -218,6 +221,10 @@ const Navbar = ({ navigate, currentView, godMode }) => {
               </div>
             </div>
 
+            <button onClick={() => navigate('resources')} className={`text-sm font-bold hover:text-[#028393] transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Resources
+            </button>
+
             <button 
               onClick={() => navigate('quiz')} 
               className={`px-6 py-3 rounded-full text-sm font-bold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:scale-95 ${godMode ? 'bg-[#fbbf24] text-black hover:bg-white' : 'bg-[#f65625] text-white hover:bg-[#142d63]'}`}
@@ -264,6 +271,8 @@ const Navbar = ({ navigate, currentView, godMode }) => {
               The Founder
             </button>
           </div>
+
+          <button onClick={() => { navigate('resources'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-4 text-xl font-bold border-b ${godMode ? 'text-white border-gray-800' : 'text-[#142d63] border-gray-50'}`}>Resources</button>
 
           <button onClick={() => { navigate('quiz'); setIsMobileMenuOpen(false); }} className="block w-full text-center mt-8 bg-[#f65625] text-white py-4 rounded-xl font-bold text-lg shadow-lg active:scale-95 transition-transform">
             Take Assessment
@@ -1702,6 +1711,10 @@ const App = () => {
       case 'workshops': return <WorkshopsPage navigate={navigate} />;
       case 'coaching': return <CoachingPage navigate={navigate} />;
       case 'mastermind': return <MastermindPage navigate={navigate} />;
+
+      // Resources
+      case 'resources': return <ResourceCenterPage navigate={navigate} />;
+
       case 'contact': return <ServicesPage 
           title="Contact"
           sub="Let's Connect. Human to Human."
@@ -1753,8 +1766,22 @@ const App = () => {
           </div>
         }
       />;
-      
-      default: return <HomePage navigate={navigate} godMode={godMode} />;
+
+      default:
+        // Handle resource detail pages
+        if (view.startsWith('resource/article/')) {
+          const articleSlug = view.replace('resource/article/', '');
+          return <ArticleDetailPage navigate={navigate} slug={articleSlug} />;
+        }
+        if (view.startsWith('resource/podcast/')) {
+          const podcastSlug = view.replace('resource/podcast/', '');
+          return <PodcastDetailPage navigate={navigate} slug={podcastSlug} />;
+        }
+        if (view.startsWith('resource/offer/')) {
+          const offerSlug = view.replace('resource/offer/', '');
+          return <ArticleDetailPage navigate={navigate} slug={offerSlug} />;
+        }
+        return <HomePage navigate={navigate} godMode={godMode} />;
     }
   };
 

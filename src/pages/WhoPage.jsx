@@ -1,9 +1,57 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
+import Particles from "@tsparticles/react";
 import {
-  Megaphone, Heart, Target, Shield, Zap, ArrowRight,
-  Sparkles, User, BookOpen, Users
+  ArrowRight,
+  Compass,
+  Heart,
+  TrendingUp,
+  Megaphone,
+  LifeBuoy,
+  Church,
+  User,
+  Sparkles,
+  Target
 } from 'lucide-react';
+
+// Reading Progress Component
+const ReadingProgress = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange(latest => {
+      setProgress(Math.round(latest * 100));
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  return (
+    <>
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-[#f65625] origin-left z-50"
+        style={{ scaleX }}
+      />
+      {progress > 5 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg text-sm font-bold text-[#142d63] border border-gray-100 z-40"
+        >
+          {progress}% Complete
+        </motion.div>
+      )}
+    </>
+  );
+};
 
 // Particle Background Component
 const ParticleBackground = ({ color }) => (
@@ -31,116 +79,160 @@ const ParticleBackground = ({ color }) => (
   </div>
 );
 
-// Reading Progress Bar Component
-const ReadingProgress = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    return scrollYProgress.onChange((latest) => {
-      setProgress(Math.round(latest * 100));
-    });
-  }, [scrollYProgress]);
-
-  return (
-    <div className="fixed top-0 left-0 right-0 z-50">
-      <motion.div
-        className="h-1 bg-gradient-to-r from-[#f65625] via-[#faaa68] to-[#028393] origin-left"
-        style={{ scaleX }}
-      />
-      {progress > 5 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="fixed bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg text-sm font-bold text-[#142d63] border border-gray-100 z-40"
-        >
-          {progress}% Complete
-        </motion.div>
-      )}
-    </div>
-  );
-};
-
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1
-    }
-  }
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-};
-
 const WhoPage = ({ navigate }) => {
-  const [sectionsRead, setSectionsRead] = useState([]);
+  const [init, setInit] = useState(false);
 
-  // Section tracking refs
-  const originRef = useRef(null);
-  const pivotRef = useRef(null);
-  const philosophyRef = useRef(null);
-  const roleRef = useRef(null);
-  const feamRef = useRef(null);
-
-  // Track which sections have been read
   useEffect(() => {
-    const observers = [
-      { ref: originRef, name: 'origin' },
-      { ref: pivotRef, name: 'pivot' },
-      { ref: philosophyRef, name: 'philosophy' },
-      { ref: roleRef, name: 'role' },
-      { ref: feamRef, name: 'feam' }
-    ].map(({ ref, name }) => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && !sectionsRead.includes(name)) {
-            setSectionsRead(prev => [...prev, name]);
-          }
-        },
-        { threshold: 0.5 }
-      );
-
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
-
-      return observer;
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
     });
+  }, []);
 
-    return () => observers.forEach(observer => observer.disconnect());
-  }, [sectionsRead]);
+  const particlesOptions = {
+    background: {
+      color: {
+        value: "transparent",
+      },
+    },
+    fpsLimit: 60,
+    interactivity: {
+      events: {
+        onHover: {
+          enable: true,
+          mode: "grab",
+        },
+      },
+      modes: {
+        grab: {
+          distance: 140,
+          links: {
+            opacity: 0.3,
+          },
+        },
+      },
+    },
+    particles: {
+      color: {
+        value: "#f65625",
+      },
+      links: {
+        color: "#f65625",
+        distance: 150,
+        enable: true,
+        opacity: 0.15,
+        width: 1,
+      },
+      move: {
+        direction: "none",
+        enable: true,
+        outModes: {
+          default: "bounce",
+        },
+        random: false,
+        speed: 0.5,
+        straight: false,
+      },
+      number: {
+        density: {
+          enable: true,
+          area: 800,
+        },
+        value: 30,
+      },
+      opacity: {
+        value: 0.2,
+      },
+      shape: {
+        type: "circle",
+      },
+      size: {
+        value: { min: 1, max: 3 },
+      },
+    },
+    detectRetina: true,
+  };
+
+  const verticals = [
+    {
+      icon: <Compass className="w-10 h-10" />,
+      title: 'For LEADERS',
+      shift: 'From Transactional Manager → To Visionary Leader',
+      struggle: 'You are successful on paper, but drowning in the day-to-day. You feel isolated at the top and spend your time fighting fires instead of building the future.',
+      promise: 'We use the framework to build a culture of Purpose and Trust so you can stop managing tasks and start leading a mission.',
+      link: 'leadership',
+      linkText: 'Explore Leadership'
+    },
+    {
+      icon: <Heart className="w-10 h-10" />,
+      title: 'For HR & PEOPLE OPS',
+      shift: 'From Compliance Police → To Culture Architect',
+      struggle: 'You are stuck in the middle—protecting the company from lawsuits while trying to protect employees from burnout. You are tired of being the "Department of No."',
+      promise: 'We move you from "Human Resources" to "Human Relations." We give you the tools to prioritize Humanity so your company becomes a place people never want to leave.',
+      link: 'hr',
+      linkText: 'Explore HR'
+    },
+    {
+      icon: <TrendingUp className="w-10 h-10" />,
+      title: 'For SALES TEAMS',
+      shift: 'From Commission Chaser → To Trusted Advisor',
+      struggle: 'You are fighting "Commission Breath" and skeptical prospects. The old "Always Be Closing" tactics are getting you blocked.',
+      promise: 'We kill the pitch. We replace pressure with Helpfulness. We teach your team how to use Honesty to disarm prospects and close deals through trust.',
+      link: 'sales',
+      linkText: 'Explore Sales'
+    },
+    {
+      icon: <Megaphone className="w-10 h-10" />,
+      title: 'For MARKETING TEAMS',
+      shift: 'From Noise Maker → To Trusted Guide',
+      struggle: 'You are fighting the algorithm and shouting into the void. You feel like a robot writing for other robots.',
+      promise: 'We install the H2H (Human to Human) philosophy. We align your messaging with Passion so you stop interrupting strangers and start connecting with humans.',
+      link: 'marketing',
+      linkText: 'Explore Marketing'
+    },
+    {
+      icon: <LifeBuoy className="w-10 h-10" />,
+      title: 'For SERVICE & SUPPORT',
+      shift: 'From Ticket Resolver → To Success Partner',
+      struggle: 'You feel like a "Human Shield," absorbing customer anger all day. You are measured by speed, not impact.',
+      promise: 'We turn your Support team into a Revenue Engine. We use Empathy and Persistence to turn angry users into raving fans.',
+      link: 'service',
+      linkText: 'Explore Service'
+    },
+    {
+      icon: <Church className="w-10 h-10" />,
+      title: 'For PASTORS & MINISTRY',
+      shift: 'From Religious Duty → To Spiritual Overflow',
+      struggle: 'You are saving the world but losing your soul (and your family). You feel the pressure to be a CEO, Therapist, and Theologian all at once.',
+      promise: 'We help you put down the heavy burden of performance. We focus on Holiness and Rest so you can lead God\'s people from a place of joy, not obligation.',
+      link: 'pastors',
+      linkText: 'Explore Ministry'
+    },
+    {
+      icon: <User className="w-10 h-10" />,
+      title: 'For PERSONAL GROWTH',
+      shift: 'From Drifting → To Designing',
+      struggle: 'You are fighting the "Script" society wrote for you. You feel stuck, bored, or like you are living on autopilot.',
+      promise: 'This is the battle of You vs. You. We help you discover your Purpose and build the daily habits of Holistic Living to design a life that feels as good as it looks.',
+      link: 'personal',
+      linkText: 'Explore Personal Growth'
+    }
+  ];
 
   return (
-    <div className="animate-fade-in">
-      {/* Reading Progress Bar */}
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white relative">
       <ReadingProgress />
 
-      {/* HERO SECTION */}
+      {init && (
+        <Particles
+          id="tsparticles-who"
+          options={particlesOptions}
+          className="absolute inset-0 pointer-events-none"
+        />
+      )}
+
+      {/* Hero Section */}
       <section className="bg-[#142d63] text-white py-32 md:py-48 text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
@@ -169,461 +261,202 @@ const WhoPage = ({ navigate }) => {
           ))}
         </div>
 
-        <motion.div
-          className="max-w-5xl mx-auto px-4 relative z-10"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
+        <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
           <motion.div
-            variants={fadeInUp}
-            className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <span className="text-[#faaa68] flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              I mastered the machine. Then I realized the humans were broken.
-            </span>
+            <div className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold backdrop-blur-sm">
+              <span className="text-[#faaa68]">One Framework. Infinite Applications.</span>
+            </div>
           </motion.div>
 
           <motion.h1
-            variants={fadeInUp}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight"
           >
-            I'm George B. Thomas.
+            The Superhuman Framework<br />Meets You Where You Are.
           </motion.h1>
 
           <motion.p
-            variants={fadeInUp}
-            className="text-2xl md:text-3xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-bold"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-2xl md:text-3xl text-gray-300 mb-6 max-w-3xl mx-auto leading-relaxed font-bold"
           >
-            Speaker. Catalyst. Guide.
+            The DNA never changes.<br />But the battleground does.
           </motion.p>
 
-          <motion.div
-            variants={fadeInUp}
-            className="prose prose-lg prose-invert max-w-3xl mx-auto"
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
           >
-            <p className="text-xl text-gray-300 leading-relaxed mb-4">
-              For the last decade, you probably knew me as <strong className="text-white">"The HubSpot Guy."</strong>
-            </p>
-            <p className="text-xl text-gray-300 leading-relaxed mb-4">
-              I hold world records for certifications. I've trained thousands of companies. I've helped organizations generate millions in revenue.
-            </p>
-            <p className="text-xl text-gray-300 leading-relaxed mb-6">
-              But after 10 years of fixing businesses, I realized something terrifying:
-            </p>
-            <p className="text-2xl text-[#f65625] font-bold leading-relaxed">
-              We were optimizing the software, but destroying the soul.
-            </p>
-          </motion.div>
-        </motion.div>
-      </section>
+            "Hustle" looks different for a CEO than it does for a Pastor. "Love" looks different for a Sales Rep than it does for an HR Director. Most frameworks fail because they are rigid. They try to force everyone into the same box. The Superhuman Framework is fluid. It adapts to your specific role, your specific pain points, and your specific goals.
+          </motion.p>
 
-      {/* THE ORIGIN STORY SECTION */}
-      <section ref={originRef} className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="text-center mb-12"
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-2xl text-white font-bold"
           >
-            <motion.h2
-              variants={fadeInUp}
-              className="text-4xl md:text-6xl font-extrabold text-[#142d63] mb-8"
-            >
-              The Day the Hoodie & Hat<br />Stopped Being Enough
-            </motion.h2>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="prose prose-lg max-w-3xl mx-auto"
-          >
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              I didn't start as a guru. I started as a <strong className="text-[#142d63]">high school dropout</strong> who was hungry for a better life.
-            </p>
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              I hustled. I learned. I became obsessed with "Inbound" and the power of connecting people to solutions.
-            </p>
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              I spent years on the road, standing on stages in my signature hoodie and hat, teaching marketers how to use automation, workflows, and CRMs. I brought the energy. I became the "fixer" for broken sales funnels.
-            </p>
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              But then I started looking closer at the leaders I was helping.
-            </p>
-
-            <ul className="space-y-3 mb-6 text-xl text-gray-700">
-              <li className="flex items-start gap-3">
-                <span className="text-[#f65625] font-bold">•</span>
-                <span>I saw CEOs who hit their revenue targets but hadn't had dinner with their families in a month.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#f65625] font-bold">•</span>
-                <span>I saw Sales Reps who were crushing quotas but were visibly shaking from anxiety.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#f65625] font-bold">•</span>
-                <span>I saw Pastors who were growing their churches but losing their faith.</span>
-              </li>
-            </ul>
-
-            <p className="text-2xl text-[#f65625] font-bold leading-relaxed mb-6">
-              I realized that better software doesn't fix a broken operating system.
-            </p>
-
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              If you give a Ferrari to a driver who hasn't slept in three days, they don't win the race. <strong className="text-[#142d63]">They crash faster.</strong>
-            </p>
-
-            <p className="text-xl text-gray-700 leading-relaxed">
-              I realized I was teaching people how to <em>do</em> more, but they didn't know how to <strong className="text-[#f65625]">be</strong> more.
-            </p>
-          </motion.div>
+            Find your battleground below.
+          </motion.p>
         </div>
       </section>
 
-      {/* THE PIVOT SECTION */}
-      <section ref={pivotRef} className="py-24 bg-[#F9FAFB]">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Directory Section */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            variants={staggerContainer}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            <motion.h2
-              variants={fadeInUp}
-              className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-8 text-center"
-            >
-              Why I Built the<br />Superhuman Framework
-            </motion.h2>
-
-            <motion.div
-              variants={fadeInUp}
-              className="prose prose-lg max-w-3xl mx-auto"
-            >
-              <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                I didn't create this framework to write a book. <strong className="text-[#f65625]">I created it because I needed it.</strong>
-              </p>
-              <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                I needed a way to balance the <strong>"Hungry Hustle"</strong> of building a legacy with the <strong>"Holistic Living"</strong> required to be a good father and husband.
-              </p>
-              <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                I needed a way to be a <strong className="text-[#f65625]">"Beast"</strong> in business but a <strong className="text-[#028393]">"Servant"</strong> in life.
-              </p>
-              <p className="text-2xl text-[#142d63] font-bold leading-relaxed mb-6">
-                I realized that the strategies we use to grow companies—Purpose, Passion, Persistence, Love—are the exact same strategies we need to grow humans.
-              </p>
-              <p className="text-xl text-gray-700 leading-relaxed mb-4">
-                So, I stopped just teaching the tool (HubSpot).
-              </p>
-              <p className="text-2xl text-[#f65625] font-bold leading-relaxed">
-                I started teaching the Human.
-              </p>
-            </motion.div>
+            <h2 className="text-4xl md:text-5xl font-black text-[#142d63] mb-6">
+              Choose Your Path
+            </h2>
           </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {verticals.map((vertical, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden group hover:scale-105"
+              >
+                <div className="p-8">
+                  {/* Icon */}
+                  <div className="text-[#f65625] mb-6 transform group-hover:scale-110 transition-transform">
+                    {vertical.icon}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl font-black text-[#142d63] mb-4">
+                    {vertical.title}
+                  </h3>
+
+                  {/* The Shift */}
+                  <div className="mb-4">
+                    <p className="text-sm font-bold text-[#f65625] mb-2">The Shift:</p>
+                    <p className="text-sm text-gray-600 leading-relaxed">{vertical.shift}</p>
+                  </div>
+
+                  {/* The Struggle */}
+                  <div className="mb-4">
+                    <p className="text-sm font-bold text-[#142d63] mb-2">The Struggle:</p>
+                    <p className="text-sm text-gray-600 leading-relaxed">{vertical.struggle}</p>
+                  </div>
+
+                  {/* The Promise */}
+                  <div className="mb-6">
+                    <p className="text-sm font-bold text-[#142d63] mb-2">The Promise:</p>
+                    <p className="text-sm text-gray-600 leading-relaxed">{vertical.promise}</p>
+                  </div>
+
+                  {/* Link */}
+                  <button
+                    onClick={() => navigate(vertical.link)}
+                    className="group/btn w-full bg-gradient-to-r from-[#f65625] to-[#ff7a47] text-white px-6 py-3 rounded-full font-bold text-sm hover:from-[#142d63] hover:to-[#1a3a7a] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  >
+                    {vertical.linkText}
+                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* THE PHILOSOPHY SECTION */}
-      <section ref={philosophyRef} className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Other Bucket Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            variants={staggerContainer}
+            transition={{ duration: 0.6 }}
+            className="text-center"
           >
-            <motion.h2
-              variants={fadeInUp}
-              className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-12 text-center"
-            >
-              It's Not B2B.<br />It's H2H.
-            </motion.h2>
+            <h2 className="text-4xl md:text-5xl font-black text-[#142d63] mb-8">
+              Don't See Your Role?
+            </h2>
 
-            <motion.div
-              variants={fadeInUp}
-              className="prose prose-lg max-w-3xl mx-auto mb-12"
-            >
-              <p className="text-xl text-gray-700 leading-relaxed mb-8">
-                My philosophy is simple: <strong className="text-[#f65625]">Business is Human-to-Human.</strong>
+            <div className="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 mb-8">
+              <div className="space-y-4 text-xl text-gray-600 mb-8">
+                <p>"George, I'm a teacher."</p>
+                <p>"I'm a stay-at-home parent."</p>
+                <p>"I'm a creative freelancer."</p>
+              </div>
+
+              <p className="text-2xl font-black text-[#f65625] mb-6">
+                Good news: You are still a Human.
               </p>
-            </motion.div>
 
-            <motion.div
-              variants={staggerContainer}
-              className="space-y-6"
-            >
-              <motion.div
-                variants={fadeInUp}
-                className="bg-gradient-to-r from-[#f65625]/10 to-[#faaa68]/10 rounded-2xl p-6 border-2 border-[#f65625]/20"
-              >
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  You aren't managing <em>"resources"</em>; you are <strong className="text-[#f65625]">leading humans</strong>.
-                </p>
-              </motion.div>
-
-              <motion.div
-                variants={fadeInUp}
-                className="bg-gradient-to-r from-[#028393]/10 to-[#028393]/5 rounded-2xl p-6 border-2 border-[#028393]/20"
-              >
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  You aren't selling to <em>"leads"</em>; you are <strong className="text-[#028393]">helping humans</strong>.
-                </p>
-              </motion.div>
-
-              <motion.div
-                variants={fadeInUp}
-                className="bg-gradient-to-r from-[#142d63]/10 to-[#142d63]/5 rounded-2xl p-6 border-2 border-[#142d63]/20"
-              >
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  You aren't marketing to <em>"segments"</em>; you are <strong className="text-[#142d63]">connecting with humans</strong>.
-                </p>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              variants={fadeInUp}
-              className="prose prose-lg max-w-3xl mx-auto mt-12"
-            >
-              <p className="text-2xl text-[#f65625] font-bold leading-relaxed mb-4">
-                When you get the Human part right, the business part gets easy.
+              <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                The Superhuman Framework is, at its core, about <span className="font-bold text-[#142d63]">Humanity</span>. Even if you don't fit into one of the corporate buckets above, the principles of Purpose, Passion, Persistence, and Love apply to you.
               </p>
-              <p className="text-xl text-gray-700 leading-relaxed mb-3">
-                When you fix the leader, the team heals.
+
+              <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                Start with the <span className="font-bold text-[#142d63]">Personal Growth</span> track. It is the universal foundation for everyone.
               </p>
-              <p className="text-xl text-gray-700 leading-relaxed">
-                When you fix the culture, the profits follow.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* MY ROLE NOW SECTION */}
-      <section ref={roleRef} className="py-24 bg-[#F9FAFB]">
-        <div className="max-w-5xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.h2
-              variants={fadeInUp}
-              className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-6 text-center"
-            >
-              I Am a Catalyst
-            </motion.h2>
-
-            <motion.p
-              variants={fadeInUp}
-              className="text-lg text-gray-600 italic text-center mb-12 max-w-3xl mx-auto"
-            >
-              <strong>Definition:</strong> A substance that increases the rate of a chemical reaction without itself undergoing any permanent chemical change.
-            </motion.p>
-
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-gray-700 leading-relaxed text-center mb-12 max-w-3xl mx-auto"
-            >
-              I come into your organization to speed up the reaction. To ignite the fire. To get you unstuck.
-            </motion.p>
-
-            <div className="space-y-8">
-              {/* As a Speaker */}
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={scaleIn}
-                className="bg-white rounded-3xl p-8 md:p-12 shadow-lg border-2 border-gray-100 hover:border-[#f65625] transition-all"
+              <button
+                onClick={() => navigate('personal')}
+                className="group bg-gradient-to-r from-[#f65625] to-[#ff7a47] text-white px-10 py-5 rounded-full font-black text-lg hover:from-[#142d63] hover:to-[#1a3a7a] transition-all duration-300 inline-flex items-center gap-3 shadow-2xl hover:shadow-3xl hover:scale-105"
               >
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-[#f65625] rounded-2xl flex items-center justify-center shrink-0">
-                    <Megaphone className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-3xl font-extrabold text-[#142d63] mb-3">
-                      As a Speaker
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed text-lg">
-                      I wake up the room. I don't do boring. I bring the hard truths wrapped in humor and energy.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* As a Coach */}
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={scaleIn}
-                className="bg-white rounded-3xl p-8 md:p-12 shadow-lg border-2 border-gray-100 hover:border-[#028393] transition-all"
-              >
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-[#028393] rounded-2xl flex items-center justify-center shrink-0">
-                    <Heart className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-3xl font-extrabold text-[#142d63] mb-3">
-                      As a Coach
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed text-lg">
-                      I am the safe harbor for leaders who are tired of wearing the mask. I help you design a life that feels as good as it looks on paper.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* As a Guide */}
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={scaleIn}
-                className="bg-white rounded-3xl p-8 md:p-12 shadow-lg border-2 border-gray-100 hover:border-[#faaa68] transition-all"
-              >
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-[#faaa68] rounded-2xl flex items-center justify-center shrink-0">
-                    <Target className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-3xl font-extrabold text-[#142d63] mb-3">
-                      As a Guide
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed text-lg">
-                      I help you install the Superhuman Operating System so you can stop drifting and start designing.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+                Start with Personal Growth
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              </button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* THE "FEAM" SECTION */}
-      <section ref={feamRef} className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Assessment CTA Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-[#142d63] to-[#1a3a7a] text-white">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            variants={staggerContainer}
+            transition={{ duration: 0.6 }}
           >
-            <motion.h2
-              variants={fadeInUp}
-              className="text-4xl md:text-5xl font-extrabold text-[#142d63] mb-12 text-center"
+            <div className="mb-6">
+              <Sparkles className="w-16 h-16 text-[#faaa68] mx-auto" />
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
+              Still Not Sure?
+            </h2>
+
+            <p className="text-xl md:text-2xl mb-8 text-gray-300 font-bold">
+              Let the algorithm decide.
+            </p>
+
+            <p className="text-lg text-gray-400 leading-relaxed mb-12 max-w-2xl mx-auto">
+              Answer 3 simple questions to find out which Superhuman Archetype you need right now. We will analyze your pain points and point you to the exact Playbook you need.
+            </p>
+
+            <button
+              onClick={() => navigate('framework')}
+              className="group bg-[#f65625] text-white px-10 py-5 rounded-full font-black text-xl hover:bg-white hover:text-[#142d63] transition-all duration-300 inline-flex items-center gap-3 shadow-2xl hover:shadow-3xl hover:scale-105"
             >
-              Who I Am When<br />the Mic is Off
-            </motion.h2>
-
-            <motion.div
-              variants={fadeInUp}
-              className="bg-gradient-to-br from-[#142d63] to-[#028393] rounded-3xl p-12 text-white shadow-2xl mb-8"
-            >
-              <div className="text-center mb-8">
-                <Users className="w-16 h-16 text-[#faaa68] mx-auto mb-4" />
-                <h3 className="text-3xl font-extrabold mb-4">The FEAM</h3>
-                <p className="text-xl text-gray-200 mb-2">(Family + Team)</p>
-              </div>
-
-              <div className="prose prose-lg prose-invert max-w-3xl mx-auto">
-                <p className="text-xl text-gray-200 leading-relaxed mb-6">
-                  I hustle for my <strong className="text-white">last name</strong>, not my first.
-                </p>
-                <p className="text-xl text-gray-200 leading-relaxed mb-6">
-                  Everything I do is for my family. We call ourselves <strong className="text-[#faaa68]">"The FEAM"</strong> (Family + Team).
-                </p>
-                <p className="text-xl text-gray-200 leading-relaxed mb-6">
-                  I believe that <strong className="text-white">Humor is a holy weapon</strong>.
-                </p>
-                <p className="text-xl text-gray-200 leading-relaxed mb-6">
-                  I believe that <strong className="text-white">Love is a business strategy</strong>.
-                </p>
-                <p className="text-xl text-gray-200 leading-relaxed mb-6">
-                  And I believe that you have a reservoir of potential inside you that you haven't even tapped yet.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white rounded-2xl p-8 border-2 border-gray-100 text-center"
-            >
-              <p className="text-2xl text-[#142d63] font-bold leading-relaxed mb-4">
-                My goal isn't to be your guru.
-              </p>
-              <p className="text-xl text-gray-700 leading-relaxed">
-                My goal is to be the <strong className="text-[#f65625]">mirror</strong> that shows you who you really are—and who you could be.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CALL TO ACTION SECTION */}
-      <section className="py-24 bg-gradient-to-br from-[#142d63] to-[#1a3a7a] text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.div
-              variants={scaleIn}
-              className="mb-8"
-            >
-              <Shield className="w-20 h-20 text-[#faaa68] mx-auto" />
-            </motion.div>
-
-            <motion.h2
-              variants={fadeInUp}
-              className="text-4xl md:text-6xl font-extrabold mb-6"
-            >
-              Ready to Upgrade Your OS?
-            </motion.h2>
-
-            <motion.p
-              variants={fadeInUp}
-              className="text-2xl mb-12 text-gray-300 font-bold"
-            >
-              We have work to do. Let's stop talking about it and start being about it.
-            </motion.p>
-
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('speaking')}
-                className="bg-[#f65625] text-white px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:bg-white hover:text-[#f65625] transition-colors flex items-center justify-center gap-2"
-              >
-                <Megaphone className="w-5 h-5" />
-                Book George to Speak
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('framework')}
-                className="bg-white/10 text-white border-2 border-white px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:bg-white hover:text-[#142d63] transition-colors flex items-center justify-center gap-2 backdrop-blur-sm"
-              >
-                <BookOpen className="w-5 h-5" />
-                Explore the Framework
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
-            </motion.div>
+              <Target className="w-6 h-6" />
+              Take the Assessment
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+            </button>
           </motion.div>
         </div>
       </section>

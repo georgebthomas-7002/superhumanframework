@@ -38,16 +38,33 @@ export const loadAllContent = () => {
   const allContent = [];
 
   // Debug logging
-  console.log('[ContentLoader] Loading content with explicit imports...');
-  console.log('[ContentLoader] Content types:', Object.keys(contentFiles));
+  console.log('[ContentLoader] ===== START LOADING CONTENT =====');
+  console.log('[ContentLoader] contentFiles defined?', typeof contentFiles);
+  console.log('[ContentLoader] contentFiles is object?', typeof contentFiles === 'object');
+  console.log('[ContentLoader] contentFiles keys:', contentFiles ? Object.keys(contentFiles) : 'UNDEFINED');
+
+  // Check imports
+  console.log('[ContentLoader] article1 type:', typeof article1);
+  console.log('[ContentLoader] article1 length:', article1 ? article1.length : 'undefined');
+  console.log('[ContentLoader] article1 preview:', article1 ? article1.substring(0, 50) : 'undefined');
 
   // Process each content type
   Object.entries(contentFiles).forEach(([type, files]) => {
-    console.log(`[ContentLoader] ${type}: ${Object.keys(files).length} files`);
+    console.log(`[ContentLoader] Processing type: ${type}`);
+    console.log(`[ContentLoader] Files in ${type}:`, Object.keys(files));
+    console.log(`[ContentLoader] ${type} count: ${Object.keys(files).length}`);
 
     Object.entries(files).forEach(([slug, raw]) => {
+      console.log(`[ContentLoader] Processing ${type}/${slug}...`);
+      console.log(`[ContentLoader] Raw content type: ${typeof raw}, length: ${raw ? raw.length : 0}`);
+
       try {
+        if (!raw || typeof raw !== 'string') {
+          throw new Error(`Invalid raw content for ${slug}: type is ${typeof raw}`);
+        }
+
         const { data, content } = matter(raw);
+        console.log(`[ContentLoader] Parsed ${slug} - title: ${data.title}`);
 
         // Calculate read time for articles (rough estimate: 200 words per minute)
         let readTime = null;

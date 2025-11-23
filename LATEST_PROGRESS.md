@@ -2,6 +2,160 @@
 
 ## Recent Updates (2025-11-22)
 
+### 1:1 Coaching Page Creation
+**Commit:** `5cd8c78`
+
+#### Created Comprehensive Coaching Page with Application System
+Built a dedicated, full-featured page for 1:1 coaching services with detailed tracks and application form:
+
+**Page Structure:**
+
+**1. Hero Section (Full-Width)**
+- Dark navy with ParticleBackground and breathing waves
+- Tagline: "Get the insight you can't see from where you're standing"
+- Headline: "Even Superhumans Need a Guide"
+- Subhead: "1:1 Mentorship & Executive Coaching"
+- Quote: "You can't read the label when you're inside the jar"
+- CTA: "Apply for Coaching"
+
+**2. The Problem: "The Higher You Climb, The Harder It Gets"**
+- Addresses high-performance loneliness
+- Target audiences: CEO (company weight), Pastor (church weight), High-Achiever (glass ceiling)
+- Key insight: "You need insight, not information"
+- Positioning: Need someone to see blind spots, challenge excuses
+- Goal: Life that feels good in soul, not just looks good on paper
+
+**3. The Solution: "This isn't Life Coaching. This is Life Design."**
+- Not pep talks - installing Superhuman Operating System
+- Deep dive into 4 Cornerstones (Who You Are)
+- Implementation of 10 H Pillars (What You Do)
+- Winning in every area, not just spreadsheets
+
+**4. Who I Work With (3 Coaching Tracks)**
+Each track in detailed card with icon, color-coding:
+
+- **The Executive Leader** (TrendingUp, orange)
+  - For: CEOs, Founders, C-Suite Executives
+  - Battle: Isolation, Decision Fatigue, Imposter Syndrome
+  - Work: Focus on the Leader, not just business
+    - Audit Holiness (Integrity): Same person private/public?
+    - Protect Health: Energy to lead
+    - Clarify Vision: Chaos → Clarity
+  - Outcome: Lead with confidence, sleep better, build legacy without burning personal life
+
+- **The Ministry Leader** (Heart, teal)
+  - For: Senior Pastors, Executive Pastors, Church Planters
+  - Battle: Burnout, Spiritual Dryness, "Fishbowl" Pressure
+  - Work: Become safe place (can't tell Board/members everything)
+    - Drop "Pastor" mask, deal with Human
+    - Focus on Rest (Sabbath as command)
+    - Realign: Overflow not obligation
+  - Outcome: Ministry that outlasts you without destroying you
+
+- **The Personal Growth Architect** (Target, soft orange)
+  - For: Entrepreneurs, Stuck Professionals, High-Achievers
+  - Battle: "Is this it?", Lack of Purpose, Self-Sabotage
+  - Work: Battle of You vs. You
+    - Kill inner critic using Love cornerstone
+    - Build Hungry Hustle & Holistic Living habits
+    - Roadmap: "Existing" → "Designing"
+  - Outcome: Wake up with clear Purpose, vitality to attack day
+
+**5. My Philosophy: "What to Expect When We Work Together"**
+Three professional white cards with icons:
+
+- **I Am Not Your Cheerleader** (Shield, orange)
+  - Will encourage, but am your coach
+  - Love you enough to tell truth you're avoiding
+
+- **I Am Not Your Therapist** (Target, teal)
+  - Acknowledge past, focus on future
+  - Focus on action
+
+- **H2H (Human to Human)** (Heart, soft orange)
+  - No corporate stiffness
+  - Laugh, dig deep, get real, do the work
+
+**6. The Format: "How It Works" (3 Steps)**
+Numbered cards with color-coded circles:
+
+1. **The Assessment** (orange circle)
+   - Deep-dive audit of current Cornerstones & Pillars
+   - Establish baseline before calls
+
+2. **The Strategy Sessions** (teal circle)
+   - Bi-weekly Zoom Calls (60 minutes)
+   - One major block per session
+   - No fluff - identify bottleneck, break it
+
+3. **The Access** (soft orange circle)
+   - Async Coaching via Voxer/Email
+   - Direct access between calls
+   - Support when crisis hits on Tuesday
+
+**7. Application Only: "Is This a Fit?"**
+Selective positioning with framework:
+
+- Intro: "I only take handful of 1:1 clients at a time"
+- "I am looking for people who are:"
+
+**Three-Column Grid:**
+- **Humble** (Heart icon, orange) - Willing to learn
+- **Honest** (Shield icon, teal) - Tell truth about where they are
+- **Hungry** (Zap icon, soft orange) - Do hard work to change
+
+**Application Form (White Rounded Card):**
+- Name, Email
+- Which Track? (dropdown: Executive/Ministry/Personal Growth)
+- #1 Challenge keeping you up at night? (textarea)
+- Readiness scale 1-10 (dropdown with all options)
+- Submit button with loading state
+- Success message: "Application received! Review within 48 hours"
+- Full validation, form state management
+
+**8. Final CTA Section**
+- Gradient card (navy to teal)
+- Compass icon in frosted glass circle with scale animation
+- Headline: "Ready to See Your Blind Spots?"
+- Subhead: "You can't read the label when you're inside the jar. Let's get you out."
+- Button: "Apply Now" (scrolls to form)
+
+**Design Features:**
+- Reading progress bar (fixed top, animated)
+- Full-width hero matching site pattern
+- Section tracking with IntersectionObserver
+- Staggered animations (fadeInUp, scaleIn, staggerContainer)
+- Hover effects: cards border changes, lift effect
+- Color coding by track (orange/teal/soft orange)
+- Professional white cards for philosophy
+- Bullet lists with CheckCircle icons
+- Mobile-responsive throughout
+
+**Technical Implementation:**
+- New file: `src/pages/CoachingPage.jsx` (900 lines)
+- Import added to App.jsx
+- Route: 'coaching'
+- Removed old ServicesPage placeholder (saved 28 lines)
+- Form state management with React hooks
+- Smooth scroll navigation (#application-form anchor)
+- Build size: 731.22KB (+25KB for comprehensive page)
+
+**Navigation Integration:**
+- Already in Services dropdown menu
+- Accessible from mobile menu
+- URL: /coaching
+
+**Copy Highlights:**
+- "You Can't Read the Label When You're Inside the Jar"
+- "Even Superhumans Need a Guide"
+- "High performance is lonely"
+- "I love you enough to tell you the truth you are avoiding"
+- "A ministry that outlasts you without destroying you"
+- "The battle of You vs. You"
+- Professional, vulnerable, transformational tone throughout
+
+---
+
 ### Team Workshops Page Creation
 **Commit:** `f5315b9`
 
@@ -852,8 +1006,9 @@ src/
 
 ## Branch Information
 **Current Branch:** `claude/superhuman-framework-website-01DVSeLYFNWahG8yqp61Aj1s`
-**Latest Commit:** `f5315b9` - Create comprehensive Team Workshops page with all tracks and formats
+**Latest Commit:** `5cd8c78` - Create comprehensive 1:1 Coaching page with application form
 **Previous Commits:**
+- `f5315b9` - Create comprehensive Team Workshops page with all tracks and formats
 - `6500ca7` - Create dedicated Keynote Speaking page with full features
 - `6b1cb17` - Add full-width hero section to quiz result screen (Step 7)
 - `9fe0374` - Fix quiz hero section to span full screen width

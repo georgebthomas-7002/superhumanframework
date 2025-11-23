@@ -1,8 +1,8 @@
 ---
-title: "Stop Buying Ping-Pong Tables: The 10 Foundations of a Culture That Actually Heals"
+title: "Stop Buying Ping Pong Tables: What Human Resources Leaders Really Need To Fix Culture"
 author: "George B. Thomas"
 publishDate: "2025-11-23"
-excerpt: "Pizza parties won't fix burnout. Discover why superficial perks fail and how to build a retention strategy based on the 10H Pillars of the Superhuman Framework."
+excerpt: "Perks cannot fix a culture problem that leadership behavior created. Discover why ping pong tables and free snacks fall flat, and learn the four human-centric levers that actually move culture forward."
 categories:
   - HR & Culture
   - Superhuman Framework
@@ -11,254 +11,269 @@ tags:
   - corporate culture
   - employee retention
   - workplace wellbeing
-  - 10H Pillars
-  - toxic culture
+  - leadership development
+  - psychological safety
   - human-centric HR
 featured: true
 ---
 
-# Stop Buying Ping-Pong Tables: The 10 Foundations of a Culture That Actually Heals
+# Stop Buying Ping Pong Tables: What Human Resources Leaders Really Need To Fix Culture
 
-> **Featured Insight:** Nobody stays at a job because of free snacks. Real culture isn't about what you buy for your team—it's about how you treat the human in front of you. This article exposes why perks fail, introduces the difference between "Extraction" and "Restoration" culture, and provides the 10H Pillars blueprint for building retention that actually lasts. Culture cannot be manufactured; it can only be modeled.
+> **Featured Insight:** Perks cannot fix a culture problem that leadership behavior created. The real drivers of engagement are meaningful work, fair treatment, growth opportunities, and leaders who act with integrity. You do not need more toys. You need more truth, courage, and consistency.
 
 ---
 
-Can we have an honest conversation? Just between us?
+If you work in human resources, you have probably heard some version of this suggestion from a leader.
 
-Nobody stays at a job because of the free snacks. Nobody feels "psychologically safe" because you put a foosball table in the breakroom. And yet, when retention dips or burnout spikes, what's the first thing we do? We look for a perk to plug the hole.
+"Maybe we just need some fun things in the office. A ping pong table. A kegerator. Something to boost morale."
 
-As HR professionals, you are the guardians of the company soul. But lately, it feels like you're just the complaint department for the company ego. You are tired of trying to "manufacture" culture with budgets you don't have for people who don't seem to care.
+It sounds harmless. It might even sound helpful.
 
-Good. Because culture cannot be manufactured; it can only be modeled.
+The problem is simple.
 
-> **Real culture isn't about what you buy for your team; it's about how you treat the human in front of you.**
+**Perks cannot fix a culture problem that leadership behavior created.**
 
-It is built on the **10H Pillars**—traits like *Honesty*, *Humility*, and *Health*. If your leadership team isn't *Healthy*, no amount of wellness stipends will fix the toxicity.
+In this article, we will walk through why perks fall flat, what your people are really asking for, and a more human, practical way to shape culture that aligns with the Superhuman Framework.
 
-It's time to stop buying toys and start building foundations.
+You do not need more toys.
+You need more truth, courage, and consistency.
 
-## Perks vs. Pillars: Understanding the Disconnect
+## Do Perks Like Ping Pong Tables Actually Improve Culture?
 
-We have confused "Climate" with "Culture."
+Short answer: Not on their own.
 
-### Climate is the Weather
+Perks can add moments of joy. They can support a healthy culture that already exists. They cannot repair a culture where people do not feel safe, respected, or heard.
 
-* **Climate** is the casual Friday policy
-* The office decor
-* The holiday party
-* Free lunch Fridays
-* The ping-pong table
+Recent research shows that human resources leaders name leader and manager development and organizational culture as their top priorities. Other surveys rank employee engagement and experience as the number one focus.
 
-These are surface-level amenities that change with the budget.
+Nowhere in those lists do you see "buy more office games."
 
-### Culture is the Geology
+Why not?
 
-* **Culture** is the bedrock of how decisions are made
-* How conflict is resolved
-* How mistakes are handled
-* Who gets promoted and why
-* What happens when someone speaks truth to power
+Because the real drivers of engagement are things like meaningful work, fair treatment, growth opportunities, and leaders who act with integrity.
 
-When you buy a ping-pong table for a team that is overworked and underappreciated, you aren't boosting morale. You are insulting their intelligence. You are painting over mold.
+**Perks are noise if the signal of everyday behavior is broken.**
 
-### Why Perks Backfire
+## What Human Resources Leaders Really See Behind The Perks
 
-The Superhuman Framework argues that you cannot build a **Superhuman** company on a "Default" foundation. You need Pillars. A perk can be taken away when the budget gets tight. A Pillar holds the roof up when the storm comes.
+When a company installs new perks without addressing root issues, human resources professionals see what happens next.
 
-**What employees actually want:**
-* To be heard when they raise concerns
-* Managers who don't micromanage
-* Fair compensation for their expertise
-* Work that doesn't destroy their personal life
-* Leadership that admits mistakes
+- Employees show up to the new game room, but still whisper about pay inequity and favoritism.
+- Teams enjoy the free snacks, but they are too exhausted to stay late and use them.
+- Leaders point to perks as "proof" of how much they care, even while they avoid hard conversations or overwork their people.
 
-## The "Human First" Audit: Is Your Culture Extraction or Restoration?
+Meanwhile, you sit in exit interviews and stay interviews and hear the truth.
 
-Before you write another engagement survey, look at your organization through the lens of the **Unifying Theory**: *Business growth mirrors human growth.*
+- "I like the people, but I do not feel like leadership listens."
+- "My manager has never really coached me, they just give orders."
+- "We talk about values, but we do not live them when there is pressure."
 
-### The Three Critical Audits
+You are not fighting a fun problem. **You are fighting a trust problem.**
 
-Ask yourself these three hard questions:
+And trust is built through consistent human behavior, not through entertainment.
 
-**1. The Energy Audit**
-When people leave a meeting with leadership, do they feel energized or drained?
+## Culture Is Not A Perks Problem. Culture Is A Leadership Problem.
 
-**2. The Truth Audit**
-Do people tell the truth in meetings, or do they wait until the meeting after the meeting (the parking lot conversation) to say what they really think?
+Culture is "how we do things around here" and "how it feels to be a human around here."
 
-**3. The Life Audit**
-Does working here support the employee's holistic life, or does it compete with it?
+That lives in:
 
-### Extraction vs. Restoration Culture
+- Who gets promoted and why.
+- How leaders react in moments of stress.
+- What happens when someone speaks up about a problem.
+- The tiny daily interactions that tell people, "You matter," or "You are replaceable."
 
-> **If your culture is based on Extraction (getting the most out of people), you will always battle turnover. If it is based on Restoration (pouring into people), loyalty becomes the default.**
+Gartner's research points out that human resources leaders see leader and manager development as the top priority for a reason. Without better leadership, every new program sits on a shaky foundation.
 
-**Extraction Culture Looks Like:**
-* Mandatory fun events during personal time
-* "Family" language while demanding 60-hour weeks
-* Recognition programs that feel performative
-* Exit interviews where you finally listen
+The Superhuman Framework talks about building systems that are human first, rooted in purpose, passion, persistence, and love.
 
-**Restoration Culture Looks Like:**
-* Flexible hours that respect personal commitments
-* Transparent career paths with real development
-* Regular 1-on-1s where managers actually listen
-* Problems fixed before they become exit interviews
+If leaders are not living those values, no amount of free food or game tables will make people feel safe and valued.
 
-## The 10H Pillars: A Blueprint for Retention
+So the question becomes very practical.
 
-The 10H Pillars provide a vocabulary for culture that goes deeper than "Core Values" on a poster. Here is how to apply them to HR:
+**If you are in human resources, what can you focus on that actually changes culture?**
 
-### The Foundation: Honest, Humble, Helpful
+## The Human Centric Levers You Can Pull Instead Of Perks
 
-**Honest:**
-Does your review process encourage real feedback, or does it force people to posture? Can employees tell the truth about workload without being labeled "not a team player"?
+Here are four levers that move culture more than any game table ever will.
 
-**Humble:**
-Is your leadership team willing to admit when a policy failed? Or do they double down and blame "poor communication"?
+### 1. Make purpose real, not rhetorical
 
-**Helpful:**
-Is your onboarding process actually helpful, or is it just paperwork? Do new hires feel supported or abandoned?
+Humans want to know why their work matters.
 
-### The Well-Being: Healthy, Happy, Holistic Living
+Help leaders connect day to day tasks to a deeper purpose. Not in a slogan on the wall, but in the way they talk about projects, goals, and tradeoffs.
 
-**Healthy:**
-Are you creating an environment where burnout is prevented, or are you offering yoga classes to people working 70-hour weeks?
+You can:
 
-**Happy:**
-Happiness isn't "fun." It's fulfillment. Are people growing? Do they see a future here?
+- Coach leaders to start meetings with "why this matters to humans and customers."
+- Add purpose questions into performance reviews and one to ones.
+- Highlight stories where someone lived the values, not just hit a number.
 
-**Holistic Living:**
-This means acknowledging that your employee is also a parent, a partner, and a community member. If you demand 80 hours a week, you are attacking their "Whole Self." Eventually, the Human will fight back (usually by quitting).
+When people feel the "why," work becomes more than another task list. It becomes part of a life they are proud of.
 
-### The Interaction: Humor, Humanity, Holiness
+### 2. Train managers to lead humans, not just work
 
-**Humor:**
-Can people laugh at work without it being "forced fun"? Is there psychological safety for levity?
+Most managers are promoted for individual performance, not people skills. That leaves them unprepared for conflict, coaching, and honest feedback.
 
-**Humanity:**
-Do you treat people like ticket numbers or like humans with complex lives?
+You can:
 
-**Holiness:**
-In a secular workplace, this means treating people with sacred respect. It means no gossiping. It means firing the "high performer" who destroys the team's spirit, because protecting the flock is more important than the quarterly results.
+- Build simple, practical training around three core skills: Listening, giving feedback, and setting clear expectations.
+- Offer scripts and roleplays so managers practice, not just hear theory.
+- Pair new managers with human resources partners for their first tough conversations.
 
-### The Drive: Hungry Hustle
+When managers understand humans, not just metrics, everything lightens. Employees feel seen, and human resources is no longer the only emotional support hub.
 
-This isn't about working harder. It's about caring deeply about the work. You can't mandate hustle, but you can create conditions where people *want* to give their best.
+### 3. Create real psychological safety
 
-## Implementing "Honesty" and "Humility" in Policy
+Psychological safety is not a buzzword. It is the lived experience of "I can speak up without fear of embarrassment or punishment."
 
-How do you turn these abstract words into HR policy?
+You can:
 
-### The "Humble" Job Description
+- Run listening sessions where leaders mostly listen and do not defend.
+- Give employees anonymous and named channels for feedback, and show visible follow through.
+- Help leaders respond to feedback with "thank you" and "here is what we will try," instead of blame.
 
-Stop asking for "Rockstars" and "Ninjas." Be honest about the challenges of the role.
+This is where love in the Superhuman Framework becomes visible. Not soft, sentimental love. Clear, respectful, action oriented care for the humans inside the company.
 
-**Old Way:**
-"We're looking for a rockstar developer who thrives in a fast-paced environment!"
+### 4. Design rituals that match your values
 
-**Superhuman Way:**
-"This job is hard. You'll be working with legacy code while building new features. We don't have perfect documentation. Here's how we'll support you through that."
+Perks are often one time purchases. Culture change is built through repeated rituals.
 
-### The "Honest" Exit Interview
+You can help leaders design rituals that embody your values, such as:
 
-Most exit interviews are fake. People give sanitized answers because they don't want to burn bridges.
+- Weekly "wins and lessons" circles where people share progress and learnings.
+- Monthly "human spotlights" that honor behaviors aligned with purpose and values, not just output.
+- Quarterly reset sessions where teams reflect on stress, workload, and what needs to change.
 
-Create a culture where feedback is continuous so that by the time an exit interview happens, there are no surprises. Even better: fix the problems before people leave.
+These rituals send a louder message than any game table ever will.
 
-### The "Helpful" Performance Review
+## How To Talk To Executives Who Want Quick Culture Wins
 
-Performance reviews shouldn't be a surprise. If someone is underperforming, they should have heard about it weeks ago with specific support offered.
+Here is where it gets tricky.
 
-**Questions to ask:**
-* What roadblocks are preventing your success?
-* What do you need from me as your manager?
-* Where do you want to grow?
+You might agree with everything so far, but your executives still want visible, quick signs that they are "doing something" for culture.
 
-## Redefining "Happy": It's Not About Fun, It's About Fulfillment
+Here is a simple way to redirect that conversation without sounding like you are blocking fun.
 
-One of the 10H Pillars is **Happy**. But don't confuse this with "Fun."
+1. **Acknowledge the intent.**
+   "I love that you are thinking about ways to make work feel lighter and more connected."
 
-### Fun vs. Happy
+2. **Name the real problem.**
+   "The core issues we see in surveys and exit interviews are about trust, communication, and leadership, not a lack of games."
 
-* **Fun** is a distraction (Happy Hour, pizza parties)
-* **Happy** is a state of being (Fulfillment, growth, purpose)
+3. **Offer a better investment.**
+   "If we took the budget for a game room and instead funded manager training, listening sessions, and one or two meaningful rituals, we would see more impact on engagement and retention."
 
-Humans are happy when they are:
-* Growing in their skills
-* Feeling safe to be themselves
-* Doing work that matters (Purpose)
+4. **Show the business case.**
+   Connect engagement and better leadership to outcomes like performance, innovation, and reduced turnover, backed by research.
 
-You don't need to entertain your employees. You need to empower them.
+You are not rejecting fun. You are protecting a deeper investment in humans.
 
-### What Kills Happiness
+## A Simple Culture Reset Plan Human Resources Can Lead
 
-* Unclear expectations
-* Lack of growth opportunities
-* Toxic team members protected by leadership
-* Feeling invisible or interchangeable
-* Work that feels meaningless
+If you want a practical starting point, here is a straightforward plan you can adapt.
 
-## The HR Leader as the Corporate Soul
+### Step 1: Clarify the human story
 
-This is a call to arms for every HR professional, People Ops leader, and Culture builder.
+Gather your survey data, exit interview themes, and anecdotal stories. Turn them into a clear narrative.
 
-You are not an administrator. You are an architect.
+- "Here is what people are telling us."
+- "Here is how that connects to engagement, performance, and risk."
+- "Here are three root issues under all of it."
 
-### Your Real Job
+Keep it simple, honest, and human.
 
-You have the power to shift the conversation from "Resources" to "Humans." When you push back against a toxic policy, you are practicing **Love**. When you fight for a mental health day, you are practicing **Humanity**.
+### Step 2: Pick three high leverage moves
 
-**The  Superhuman HR Leader:**
-* Advocates for the human, even when it's unpopular
-* Uses data to show the cost of extraction culture
-* Builds systems that scale empathy
-* Protects employees from leadership's worst impulses
+Instead of twelve scattered initiatives, choose three moves that align with the Superhuman Framework and your company context. For example:
 
-> **Stop settling for buying things. Start building people.**
+- Manager training focused on real conversations.
+- Listening and feedback system with visible response.
+- A values based recognition ritual.
 
-### Your Metrics Should Change
+Tie each move to a clear outcome and a simple measure.
 
-Stop measuring:
-* Headcount
-* Time to fill
-* Cost per hire
+### Step 3: Enlist leaders as co owners, not spectators
 
-Start measuring:
-* Retention of high performers
-* Internal mobility rate
-* Manager effectiveness scores
-* Cultural health indicators
-* Employee referral rates
+Invite a small group of executives and influential managers into a working session.
+
+Give them the story. Ask two questions.
+
+- "Where do you feel this tension in your own teams?"
+- "What are you personally willing to do in the next ninety days?"
+
+Make it clear. Culture change is not a human resources project. It is an all leaders project that human resources guides.
+
+### Step 4: Share the journey with your people
+
+Tell your people what you heard and what you are doing about it.
+
+- "Here is what you told us."
+- "Here are the first three changes we are making."
+- "Here is how you can keep giving feedback."
+
+Follow through, even if the first steps are small. Humans do not expect perfection. They expect honesty, effort, and progress.
+
+## What Should You Do Instead Of Buying More Perks?
+
+If you remember only one thing from this article, let it be this.
+
+**Do not let perk conversations distract you from the real work of culture.**
+
+You are not the ping pong purchasing department.
+You are the guide for how humans experience work in your company.
+
+Your energy belongs in:
+
+- Training and supporting leaders to act like humans, not just operators.
+- Creating safe, honest spaces where people can speak and be heard.
+- Designing rituals, systems, and stories that align with your purpose and values.
+- Helping executives see that human centric culture is not a nice to have. It is a competitive edge.
+
+When you focus there, your organization has a chance to truly flourish.
+
+And if you still decide to buy a ping pong table, it will be the cherry on top of a culture that already feels worth belonging to.
+
+## Context: How This Connects To The Superhuman Framework
+
+The Superhuman Framework is all about building systems around humans first. It centers purpose, passion, persistence, and love as the core of healthy, high performing teams and companies.
+
+This article positions human resources leaders as key stewards of that system. It moves the spotlight from surface level perks to deeper questions.
+
+- Do our leaders live our values when it is hard?
+- Do our humans feel safe enough to be honest?
+- Do our structures support flourishing, or only output?
+
+That is the real game.
 
 ---
 
-## Frequently Asked Questions (FAQs)
+## Frequently Asked Questions
 
-**1. How do I convince my CEO to invest in "Culture" instead of just "Perks"?**
+**1. How do I convince my CEO to invest in culture instead of perks?**
 
-Speak their language. Show them the cost of turnover. Explain that "Perks" are a depreciating asset (people get bored of them), while "Pillars" like Trust and Safety are appreciating assets that increase speed and efficiency. Use the "Unifying Theory" to show that human bottlenecks are causing business bottlenecks.
+Speak their language. Show them the cost of turnover in hard numbers. Explain that perks are a depreciating asset (people get bored), while trust and psychological safety are appreciating assets that increase speed, innovation, and retention. Use data to connect leadership development to business outcomes like performance and reduced risk.
 
-**2. What are the 10H Pillars?**
+**2. What if my executives still insist on buying perks?**
 
-They are the practical guardrails of the Superhuman Framework: Helpful, Honest, Humble, Healthy, Happy, Humor, Humanity, Holiness, Hungry Hustle, and Holistic Living.
+Do not fight the perks. Just make sure they come after, not instead of, the real work. Say "yes, and" instead of "no, but." Yes to the ping pong table, and let's also invest in manager training. Yes to free snacks, and let's also create listening sessions where people feel heard.
 
-**3. Isn't "Holiness" a religious term? Can I use it in a secular company?**
+**3. Can culture really be fixed if leadership does not change?**
 
-In the Superhuman Framework, "Holiness" refers to "set apart" behavior—integrity, moral courage, and treating others with sacred respect. You don't have to be a church to believe that people should be treated with dignity and that gossip is toxic.
+Honest answer: No. Culture flows from the top. If senior leaders model distrust, micromanagement, or burnout, no HR initiative can overcome that. Your job then becomes protecting the humans in your sphere of influence and creating pockets of health where you can, while being honest about what you can and cannot control.
 
-**4. We don't have the budget for a culture overhaul. What can I do for free?**
+**4. What is the fastest way to improve culture with limited budget?**
 
-The best cultural shifts are free. It costs $0 to be **Honest**. It costs $0 to be **Humble**. It costs $0 to start meetings with a "Human Check-in" instead of a status update. Culture is behavioral, not transactional.
+Start with psychological safety. It costs nothing to create regular listening sessions, respond to feedback with "thank you" instead of defensiveness, and train managers to have real conversations. The highest ROI culture moves are behavioral, not transactional.
 
-**5. How do I measure the ROI of the Superhuman Framework?**
+**5. How do I measure if culture is actually improving?**
 
-Look at *Retention Rates* (people staying), *eNPS* (Employee Net Promoter Score), and *Internal Promotion Rates*. Also, monitor the "Truth Audit"—are people willing to deliver bad news faster? That is a sign of high psychological safety.
+Track retention of high performers, internal mobility rates, manager effectiveness scores, and employee referral rates. Also watch for leading indicators like how fast bad news travels up, how often people speak up in meetings, and whether exit interview themes are changing over time.
 
-**6. What if I am an HR department of one?**
+**6. What if I am an HR team of one with no executive support?**
 
-Start small. Pick ONE Pillar (e.g., **Helpful**) and audit your current processes against it. Is your recruiting process helpful? Is your benefits enrollment helpful? Small human-centric tweaks build momentum.
+Start small and local. Pick one team or one manager who is open to trying something different. Run a pilot with listening circles or a new feedback ritual. Document what changes. Let the results speak for themselves. Sometimes culture change starts in the margins and moves to the center.
 
-**7. Can a toxic culture really be fixed?**
+**7. Is it ever okay to buy perks?**
 
-Yes, but it requires the **Persistence** Cornerstone. It won't happen overnight, and it usually requires leadership to admit they were wrong (Humility). If leadership refuses to change, you cannot fix the culture, you can only protect the people within your sphere of influence.
+Absolutely. Perks are wonderful when they sit on top of a healthy culture, not as a substitute for one. If your people already feel safe, valued, and heard, then yes, add the ping pong table. It will actually be fun instead of insulting.

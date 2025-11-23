@@ -31,7 +31,9 @@ If you walk into a meeting thinking about your quota, you've already lost.
 
 The old school taught you to be a "Closer." It taught you to handle objections like a lawyer and pressure prospects like a vice grip. But the Superhuman Sales pro plays a different game.
 
-We don't close; we clarify. We don't pitch; we diagnose.
+We don't close; we clarify.
+
+We don't pitch; we diagnose.
 
 > The secret to modern sales isn't a new script. It's **Humility**. It's the confidence to say, "I might not be the right fit for you," and the **Honesty** to mean it.
 
@@ -41,7 +43,10 @@ When you stop trying to sell and start obsessively trying to help, you stop bein
 
 In the Superhuman Framework, "The Grid" represents the default mode of operation. In sales, The Grid is transactional. It views the prospect as a "target" that needs to be taken down.
 
+### How to Know You're Selling From The Grid
+
 You know you are selling from The Grid when:
+
 * You dread hearing the word "No."
 * You use pressure tactics like "This price expires at midnight" (when it doesn't).
 * You talk more than you listen.
@@ -49,9 +54,17 @@ You know you are selling from The Grid when:
 
 This approach creates **Sales Resistance**. The harder you push, the harder the prospect pulls away. It's simple physics.
 
+### The Cost of Transactional Selling
+
+When you operate in The Grid, you come home drained. You feel like a robot. You've been helpful in a technical sense, but you haven't been human. And deep down, you know the customer felt that too.
+
+> **The Grid turns service into a transaction. The Superhuman Framework turns it into a transformation.**
+
 ## The Shift: From Conquest to Collaboration
 
 The Superhuman approach flips the dynamic. Instead of sitting across the table *from* the prospect (adversarial), you sit *next* to the prospect (collaborative), looking at the problem together.
+
+### The Love Cornerstone in Sales
 
 This requires the **Love Cornerstone**. "Love" in sales means wanting the best outcome for the human being across from you, *even if that outcome is them buying from your competitor.*
 
@@ -61,45 +74,91 @@ That sounds counterintuitive to hitting quota, right? But here is the paradox:
 
 When the prospect realizes you aren't desperate for their money, they trust you with their problem.
 
+### Why Buyers Trust Helpers Over Closers
+
+Think about the last time someone sold you something. Did you trust them more when they seemed desperate for your business, or when they genuinely helped you solve a problem?
+
+The answer is obvious. Yet most sales training still teaches tactics rooted in scarcity and desperation.
+
 ## The "Humble" Pillar: The Power of "I Don't Know"
 
 The "Closer" thinks they have to be the expert on everything. The "Helper" knows that **Humility** builds trust faster than bravado.
 
+### Real-World Example: Admitting Uncertainty
+
 If a prospect asks a technical question you don't know the answer to:
-* **The Default:** Bluffs or pivots. "Oh, absolutely, our system handles that seamlessy..."
-* **The Superhuman:** "You know what? I don't know the specific answer to that, and I don't want to guess. Let me write that down, ask our engineer, and get you the exact truth by EOD."
+
+**The Default (Grid) Response:**
+Bluffs or pivots. "Oh, absolutely, our system handles that seamlessly..."
+
+**The Superhuman Response:**
+"You know what? I don't know the specific answer to that, and I don't want to guess. Let me write that down, ask our engineer, and get you the exact truth by EOD."
 
 That moment of vulnerability proves you are real. It signals to the buyer, "This person isn't trying to trick me."
+
+### Why Humility Closes More Deals
+
+When you admit what you don't know, buyers believe you when you tell them what you DO know. Your expertise becomes credible because it's not universal—it's specific and honest.
 
 ## The "Honest" Pillar: Disqualification as a Superpower
 
 Most salespeople are terrified of disqualifying a lead because their pipeline is thin. They cling to bad fits, hoping for a miracle.
 
 The Superhuman Sales pro uses **Honesty** to disqualify early and often.
-* "Based on what you just told me about your budget, we are going to be too expensive for you right now. I don't want to waste your time."
-* "You need feature X. We are really weak at feature X. Honestly, [Competitor Name] handles that better."
+
+### Disqualification Scripts That Build Trust
+
+**Budget Mismatch:**
+"Based on what you just told me about your budget, we are going to be too expensive for you right now. I don't want to waste your time."
+
+**Feature Gap:**
+"You need feature X. We are really weak at feature X. Honestly, [Competitor Name] handles that better."
+
+**Wrong Fit:**
+"Based on your use case, I don't think our solution is the right fit. Have you looked at [Alternative]?"
+
+### The Counter-Intuitive Truth About Disqualification
 
 When you tell a prospect *why* they shouldn't buy, they suddenly believe you when you tell them *why* they should. You have proven your integrity.
+
+More importantly: disqualified leads often refer you to better-fit prospects because you treated them with respect.
 
 ## Hungry Hustle: Chasing the Solution, Not the Check
 
 The Superhuman Framework includes the **Hungry Hustle** pillar. We aren't passive. We work hard.
 
 But the hustle is directed differently.
+
+### What Real Hustle Looks Like
+
 * We hustle to understand their business.
 * We hustle to create a custom video walkthrough.
 * We hustle to follow up, not to "check in," but to add value.
 
 The goal of the hustle is to solve the problem. If you solve the problem, the check writes itself.
 
+### Activity vs. Impact
+
+Most sales teams measure activity: calls made, emails sent, meetings booked.
+
+Superhuman sales teams measure impact: problems diagnosed, clarity provided, trust built.
+
 ## The New Scorecard: Measuring Helpfulness
 
 If you want to change your results, change what you measure.
 
+### From Close Rate to Help Rate
+
 * Stop obsessing over **"Close Rate."**
 * Start measuring **"Help Rate."**
 
-Did you leave the person better than you found them? Did you give them clarity? Did you treat them with **Humanity**?
+Did you leave the person better than you found them?
+
+Did you give them clarity?
+
+Did you treat them with **Humanity**?
+
+### Building a Pipeline Through Reputation
 
 When you prioritize the human relationship over the transaction, you build a pipeline of referrals. People talk. They say, "Go talk to [Name]. They didn't try to sell me anything; they just fixed my problem."
 

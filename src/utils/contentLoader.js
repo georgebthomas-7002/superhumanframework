@@ -7,13 +7,12 @@ if (typeof window !== 'undefined') {
 }
 
 // EXPLICIT IMPORTS - Add your articles, podcasts, and offers here
-// Example: import article1 from '../content/articles/your-article-slug.md?raw';
+import article1 from '../content/articles/death-of-closer-rise-of-helper.md?raw';
 
 // Map of all content files with their types
 const contentFiles = {
   articles: {
-    // Add articles here as you create them
-    // Example: 'your-article-slug': article1,
+    'death-of-closer-rise-of-helper': article1,
   },
   podcasts: {
     // Add podcasts here as you create them

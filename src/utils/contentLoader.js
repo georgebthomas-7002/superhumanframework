@@ -2,10 +2,11 @@ import matter from 'gray-matter';
 
 // This will be populated with actual content files
 // Content files should be in /src/content/{type}/{slug}.md
+// NOTE: Using relative paths from src/utils directory for better production compatibility
 const contentModules = {
-  articles: import.meta.glob('/src/content/articles/*.md', { query: '?raw', import: 'default', eager: true }),
-  podcasts: import.meta.glob('/src/content/podcasts/*.md', { query: '?raw', import: 'default', eager: true }),
-  offers: import.meta.glob('/src/content/offers/*.md', { query: '?raw', import: 'default', eager: true })
+  articles: import.meta.glob('../content/articles/*.md', { query: '?raw', import: 'default', eager: true }),
+  podcasts: import.meta.glob('../content/podcasts/*.md', { query: '?raw', import: 'default', eager: true }),
+  offers: import.meta.glob('../content/offers/*.md', { query: '?raw', import: 'default', eager: true })
 };
 
 /**
@@ -14,6 +15,13 @@ const contentModules = {
  */
 export const loadAllContent = () => {
   const allContent = [];
+
+  // Debug logging
+  console.log('[ContentLoader] Loading content...');
+  console.log('[ContentLoader] Content modules:', Object.keys(contentModules));
+  Object.entries(contentModules).forEach(([type, modules]) => {
+    console.log(`[ContentLoader] ${type}: ${Object.keys(modules).length} files`);
+  });
 
   // Process each content type
   Object.entries(contentModules).forEach(([type, modules]) => {
@@ -46,11 +54,16 @@ export const loadAllContent = () => {
   });
 
   // Sort by publish date (newest first)
-  return allContent.sort((a, b) => {
+  const sorted = allContent.sort((a, b) => {
     const dateA = new Date(a.publishDate || 0);
     const dateB = new Date(b.publishDate || 0);
     return dateB - dateA;
   });
+
+  console.log(`[ContentLoader] Total content loaded: ${sorted.length}`);
+  console.log('[ContentLoader] Content items:', sorted.map(item => ({ slug: item.slug, type: item.type, title: item.title })));
+
+  return sorted;
 };
 
 /**

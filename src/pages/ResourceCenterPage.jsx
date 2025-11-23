@@ -6,6 +6,32 @@ import { loadAllContent, getCategories } from '../utils/contentLoader';
 import ResourceCard from '../components/ResourceCenter/ResourceCard';
 import SEO from '../components/SEO';
 
+// Particle Background Component
+const ParticleBackground = ({ color }) => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {[...Array(30)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1 h-1 rounded-full"
+        style={{
+          backgroundColor: color,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [0, -30, 0],
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 3 + Math.random() * 2,
+          repeat: Infinity,
+          delay: Math.random() * 2,
+        }}
+      />
+    ))}
+  </div>
+);
+
 const ResourceCenterPage = ({ navigate }) => {
   const [allContent, setAllContent] = useState([]);
   const [filteredContent, setFilteredContent] = useState([]);
@@ -96,8 +122,23 @@ const ResourceCenterPage = ({ navigate }) => {
   };
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1
+      }
+    }
   };
 
   return (
@@ -111,63 +152,111 @@ const ResourceCenterPage = ({ navigate }) => {
       />
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-[#142d63] via-[#028393] to-[#142d63] text-white py-20">
-        <div className="container mx-auto px-6">
+      <section className="bg-[#142d63] text-white py-32 md:py-40 text-center relative overflow-hidden">
+        {/* Gradient Blur Circles */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#028393] rounded-full blur-[150px] opacity-20"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f65625] rounded-full blur-[120px] opacity-15"></div>
+
+        {/* Particle Background */}
+        <ParticleBackground color="#faaa68" />
+
+        {/* Breathing Wave Effect */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-full h-full"
+              style={{
+                background: `radial-gradient(ellipse at ${20 + i * 20}% ${30 + i * 15}%, rgba(255,255,255,0.03) 0%, transparent 50%)`,
+              }}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 8 + i * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.5,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Content */}
+        <motion.div
+          className="max-w-5xl mx-auto px-4 relative z-10"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
           <motion.div
-            initial="hidden"
-            animate="visible"
             variants={fadeInUp}
-            className="max-w-4xl mx-auto text-center"
+            className="inline-block mb-6 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm"
           >
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Sparkles className="w-4 h-4 text-[#faaa68]" />
-              <span className="text-sm font-bold">Knowledge. Growth. Impact.</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-6">
-              Resource Center
-            </h1>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Articles, podcasts, and resources to help you become superhuman in business and life.
-            </p>
+            <span className="text-[#faaa68] flex items-center gap-2 text-sm font-bold">
+              <Sparkles className="w-4 h-4" />
+              Knowledge. Growth. Impact.
+            </span>
+          </motion.div>
 
-            {/* Search Bar */}
-            <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search articles, podcasts, guides..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-12 py-4 rounded-full text-gray-800 text-lg focus:outline-none focus:ring-4 focus:ring-[#f65625]/30 shadow-xl"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors"
-                >
-                  <X className="w-5 h-5 text-gray-400" />
-                </button>
-              )}
-            </div>
+          <motion.h1
+            variants={fadeInUp}
+            className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight"
+          >
+            Resource Center
+          </motion.h1>
 
-            {/* Quick Stats */}
-            <div className="flex items-center justify-center gap-8 mt-8 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-[#028393] rounded-full"></div>
-                <span>{countByType('article')} Articles</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-[#f65625] rounded-full"></div>
-                <span>{countByType('podcast')} Podcasts</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-[#faaa68] rounded-full"></div>
-                <span>{countByType('offer')} Resources</span>
-              </div>
+          <motion.p
+            variants={fadeInUp}
+            className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
+          >
+            Articles, podcasts, and resources to help you become superhuman in business and life.
+          </motion.p>
+
+          {/* Search Bar */}
+          <motion.div
+            variants={fadeInUp}
+            className="relative max-w-2xl mx-auto mb-8"
+          >
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search articles, podcasts, guides..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-12 py-4 rounded-full text-gray-800 text-lg focus:outline-none focus:ring-4 focus:ring-[#f65625]/30 shadow-xl"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-400" />
+              </button>
+            )}
+          </motion.div>
+
+          {/* Quick Stats */}
+          <motion.div
+            variants={fadeInUp}
+            className="flex items-center justify-center gap-8 text-sm flex-wrap"
+          >
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-[#028393] rounded-full"></div>
+              <span>{countByType('article')} Articles</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-[#f65625] rounded-full"></div>
+              <span>{countByType('podcast')} Podcasts</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-[#faaa68] rounded-full"></div>
+              <span>{countByType('offer')} Resources</span>
             </div>
           </motion.div>
-        </div>
-      </div>
+        </motion.div>
+      </section>
 
       {/* Featured Content */}
       {!searchQuery && selectedType === 'all' && selectedCategory === 'all' && featuredContent.length > 0 && (

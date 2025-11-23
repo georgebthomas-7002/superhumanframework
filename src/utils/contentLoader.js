@@ -1,12 +1,33 @@
 import matter from 'gray-matter';
 
-// This will be populated with actual content files
-// Content files should be in /src/content/{type}/{slug}.md
-// NOTE: Using relative paths from src/utils directory for better production compatibility
-const contentModules = {
-  articles: import.meta.glob('../content/articles/*.md', { query: '?raw', import: 'default', eager: true }),
-  podcasts: import.meta.glob('../content/podcasts/*.md', { query: '?raw', import: 'default', eager: true }),
-  offers: import.meta.glob('../content/offers/*.md', { query: '?raw', import: 'default', eager: true })
+// EXPLICIT IMPORTS - More reliable than glob in production
+import article1 from '../content/articles/building-trust-at-scale.md?raw';
+import article2 from '../content/articles/ceo-dilemma-scale-humanity.md?raw';
+import article3 from '../content/articles/from-transactional-to-transformational-leadership.md?raw';
+import article4 from '../content/articles/stop-buying-ping-pong-tables.md?raw';
+import article5 from '../content/articles/the-art-of-helpful-content.md?raw';
+
+import podcast1 from '../content/podcasts/ep-001-from-burnout-to-breakthrough.md?raw';
+import podcast2 from '../content/podcasts/ep-002-the-five-pillars-framework.md?raw';
+
+import offer1 from '../content/offers/superhuman-leadership-assessment.md?raw';
+
+// Map of all content files with their types
+const contentFiles = {
+  articles: {
+    'building-trust-at-scale': article1,
+    'ceo-dilemma-scale-humanity': article2,
+    'from-transactional-to-transformational-leadership': article3,
+    'stop-buying-ping-pong-tables': article4,
+    'the-art-of-helpful-content': article5,
+  },
+  podcasts: {
+    'ep-001-from-burnout-to-breakthrough': podcast1,
+    'ep-002-the-five-pillars-framework': podcast2,
+  },
+  offers: {
+    'superhuman-leadership-assessment': offer1,
+  }
 };
 
 /**
@@ -17,20 +38,16 @@ export const loadAllContent = () => {
   const allContent = [];
 
   // Debug logging
-  console.log('[ContentLoader] Loading content...');
-  console.log('[ContentLoader] Content modules:', Object.keys(contentModules));
-  Object.entries(contentModules).forEach(([type, modules]) => {
-    console.log(`[ContentLoader] ${type}: ${Object.keys(modules).length} files`);
-  });
+  console.log('[ContentLoader] Loading content with explicit imports...');
+  console.log('[ContentLoader] Content types:', Object.keys(contentFiles));
 
   // Process each content type
-  Object.entries(contentModules).forEach(([type, modules]) => {
-    Object.entries(modules).forEach(([filepath, raw]) => {
+  Object.entries(contentFiles).forEach(([type, files]) => {
+    console.log(`[ContentLoader] ${type}: ${Object.keys(files).length} files`);
+
+    Object.entries(files).forEach(([slug, raw]) => {
       try {
         const { data, content } = matter(raw);
-
-        // Extract slug from filepath
-        const slug = filepath.split('/').pop().replace('.md', '');
 
         // Calculate read time for articles (rough estimate: 200 words per minute)
         let readTime = null;
@@ -48,7 +65,7 @@ export const loadAllContent = () => {
           ...data
         });
       } catch (error) {
-        console.error(`Error loading content from ${filepath}:`, error);
+        console.error(`Error loading content ${slug}:`, error);
       }
     });
   });

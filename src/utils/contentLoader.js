@@ -34,37 +34,37 @@ const contentFiles = {
  * Load all content from markdown files
  * @returns {Array} Array of all content items with metadata
  */
+// Global debug log that will be displayed in UI
+export const debugLog = [];
+
 export const loadAllContent = () => {
   const allContent = [];
+  debugLog.length = 0; // Clear previous logs
 
   // Debug logging
-  console.log('[ContentLoader] ===== START LOADING CONTENT =====');
-  console.log('[ContentLoader] contentFiles defined?', typeof contentFiles);
-  console.log('[ContentLoader] contentFiles is object?', typeof contentFiles === 'object');
-  console.log('[ContentLoader] contentFiles keys:', contentFiles ? Object.keys(contentFiles) : 'UNDEFINED');
-
-  // Check imports
-  console.log('[ContentLoader] article1 type:', typeof article1);
-  console.log('[ContentLoader] article1 length:', article1 ? article1.length : 'undefined');
-  console.log('[ContentLoader] article1 preview:', article1 ? article1.substring(0, 50) : 'undefined');
+  debugLog.push('===== START LOADING CONTENT =====');
+  debugLog.push(`contentFiles defined? ${typeof contentFiles}`);
+  debugLog.push(`contentFiles keys: ${contentFiles ? Object.keys(contentFiles).join(', ') : 'UNDEFINED'}`);
+  debugLog.push(`article1 type: ${typeof article1}`);
+  debugLog.push(`article1 length: ${article1 ? article1.length : 'undefined'}`);
+  debugLog.push(`article1 preview: ${article1 ? article1.substring(0, 50) + '...' : 'undefined'}`);
 
   // Process each content type
   Object.entries(contentFiles).forEach(([type, files]) => {
-    console.log(`[ContentLoader] Processing type: ${type}`);
-    console.log(`[ContentLoader] Files in ${type}:`, Object.keys(files));
-    console.log(`[ContentLoader] ${type} count: ${Object.keys(files).length}`);
+    debugLog.push(`Processing ${type}: ${Object.keys(files).length} files`);
 
     Object.entries(files).forEach(([slug, raw]) => {
-      console.log(`[ContentLoader] Processing ${type}/${slug}...`);
-      console.log(`[ContentLoader] Raw content type: ${typeof raw}, length: ${raw ? raw.length : 0}`);
+      debugLog.push(`  - ${slug}: type=${typeof raw}, length=${raw ? raw.length : 0}`);
 
       try {
         if (!raw || typeof raw !== 'string') {
-          throw new Error(`Invalid raw content for ${slug}: type is ${typeof raw}`);
+          const error = `Invalid raw content for ${slug}: type is ${typeof raw}`;
+          debugLog.push(`  ERROR: ${error}`);
+          throw new Error(error);
         }
 
         const { data, content } = matter(raw);
-        console.log(`[ContentLoader] Parsed ${slug} - title: ${data.title}`);
+        debugLog.push(`  ✓ Parsed: ${data.title || 'NO TITLE'}`);
 
         // Calculate read time for articles (rough estimate: 200 words per minute)
         let readTime = null;
@@ -94,8 +94,7 @@ export const loadAllContent = () => {
     return dateB - dateA;
   });
 
-  console.log(`[ContentLoader] Total content loaded: ${sorted.length}`);
-  console.log('[ContentLoader] Content items:', sorted.map(item => ({ slug: item.slug, type: item.type, title: item.title })));
+  debugLog.push(`===== TOTAL LOADED: ${sorted.length} items =====`);
 
   return sorted;
 };

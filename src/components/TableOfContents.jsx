@@ -70,45 +70,47 @@ const TableOfContents = ({ content }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-2xl p-8 mb-12 shadow-sm"
+      className="bg-white border-2 border-gray-200 rounded-3xl p-10 mb-16 shadow-lg hover:shadow-xl transition-shadow"
     >
-      <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-[#028393] rounded-lg">
-          <List className="w-5 h-5 text-white" />
+      <div className="flex items-center gap-4 mb-8">
+        <div className="p-3 bg-gradient-to-br from-[#028393] to-[#142d63] rounded-2xl shadow-md">
+          <List className="w-6 h-6 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-[#142d63] m-0">Table of Contents</h2>
+        <h2 className="text-3xl font-extrabold text-[#142d63] m-0">In This Article</h2>
       </div>
 
-      <nav className="space-y-3">
+      <nav className="space-y-2">
         {headings.map((heading, index) => (
-          <button
+          <motion.button
             key={index}
             onClick={() => scrollToHeading(heading.slug)}
-            className={`w-full text-left flex items-start gap-3 p-3 rounded-xl transition-all group ${
+            whileHover={{ x: 5 }}
+            transition={{ duration: 0.2 }}
+            className={`w-full text-left flex items-start gap-4 p-4 rounded-xl transition-all group ${
               activeId === heading.slug
-                ? 'bg-[#028393] text-white shadow-md'
-                : 'hover:bg-gray-100 text-gray-700'
+                ? 'bg-gradient-to-r from-[#028393] to-[#142d63] text-white shadow-lg scale-[1.02]'
+                : 'hover:bg-gray-50 text-gray-700 border border-transparent hover:border-gray-200'
             }`}
           >
             <ChevronRight
-              className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-transform ${
+              className={`w-5 h-5 flex-shrink-0 mt-1 transition-all ${
                 activeId === heading.slug
                   ? 'text-white translate-x-1'
                   : 'text-[#028393] group-hover:translate-x-1'
               }`}
             />
-            <span className={`font-medium leading-snug ${
-              activeId === heading.slug ? 'text-white' : 'text-gray-800'
+            <span className={`font-bold leading-snug text-base ${
+              activeId === heading.slug ? 'text-white' : 'text-gray-800 group-hover:text-[#142d63]'
             }`}>
               {heading.title}
             </span>
-          </button>
+          </motion.button>
         ))}
       </nav>
 
-      <div className="mt-6 pt-6 border-t border-gray-200">
-        <p className="text-sm text-gray-600 leading-relaxed">
-          <span className="font-semibold text-[#142d63]">Quick Navigation:</span> Click any section above to jump directly to that part of the article.
+      <div className="mt-8 pt-8 border-t-2 border-gray-200">
+        <p className="text-base text-gray-600 leading-relaxed">
+          <span className="font-bold text-[#142d63]">💡 Quick Navigation:</span> Click any section above to jump directly to that part of the article.
         </p>
       </div>
     </motion.div>

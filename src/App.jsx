@@ -14,6 +14,7 @@ import ServicePage from './pages/ServicePage';
 import PersonalPage from './pages/PersonalPage';
 import PastorsPage from './pages/PastorsPage';
 import WhoPage from './pages/WhoPage';
+import FounderPage from './pages/FounderPage';
 import SpeakerPage from './pages/SpeakerPage';
 import WorkshopsPage from './pages/WorkshopsPage';
 import CoachingPage from './pages/CoachingPage';
@@ -1668,6 +1669,7 @@ const App = () => {
       case 'home': return <HomePage navigate={navigate} godMode={godMode} />;
       case 'the-framework': return <FrameworkPage navigate={navigate} />;
       case 'who': return <WhoPage navigate={navigate} />;
+      case 'founder': return <FounderPage navigate={navigate} />;
       case 'quiz': return <QuizPage navigate={navigate} setTriggerConfetti={setShowConfetti} />;
 
       // Verticals

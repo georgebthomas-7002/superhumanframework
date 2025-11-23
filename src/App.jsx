@@ -203,7 +203,7 @@ const Navbar = ({ navigate, currentView, godMode }) => {
               </div>
             </div>
 
-            <button onClick={() => navigate('about')} className={`text-sm font-bold hover:text-[#028393] transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
+            <button onClick={() => navigate('founder')} className={`text-sm font-bold hover:text-[#028393] transition-colors uppercase tracking-wide ${godMode ? 'text-gray-300' : 'text-gray-600'}`}>
               The Founder
             </button>
             

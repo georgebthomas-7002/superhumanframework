@@ -16,6 +16,7 @@ import PastorsPage from './pages/PastorsPage';
 import WhoPage from './pages/WhoPage';
 import SpeakerPage from './pages/SpeakerPage';
 import WorkshopsPage from './pages/WorkshopsPage';
+import CoachingPage from './pages/CoachingPage';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
 const useKonamiCode = () => {
@@ -1681,35 +1682,7 @@ const App = () => {
       case 'speaking': return <SpeakerPage navigate={navigate} />;
       case 'speaker': return <SpeakerPage navigate={navigate} />;
       case 'workshops': return <WorkshopsPage navigate={navigate} />;
-      case 'coaching': return <ServicesPage 
-        title="1:1 Coaching"
-        sub="You can't read the label from inside the jar."
-        content={
-           <div className="max-w-3xl mx-auto bg-white p-12 rounded-3xl shadow-2xl border border-gray-100">
-              <h2 className="text-4xl font-bold text-[#142d63] mb-4 text-center">Application Only</h2>
-              <p className="text-gray-600 mb-12 text-center text-xl">I only take a handful of clients. I am looking for Humble, Honest, and Hungry humans.</p>
-              <div className="space-y-8">
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">Name</label>
-                    <input type="text" className="w-full p-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#f65625] text-lg" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">Email</label>
-                    <input type="email" className="w-full p-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#f65625] text-lg" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">Which track describes you?</label>
-                    <select className="w-full p-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#f65625] text-gray-700 text-lg">
-                        <option>Executive Leader</option>
-                        <option>Pastor / Ministry</option>
-                        <option>Personal Growth</option>
-                    </select>
-                  </div>
-                   <button className="w-full bg-[#f65625] text-white px-8 py-5 rounded-xl font-bold text-xl hover:bg-[#142d63] transition-all shadow-lg mt-6 active:scale-95">Submit Application</button>
-              </div>
-          </div>
-        }
-      />;
+      case 'coaching': return <CoachingPage navigate={navigate} />;
       case 'mastermind': return <ServicesPage 
         title="The Mastermind"
         sub="Never Fight Alone Again."

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, X, ChevronDown, Grid, List, Sparkles, TrendingUp, Calendar as CalendarIcon } from 'lucide-react';
 import Fuse from 'fuse.js';
-import { loadAllContent, getCategories } from '../utils/contentLoader';
+import { loadAllContent, getCategories, debugLog } from '../utils/contentLoader';
 import ResourceCard from '../components/ResourceCenter/ResourceCard';
 import SEO from '../components/SEO';
 
@@ -412,6 +412,16 @@ const ResourceCenterPage = ({ navigate }) => {
             <p><strong>Podcasts:</strong> {allContent.filter(i => i.type === 'podcast').length}</p>
             <p><strong>Offers:</strong> {allContent.filter(i => i.type === 'offer').length}</p>
             <p><strong>Filtered Results:</strong> {filteredContent.length}</p>
+
+            <details className="mt-4" open>
+              <summary className="cursor-pointer font-bold text-yellow-800 mb-2">📋 Detailed Load Log</summary>
+              <div className="mt-2 bg-white border border-yellow-300 rounded p-3 max-h-96 overflow-auto">
+                <pre className="text-xs whitespace-pre-wrap font-mono">
+                  {debugLog.length > 0 ? debugLog.join('\n') : 'No debug logs available'}
+                </pre>
+              </div>
+            </details>
+
             {allContent.length > 0 && (
               <details className="mt-4">
                 <summary className="cursor-pointer font-bold text-yellow-800">Show All Loaded Items</summary>

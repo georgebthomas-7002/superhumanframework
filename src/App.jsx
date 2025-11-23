@@ -22,6 +22,7 @@ import MastermindPage from './pages/MastermindPage';
 import ResourceCenterPage from './pages/ResourceCenterPage';
 import ArticleDetailPage from './pages/ArticleDetailPage';
 import PodcastDetailPage from './pages/PodcastDetailPage';
+import DebugContentPage from './pages/DebugContentPage';
 import ContactSlideOut from './components/ContactSlideOut';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
@@ -1714,6 +1715,7 @@ const App = () => {
 
       // Resources
       case 'resources': return <ResourceCenterPage navigate={navigate} />;
+      case 'debug-content': return <DebugContentPage />;
 
       case 'contact': return <ServicesPage 
           title="Contact"

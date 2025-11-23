@@ -297,31 +297,10 @@ const ArticleDetailPage = ({ navigate, slug }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="article-content prose prose-xl max-w-none
-            prose-headings:text-[#142d63] prose-headings:font-bold prose-headings:tracking-tight prose-headings:scroll-mt-24
-            prose-h1:text-5xl prose-h1:leading-tight prose-h1:mb-10 prose-h1:font-black
-            prose-h2:text-4xl prose-h2:leading-tight prose-h2:mt-20 prose-h2:mb-10 prose-h2:font-extrabold prose-h2:pb-6
-            prose-h2:text-[#142d63] prose-h2:border-b-[6px] prose-h2:border-[#f65625]
-            prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6 prose-h3:font-extrabold prose-h3:text-[#142d63]
-            prose-h3:pl-6 prose-h3:border-l-4 prose-h3:border-[#028393]
-            prose-h4:text-xl prose-h4:mt-10 prose-h4:mb-5 prose-h4:font-bold prose-h4:text-[#028393] prose-h4:uppercase prose-h4:tracking-wide prose-h4:text-sm
-            prose-p:text-gray-800 prose-p:text-xl prose-p:leading-[1.8] prose-p:mb-8 prose-p:font-normal
-            prose-p:first-of-type:text-2xl prose-p:first-of-type:leading-[1.6] prose-p:first-of-type:font-medium prose-p:first-of-type:text-gray-900
-            prose-a:text-[#f65625] prose-a:font-bold prose-a:no-underline prose-a:border-b-2 prose-a:border-[#f65625]/30 hover:prose-a:border-[#f65625] prose-a:transition-all prose-a:pb-0.5
-            prose-strong:text-[#142d63] prose-strong:font-extrabold prose-strong:bg-[#f65625]/5 prose-strong:px-1 prose-strong:py-0.5 prose-strong:rounded
-            prose-em:text-gray-900 prose-em:italic prose-em:font-medium
-            prose-ul:my-10 prose-ul:space-y-4 prose-ul:pl-0
-            prose-ol:my-10 prose-ol:space-y-4 prose-ol:pl-0
-            prose-li:text-gray-800 prose-li:text-xl prose-li:leading-[1.8] prose-li:pl-8 prose-li:relative
-            prose-li:before:absolute prose-li:before:left-0 prose-li:before:text-[#f65625] prose-li:before:font-bold prose-li:before:text-2xl
-            prose-blockquote:not-italic prose-blockquote:border-l-[6px] prose-blockquote:border-[#f65625]
-            prose-blockquote:bg-gradient-to-r prose-blockquote:from-[#f65625]/8 prose-blockquote:via-[#f65625]/4 prose-blockquote:to-transparent
-            prose-blockquote:py-8 prose-blockquote:px-10 prose-blockquote:my-12 prose-blockquote:rounded-2xl prose-blockquote:shadow-lg
-            prose-blockquote:text-2xl prose-blockquote:font-bold prose-blockquote:text-[#142d63] prose-blockquote:leading-[1.5]
-            prose-code:text-[#028393] prose-code:bg-[#028393]/10 prose-code:px-3 prose-code:py-1.5 prose-code:rounded-lg prose-code:font-mono prose-code:text-lg prose-code:font-semibold
-            prose-pre:bg-gradient-to-br prose-pre:from-gray-900 prose-pre:to-gray-800 prose-pre:text-gray-100 prose-pre:rounded-2xl prose-pre:shadow-2xl prose-pre:p-8 prose-pre:my-12
-            prose-img:rounded-3xl prose-img:shadow-2xl prose-img:my-16 prose-img:border-4 prose-img:border-gray-100
-            prose-hr:border-0 prose-hr:h-1 prose-hr:bg-gradient-to-r prose-hr:from-transparent prose-hr:via-[#028393]/30 prose-hr:to-transparent prose-hr:my-16"
+          className="article-content prose prose-lg max-w-none
+            prose-headings:scroll-mt-24
+            prose-p:text-gray-700
+            prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-6 prose-pre:my-6 prose-pre:overflow-x-auto"
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}

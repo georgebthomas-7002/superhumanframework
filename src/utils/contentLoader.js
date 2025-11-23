@@ -6,17 +6,14 @@ if (typeof window !== 'undefined') {
   window.Buffer = Buffer;
 }
 
-// EXPLICIT IMPORTS - Only your published articles
-import article1 from '../content/articles/ceo-dilemma-scale-humanity.md?raw';
-import article2 from '../content/articles/stop-buying-ping-pong-tables.md?raw';
-
-// Add podcasts and offers as you create them
+// EXPLICIT IMPORTS - Add your articles, podcasts, and offers here
+// Example: import article1 from '../content/articles/your-article-slug.md?raw';
 
 // Map of all content files with their types
 const contentFiles = {
   articles: {
-    'ceo-dilemma-scale-humanity': article1,
-    'stop-buying-ping-pong-tables': article2,
+    // Add articles here as you create them
+    // Example: 'your-article-slug': article1,
   },
   podcasts: {
     // Add podcasts here as you create them

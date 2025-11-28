@@ -24,6 +24,7 @@ import ArticleDetailPage from './pages/ArticleDetailPage';
 import PodcastDetailPage from './pages/PodcastDetailPage';
 import DebugContentPage from './pages/DebugContentPage';
 import ContactSlideOut from './components/ContactSlideOut';
+import ReadItToMe from './components/ReadItToMe';
 import MobileMenu from './components/MobileMenu';
 
 // --- EASTER EGG: KONAMI CODE HOOK ---
@@ -1769,6 +1770,13 @@ const App = () => {
       {/* Contact SlideOut - Hidden on mobile since contact info is in mobile menu */}
       <div className="hidden md:block">
         <ContactSlideOut />
+      </div>
+      {/* Read It To Me Audio Player - Hidden on mobile */}
+      <div className="hidden md:block">
+        <ReadItToMe
+          audioSrc="/audio/page-audio.mp3"
+          title="Listen to this page"
+        />
       </div>
     </div>
   );

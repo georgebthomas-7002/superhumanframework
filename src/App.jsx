@@ -434,7 +434,7 @@ const HomePage = ({ navigate, godMode }) => (
                 Take the Assessment
               </button>
               <button onClick={() => navigate('the-framework')} className="bg-white/5 backdrop-blur-sm border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-[#142d63] transition-all active:scale-95">
-                The Loop Revenue System
+                Explore Framework
               </button>
             </div>
           </div>
